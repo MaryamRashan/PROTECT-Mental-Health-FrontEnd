@@ -1,0 +1,45 @@
+<ion-header>
+        <ion-toolbar>
+          <ion-title>
+            
+          </ion-title>
+          <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+              <span ion-text color="primary" showWhen="ios">Ok</span>
+              <span ion-text color="primary" showWhen="android, windows">Ok</span>
+              
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+    
+      <ion-content>
+          <ion-list *ngIf="patient && patient.observations && patient.observations.length > 0">
+              <ion-item-sliding *ngFor="let observation of patient.observations" >
+                <ion-item (click)="editObservation(observation)" >
+                  <!-- <ion-icon name="person"></ion-icon> -->
+                  {{observation.obsTimeStamp | date:' y MMM dd hh:mm a'}}
+                  
+                  <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
+                  <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
+                </ion-item>
+                <ion-item-options side="right">
+                    <!-- <button ion-button color="primary">
+                      <ion-icon name="text"></ion-icon>
+                      Text
+                    </button> -->
+                    <button ion-button color="secondary" (click)="gotoChat(patient)">
+                      <ion-icon name="chatboxes"></ion-icon>
+                      Chat
+                    </button>
+                  </ion-item-options>
+              </ion-item-sliding>
+              
+          </ion-list>
+
+
+
+            <ion-fab right bottom>
+                    <button (click)="addObservation()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+                  </ion-fab>
+      </ion-content>

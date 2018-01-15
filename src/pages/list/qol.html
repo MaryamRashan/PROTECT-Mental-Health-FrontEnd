@@ -1,0 +1,417 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="preAdmissionForm" >
+    
+       <ion-row>
+         <ion-col>
+           
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+                <ion-label stacked>Mobility (EQ-1)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="mobilityEq1"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Self care (EQ-2)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="selfCareEq2"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Usual Activities (e.g. work, study, housework, family or leisure activities) (EQ-3)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="usualActivities"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Pain/Discomfort (EQ-4)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="painDiscomfortEq4"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Anxiety/Depression (EQ-5)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="anxietyDepressionEq5"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>How about your health today?</ion-label>
+             
+
+             <ion-range formControlName="howAboutYourHealthToday">
+                
+              </ion-range>
+
+             <ion-label stacked>Dressing yourself</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="dressingYourself"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Walking indoors on level ground</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="walkingIndoorsOnLevelGround"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Showering</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="showering"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Climbing a hill or a flight of stairs without stopping</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="climbingAHillOrAFligh"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Gardening, vacuuming, or carrying groceries</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="gardeningVacuumingOrCar"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Walking more than a block at a brisk pace</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="walkingMoreThanABlock"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Running or jogging</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="runningOrJogging"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Lifting or moving heavy objects</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="liftingOrMovingHeavyOb"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Participating in strenuous sports (e.g. swimming, running, cricket)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="participatingInStrenuous"></ion-input>
+             </ion-item>
+
+            
+    
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+      
+      </form>
+     </div>
+  </ion-content> -->
+
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="qolForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+                <ion-label stacked>Mobility (EQ-1)</ion-label>
+             <ion-item>
+               
+             <ion-select formControlName="mobilityEq1" interface="popover">
+
+                <ion-option >I have no problems in walking about</ion-option>
+                <ion-option >I have slight problems in walking about</ion-option>
+                <ion-option >I have moderate problems in walking about</ion-option>
+                <ion-option >I have severe problems in walking about</ion-option>
+                <ion-option >I am unable to walk about</ion-option>
+              </ion-select>
+
+
+             </ion-item>
+
+
+             <ion-label stacked>Self care (EQ-2)</ion-label>
+             <ion-item>
+
+             <ion-select formControlName="selfCareEq2" interface="popover">
+
+               <ion-option>I have no problems washing or dressing myself</ion-option>
+               <ion-option>I have slight problems washing or dressing myself</ion-option>
+               <ion-option>I have moderate problems washing or dressing myself</ion-option>
+               <ion-option>I have severe problems washing or dressing myself</ion-option>
+               <ion-option>I am unable to wash or dress myself</ion-option>
+            </ion-select>
+
+               
+               
+             </ion-item>
+
+             <ion-label stacked>Usual Activities (e.g. work, study, housework, family or leisure activities) (EQ-3)</ion-label>
+             <ion-item>
+
+
+              <ion-select formControlName="usualActivities" interface="popover">
+
+               <ion-option>I have no problems doing my usual activities</ion-option>
+               <ion-option>I have slight problems doing my usual activities</ion-option>
+               <ion-option>I have moderate problems doing my usual activities</ion-option>
+               <ion-option>I have severe problems doing my usual activities</ion-option>
+               <ion-option>I am unable to do my usual activities</ion-option>
+            </ion-select>
+
+
+
+             </ion-item>
+
+             <ion-label stacked>Pain/Discomfort (EQ-4)</ion-label>
+             <ion-item>
+
+
+              <ion-select formControlName="painDiscomfortEq4" interface="popover">
+
+               <ion-option>I have no pain or discomfort</ion-option>
+               <ion-option>I have slight pain or discomfort</ion-option>
+               <ion-option>I have moderate pain or discomfort</ion-option>
+               <ion-option>I have severe pain or discomfort</ion-option>
+               <ion-option>I have extreme pain or discomfort</ion-option>
+             </ion-select>
+
+
+
+              
+             </ion-item>
+
+             <ion-label stacked>Anxiety/Depression (EQ-5)</ion-label>
+             <ion-item>
+
+              <ion-select formControlName="anxietyDepressionEq5" interface="popover">
+
+              <ion-option>I am not anxious or depressed</ion-option>
+              <ion-option>I am slightly anxious or depressed</ion-option>
+              <ion-option>I am moderately anxious or depressed</ion-option>
+              <ion-option>I am severely anxious or depressed</ion-option>
+              <ion-option>I am extremely anxious or depressed</ion-option>
+
+            </ion-select>
+
+
+               
+             </ion-item>
+
+             <ion-label stacked>How about your health today?</ion-label>
+             <!-- <ion-item>
+               
+               <ion-input type="text" formControlName="howAboutYourHealthToday"></ion-input>
+             </ion-item> -->
+
+             <ion-range formControlName="howAboutYourHealthToday" interface="popover">
+                <!-- <ion-icon range-left small name="sunny"></ion-icon>
+                <ion-icon range-right name="sunny"></ion-icon> -->
+              </ion-range>
+
+
+
+             <ion-label stacked>Dressing yourself</ion-label>
+             <ion-item>
+
+             <ion-select formControlName="dressingYourself" interface="popover">
+
+
+               <ion-option>Limited, or did not do for other reasons</ion-option>
+               <ion-option>Not Limited</ion-option>
+               <ion-option>A Little Limited</ion-option>
+               <ion-option>Somewhat Limited</ion-option>
+               <ion-option>Moderately Limited</ion-option>
+               <ion-option>Severely Limited</ion-option>
+
+            </ion-select>
+
+
+
+             </ion-item>
+
+             <ion-label stacked>Walking indoors on level ground</ion-label>
+             <ion-item>
+
+               <ion-select formControlName="walkingIndoorsOnLevelGround" interface="popover">
+
+                 <ion-option>Limited, or did not do for other reasons</ion-option>
+                 <ion-option>Not Limited</ion-option>
+                 <ion-option>A Little Limited</ion-option>
+                 <ion-option>Somewhat Limited</ion-option>
+                 <ion-option>Moderately Limited</ion-option>
+                 <ion-option>Severely Limited</ion-option>
+              </ion-select>
+
+
+        
+             </ion-item>
+
+             <ion-label stacked>Showering</ion-label>
+             <ion-item>
+
+              <ion-select formControlName="showering" interface="popover">
+
+
+                 <ion-option>Limited, or did not do for other reasons</ion-option>
+                 <ion-option>Not Limited</ion-option>
+                 <ion-option>A Little Limited</ion-option>
+                 <ion-option>Somewhat Limited</ion-option>
+                 <ion-option>Moderately Limited</ion-option>
+                 <ion-option>Severely Limited</ion-option>
+              </ion-select>
+
+
+
+
+             </ion-item>
+
+             <ion-label stacked>Climbing a hill or a flight of stairs without stopping</ion-label>
+             <ion-item>
+
+                <ion-select formControlName="climbingAHillOrAFligh" interface="popover">
+
+                 <ion-option>Limited, or did not do for other reasons</ion-option>
+                 <ion-option>Not Limited</ion-option>
+                 <ion-option>A Little Limited</ion-option>
+                 <ion-option>Somewhat Limited</ion-option>
+                 <ion-option>Moderately Limited</ion-option>
+                 <ion-option>Severely Limited</ion-option>
+                </ion-select>
+
+
+
+              
+             </ion-item>
+
+             <ion-label stacked>Gardening, vacuuming, or carrying groceries</ion-label>
+             <ion-item>
+
+              <ion-select formControlName="gardeningVacuumingOrCar" interface="popover">
+
+
+               <ion-option>Limited, or did not do for other reasons</ion-option>
+               <ion-option>Not Limited</ion-option>
+               <ion-option>A Little Limited</ion-option>
+               <ion-option>Somewhat Limited</ion-option>
+               <ion-option>Moderately Limited</ion-option>
+               <ion-option>Severely Limited</ion-option>
+              </ion-select>
+
+
+               
+             </ion-item>
+
+             <ion-label stacked>Walking more than a block at a brisk pace</ion-label>
+             <ion-item>
+
+            <ion-select formControlName="walkingMoreThanABlock" interface="popover">
+
+               <ion-option>Limited, or did not do for other reasons</ion-option>
+               <ion-option>Not Limited</ion-option>
+               <ion-option>A Little Limited</ion-option>
+               <ion-option>Somewhat Limited</ion-option>
+               <ion-option>Moderately Limited</ion-option>
+               <ion-option>Severely Limited</ion-option>
+            </ion-select>
+
+               
+               
+             </ion-item>
+
+             <ion-label stacked>Running or jogging</ion-label>
+             <ion-item>
+
+              <ion-select formControlName="runningOrJogging" interface="popover">
+
+
+                 <ion-option>Limited, or did not do for other reasons</ion-option>
+                 <ion-option>Not Limited</ion-option>
+                 <ion-option>A Little Limited</ion-option>
+                 <ion-option>Somewhat Limited</ion-option>
+                 <ion-option>Moderately Limited</ion-option>
+                 <ion-option>Severely Limited</ion-option>
+             </ion-select>
+  
+              
+             </ion-item>
+
+             <ion-label stacked>Lifting or moving heavy objects</ion-label>
+             <ion-item>
+
+             <ion-select formControlName="liftingOrMovingHeavyOb" interface="popover">
+
+               <ion-option>Limited, or did not do for other reasons</ion-option>
+               <ion-option>Not Limited</ion-option>
+               <ion-option>A Little Limited</ion-option>
+               <ion-option>Somewhat Limited</ion-option>
+               <ion-option>Moderately Limited</ion-option>
+               <ion-option>Severely Limited</ion-option>
+
+            </ion-select>
+
+
+             </ion-item>
+
+             <ion-label stacked>Participating in strenuous sports (e.g. swimming, running, cricket)</ion-label>
+             <ion-item>
+               
+
+            <ion-select formControlName="participatingInStrenuous" interface="popover">
+
+             <ion-option>Limited, or did not do for other reasons</ion-option>
+             <ion-option>Not Limited</ion-option>
+             <ion-option>A Little Limited</ion-option>
+             <ion-option>Somewhat Limited</ion-option>
+             <ion-option>Moderately Limited</ion-option>
+             <ion-option>Severely Limited</ion-option>
+
+            </ion-select>
+
+
+
+               <!-- <ion-input type="text" formControlName="participatingInStrenuous"></ion-input> -->
+             </ion-item>
+
+            
+    
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content> 

@@ -1,0 +1,245 @@
+<ion-header>
+        <ion-toolbar>
+          <ion-title>
+            
+          </ion-title>
+          <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+              <span ion-text color="primary" showWhen="ios">Ok</span>
+              <span ion-text color="primary" showWhen="android, windows">Ok</span>
+              
+            </button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+    
+      <ion-content>
+        <div padding  id="cloud-layer">
+            <form [formGroup]="observationForm" >
+        
+           <ion-row>
+             <ion-col>
+               <!-- <img  src="assets/images/joshuamorony.png" /> -->
+             </ion-col>
+           </ion-row>
+        
+           <ion-row>
+             <ion-col>
+               <ion-list >
+                    <ion-label stacked>Observation date</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="date" formControlName="obsDate"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>Observation time</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="time" formControlName="obsTime"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>Bed</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="bed"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>SBP</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="sbp"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>DBP</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="dbp"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>Saturation</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="saturation"></ion-input>
+                 </ion-item>
+    
+    
+
+    
+                 <ion-label stacked>UrineOutput</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="urineOutput"></ion-input>
+                 </ion-item>
+    
+                 <ion-label stacked>Urine output duration</ion-label>
+                 <ion-item>
+                   
+                   <!-- <ion-input type="text" formControlName="urineOutputDuration"></ion-input> -->
+                   <ion-select formControlName="eye" interface="popover">
+                                        
+                      <ion-option >1</ion-option>                                  
+                      <ion-option >2</ion-option>
+                      <ion-option >3</ion-option>
+                      <ion-option >4</ion-option>
+                      <ion-option >5</ion-option> 
+                      <ion-option >6</ion-option> 
+                      <ion-option >7</ion-option> 
+                      <ion-option >8</ion-option> 
+                      <ion-option >9</ion-option> 
+                      <ion-option >10</ion-option> 
+                      <ion-option >11</ion-option> 
+                      <ion-option >12</ion-option> 
+                      <ion-option >13</ion-option> 
+                      <ion-option >14</ion-option> 
+                      <ion-option >15</ion-option> 
+                      <ion-option >16</ion-option> 
+                      <ion-option >17</ion-option> 
+                      <ion-option >18</ion-option> 
+                      <ion-option >19</ion-option> 
+                      <ion-option >20</ion-option> 
+                      <ion-option >21</ion-option> 
+                      <ion-option >22</ion-option> 
+                      <ion-option >23</ion-option> 
+                      <ion-option >24</ion-option> 
+
+                  </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>Fluid input</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="fluidInput"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>Eye</ion-label>
+                 <ion-item>
+                   
+                   <!-- <ion-input type="text" formControlName="eye"></ion-input> -->
+                   <ion-select formControlName="eye" interface="popover">
+                                        
+                        <ion-option >No eye opening</ion-option>                                  
+                        <ion-option >Eye opening in response to pain</ion-option>
+                        <ion-option >Eye opening to Speech</ion-option>
+                        <ion-option >Eye Opening spontaneously</ion-option>
+
+                    </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>Verbal</ion-label>
+                 <ion-item>
+                   
+                   <!-- <ion-input type="text" formControlName="verbal"></ion-input> -->
+                   <ion-select formControlName="verbal" interface="popover">
+                                        
+                      <ion-option >None</ion-option>                                  
+                      <ion-option >Incomprehensible sounds</ion-option>
+                      <ion-option >Inappropriate words</ion-option>
+                      <ion-option >Confused</ion-option>
+                      <ion-option >Oriented</ion-option>
+
+                  </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>Motor</ion-label>
+                 <ion-item>
+                   
+                   <!-- <ion-input type="text" formControlName="motor"></ion-input> -->
+                   <ion-select formControlName="motor" interface="popover">
+                                        
+                      <ion-option >No Motor response</ion-option>                                  
+                      <ion-option >Extension to Pain</ion-option>
+                      <ion-option >Flexion in response to pain</ion-option>
+                      <ion-option >Withdraws from Pain</ion-option>
+                      <ion-option >Localizes to Pain</ion-option>
+                      <ion-option >Obeys Commands</ion-option>
+                      
+
+                  </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>Pain</ion-label>
+                 <ion-item>
+                   
+                   <!-- <ion-input type="text" formControlName="pain"></ion-input> -->
+                   <ion-select formControlName="pain" interface="popover">
+                                        
+                      <ion-option >None</ion-option>                                  
+                      <ion-option >Mild</ion-option>
+                      <ion-option >Moderate</ion-option>
+                      <ion-option >Severe</ion-option>
+
+                  </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>WBC</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="wbc"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>PCV</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="pcv"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>CRFT</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="crft"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>hemoglobin</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="hemoglobin"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>sugar</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="sugar"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>platelets</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="platelets"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>respiratoryRate</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="respiratoryRate"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>heartRate</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="heartRate"></ion-input>
+                 </ion-item>
+
+                 <ion-label stacked>temperature</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="text" formControlName="temperature"></ion-input>
+                 </ion-item>
+    
+
+                
+    
+    
+                
+        
+               </ion-list>
+             </ion-col>
+           </ion-row>
+        
+           <!-- <ion-row>
+             <ion-col>
+               <button ion-button class="login-button" (click)="submit()" >Login</button>
+             </ion-col>
+           </ion-row> -->
+          </form>
+         </div>
+      </ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list *ngIf="patients && patients.length > 0">
+        <ion-item-sliding *ngFor="let patient of patients"  >
+          
+          <ion-item (click)="gotoIndividual(patient)">
+            <ion-icon name="person"></ion-icon>
+            <!-- <ion-label>{{patient.admission.patientName}}</ion-label> -->
+            {{patient.admission.patientName}}
+            
+            <div id="item-font-for-content">BHT : {{patient.admission.bht}}</div>
+            <div *ngIf="patient.admission.admittedFor" id="item-font-for-content">Reason : {{patient.admission.admittedFor}}</div>
+            <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
+                      <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
+          </ion-item>
+          <ion-item-options side="right">
+            <!-- <button ion-button color="primary">
+                          <ion-icon name="text"></ion-icon>
+                          Text
+                        </button> -->
+            <!-- <button ion-button color="secondary" (click)="gotoChat(patient)">
+              <ion-icon name="chatboxes"></ion-icon>
+              Chat
+            </button> -->
+          </ion-item-options>
+        
+        </ion-item-sliding>
+        
+    </ion-list>
+
+
+  <ion-fab right bottom>
+    <button (click)="addAdmission()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,197 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="thrombolysisForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+          <ion-list >
+            <ion-label stacked>Date of Thrombolysis</ion-label>
+         <ion-item>
+           
+           <ion-input type="date" formControlName="dateOfthrombolysis"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Time of Thrombolysis</ion-label>
+         <ion-item>
+           
+           <ion-input type="time" formControlName="timeOfthrombolysis"></ion-input>
+         </ion-item>
+
+
+
+
+         <div formGroupName="drugs">
+            <ion-label stacked>Thrombolytic drugs given</ion-label>
+
+
+
+            <ion-item>
+                    <ion-label>Streptokinase</ion-label>
+                    <ion-checkbox 
+                       color="primary" 
+                       formControlName="streptokinase"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label>rTPA</ion-label>
+                    <ion-checkbox 
+                            color="primary" 
+                            formControlName="rTpa"></ion-checkbox>
+            </ion-item>
+
+            
+
+            
+
+        </div>
+
+        <ion-label stacked>ECG Changes (ST segment)</ion-label>
+        <ion-item>
+          
+          <!-- <ion-input type="text" formControlName="ecgChanges"></ion-input> -->
+          <ion-select formControlName="ecgChanges" interface="popover">
+              <ion-option>Elevated</ion-option>
+              <ion-option>Normal</ion-option>
+              <ion-option>Depression</ion-option>
+              
+              </ion-select>
+        </ion-item>
+ 
+          
+
+
+         <div formGroupName="complications">
+          <ion-label stacked>Complications</ion-label>
+
+
+
+          <ion-item>
+                  <ion-label>No reflow</ion-label>
+                  <ion-checkbox 
+                     color="primary" 
+                     formControlName="noReflow"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>CVA</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="cva"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>tamponade</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="tamponade"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>Ventilation</ion-label>
+              <ion-checkbox 
+                 color="primary" 
+                 formControlName="ventilation"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>Pacemaker</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="pacemaker"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>CPR</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="cpr"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Defibrillation</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="defibrillation"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Vasopressors</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="vasopressors"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Bleeding</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="bleeding"></ion-checkbox>
+          </ion-item>
+
+          
+
+          
+
+      </div>
+
+        <ion-label stacked>If bleeding, severity</ion-label>
+        <ion-item>
+          
+          <!-- <ion-input type="text" formControlName="bleedingType"></ion-input> -->
+          <ion-select formControlName="bleedingType" interface="popover">
+              <ion-option>Major</ion-option>
+              <ion-option>Minor</ion-option>
+              
+              </ion-select>
+        </ion-item>
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+       </ion-list>
+
+            
+    
+           
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

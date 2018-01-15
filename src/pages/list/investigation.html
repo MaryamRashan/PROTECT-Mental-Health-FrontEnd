@@ -1,0 +1,128 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="investigationForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+                <ion-label stacked>Date</ion-label>
+             <ion-item>
+               
+               <ion-input type="date" formControlName="investigationDate"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Time</ion-label>
+             <ion-item>
+               
+               <ion-input type="time" formControlName="investigationTime"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>WBC</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="wbc"></ion-input>
+             </ion-item>
+
+             
+
+            <ion-label stacked>Neutrophils</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="neutrophils"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>Lymphocytes</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="lymphocytes"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>Platelet count</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="platelets"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>Haemoglobin</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="haemoglobin"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>Troponin T/ First reported Troponin</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="troponin"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>Serum creatinine</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="serumCreatinine"></ion-input>
+             </ion-item>
+
+
+            <div radio-group formControlName="unitOfSerumCreatinine">
+                    <ion-label stacked>Unit of Serum creatinine</ion-label>
+
+
+
+                <ion-item >
+                       
+                           <ion-label>μmol/L</ion-label>
+                           <ion-radio value="μmol/L" ></ion-radio>
+   
+                  </ion-item>
+
+                  <ion-item >
+
+                               <ion-label>mg/dl</ion-label>
+                               <ion-radio value="mg/dl"></ion-radio>          
+                         
+                      </ion-item>
+
+            </div>
+             
+
+
+
+
+
+
+
+
+
+    
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

@@ -1,0 +1,250 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="interventionPciForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+          <ion-list >
+            <ion-label stacked>Date of PCI</ion-label>
+         <ion-item>
+           
+           <ion-input type="date" formControlName="dateOfPci"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Time of PCI</ion-label>
+         <ion-item>
+           
+           <ion-input type="time" formControlName="timeOfPci"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Date of coronary angiogram</ion-label>
+         <ion-item>
+           
+           <ion-input type="date" formControlName="dateOfCa"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Time of coronary angiogram</ion-label>
+         <ion-item>
+           
+           <ion-input type="time" formControlName="timeOfCa"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Coronary angiogram findings</ion-label>
+         <ion-item>
+           
+           <!-- <ion-input type="text" formControlName="coronaryAngiogramFindings"></ion-input> -->
+           <ion-select formControlName="coronaryAngiogramFindings" interface="popover">
+              <ion-option>SVD</ion-option>
+              <ion-option>DVD</ion-option>
+              <ion-option>TVD</ion-option>
+              <ion-option>Normal coronaries</ion-option>
+              </ion-select>
+         </ion-item>
+ 
+         <ion-label stacked>Number of stents</ion-label>
+         <ion-item>
+           
+           <!-- <ion-input type="text" formControlName="numberOfStents"></ion-input> -->
+           <ion-select formControlName="numberOfStents" interface="popover">
+              <ion-option>1</ion-option>
+              <ion-option>2</ion-option>
+              <ion-option>3</ion-option>
+              <ion-option>Normal coronaries</ion-option>
+              </ion-select>
+         </ion-item>
+ 
+         <ion-label stacked>Type of stent</ion-label>
+         <ion-item>
+           
+           <!-- <ion-input type="text" formControlName="typeOfStentOne"></ion-input> -->
+           <ion-select formControlName="typeOfStentOne" interface="popover">
+              <ion-option>Bare metal stent</ion-option>
+              <ion-option>Drug eluting stent</ion-option>
+              </ion-select>
+         </ion-item>
+ 
+         <ion-label stacked>Stent size (mm)</ion-label>
+         <ion-item>
+           
+           <ion-input type="text" formControlName="sizeOfStentOne"></ion-input>
+           
+         </ion-item>
+ 
+         <ion-label stacked>Type of second stent</ion-label>
+         <ion-item>
+           
+           <!-- <ion-input type="text" formControlName="typeOfStentTwo"></ion-input> -->
+           <ion-select formControlName="typeOfStentTwo" interface="popover">
+              <ion-option>Bare metal stent</ion-option>
+              <ion-option>Drug eluting stent</ion-option>
+              </ion-select>
+         </ion-item>
+
+         <ion-label stacked>Second stent size (mm)</ion-label>
+         <ion-item>
+           
+           <ion-input type="text" formControlName="sizeOfStentTwo"></ion-input>
+         </ion-item>
+
+         <ion-label stacked>Type of third stent</ion-label>
+         <ion-item>
+           
+           <!-- <ion-input type="text" formControlName="typeOfStentThree"></ion-input> -->
+           <ion-select formControlName="typeOfStentThree" interface="popover">
+              <ion-option>Bare metal stent</ion-option>
+              <ion-option>Drug eluting stent</ion-option>
+              </ion-select>
+         </ion-item>
+
+         <ion-label stacked>Third stent size (mm)</ion-label>
+         <ion-item>
+           
+           <ion-input type="text" formControlName="sizeOfStentThree"></ion-input>
+         </ion-item>
+          
+
+
+         <div formGroupName="complications">
+          <ion-label stacked>Complications</ion-label>
+
+
+
+          <ion-item>
+                  <ion-label>No reflow</ion-label>
+                  <ion-checkbox 
+                     color="primary" 
+                     formControlName="noReflow"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>CVA</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="cva"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>Tamponade</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="tamponade"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>Ventilation</ion-label>
+              <ion-checkbox 
+                 color="primary" 
+                 formControlName="ventilation"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>Pacemaker</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="pacemaker"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+                  <ion-label>CPR</ion-label>
+                  <ion-checkbox 
+                          color="primary" 
+                          formControlName="cpr"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Defibrillation</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="defibrillation"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Vasopressors</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="vasopressors"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Bleeding</ion-label>
+            <ion-checkbox 
+                    color="primary" 
+                    formControlName="bleeding"></ion-checkbox>
+          </ion-item>
+
+          
+
+          
+
+      </div>
+
+        <ion-label stacked>If bleeding, site</ion-label>
+        <ion-item>
+          
+          <!-- <ion-input type="text" formControlName="bleedingSite"></ion-input> -->
+
+          <ion-select formControlName="bleedingSite" interface="popover">
+              <ion-option>Insertion site</ion-option>
+              <ion-option>Transluminal</ion-option>
+              <ion-option>CVA</ion-option>
+              </ion-select>
+        </ion-item>
+
+        <ion-label stacked>Destination following PCI</ion-label>
+        <ion-item>
+          
+          <!-- <ion-input type="text" formControlName="destinationFollowingPci"></ion-input> -->
+          <ion-select formControlName="destinationFollowingPci" interface="popover">
+              <ion-option>Ward</ion-option>
+              <ion-option>ICU</ion-option>
+              </ion-select>
+        </ion-item>
+
+        
+
+
+
+
+
+
+
+
+
+
+       </ion-list>
+
+            
+    
+           
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

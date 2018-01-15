@@ -1,0 +1,183 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="cormobiditiesAndRiskForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+            <div formGroupName="corMobiditiesAndRiskFactors">
+                <ion-label stacked>Cor-morbidities and Risk factors</ion-label>
+
+
+
+                <ion-item>
+                        <ion-label>Angina</ion-label>
+                        <ion-checkbox 
+                           color="primary" 
+                           formControlName="angina"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Previous MI</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="previousMi"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Previous cardiac surgery</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="previousCardiacSurgery"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>CKD</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="ckd"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Dialysis before</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="dialysisBefore"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Hypertension</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="hypertention"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Stroke</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="stroke"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Diabetics</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="diabetics"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Smoking</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="smoking"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Beetle chewing</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="beetleChewing"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Dyslipidemia</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="dyslipidemia"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>No cormorbidities</ion-label>
+                        <ion-checkbox 
+                                color="primary" 
+                                formControlName="noCormorbidities"></ion-checkbox>
+                </ion-item>
+
+        </div>
+
+
+        <div formGroupName="familyHistory">
+            <ion-label stacked>Family History</ion-label>
+
+
+
+            <ion-item>
+                    <ion-label>CAD</ion-label>
+                    <ion-checkbox 
+                       color="primary" 
+                       formControlName="cad"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label>CVD</ion-label>
+                    <ion-checkbox 
+                            color="primary" 
+                            formControlName="cvd"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label>DM</ion-label>
+                    <ion-checkbox 
+                            color="primary" 
+                            formControlName="dm"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>HT</ion-label>
+                <ion-checkbox 
+                   color="primary" 
+                   formControlName="ht"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label>DVT</ion-label>
+                    <ion-checkbox 
+                            color="primary" 
+                            formControlName="dvt"></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label>None</ion-label>
+                    <ion-checkbox 
+                            color="primary" 
+                            formControlName="none"></ion-checkbox>
+            </ion-item>
+
+            
+
+        </div>
+
+        
+
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

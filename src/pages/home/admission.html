@@ -1,0 +1,356 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+        <!-- <button ion-button secondary  (click)="openModal8({charNum: 0})">Toggle Menu</button> -->
+    <div padding  id="cloud-layer">
+        <form [formGroup]="admissionForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+                <ion-label stacked>Name</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="patientName"></ion-input>
+             </ion-item>
+
+
+            <div radio-group formControlName="gender">
+                    <ion-label stacked>Gender</ion-label>
+
+
+
+                <ion-item >
+                       
+                           <ion-label>Male</ion-label>
+                           <ion-radio value="male" ></ion-radio>
+   
+                  </ion-item>
+
+                  <ion-item >
+
+                               <ion-label>Female</ion-label>
+                               <ion-radio value="female"></ion-radio>          
+                         
+                      </ion-item>
+
+            </div>
+             
+            <ion-label stacked>Age</ion-label>
+            <ion-item>
+            
+                <ion-input type="text" formControlName="age"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>NIC Number</ion-label>
+            <ion-item>
+            
+                <ion-input type="text" formControlName="nic"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>Contact Number</ion-label>
+            <ion-item>
+            
+                <ion-input type="text" formControlName="contactNumber"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>Hospital Arrival Date</ion-label>
+            <ion-item>
+            
+                <ion-input type="date" formControlName="dateOfHospitalArrival"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>Hospital Arrival Time</ion-label>
+            <ion-item>
+            
+                <ion-input type="time" formControlName="timeOfHospitalArrival"></ion-input>
+            </ion-item>
+
+            <ion-label stacked>BHT</ion-label>
+            <ion-item>
+            
+                <ion-input type="text" formControlName="bht"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>Mode of Transportaion</ion-label>
+            <ion-item>
+            
+                <!-- <ion-input type="text" formControlName="modeOfTransportation"></ion-input> -->
+                <ion-select formControlName="modeOfTransportation" interface="popover">
+
+                        <ion-option>Emergency ambulance</ion-option>
+                        <ion-option>Own vehicle</ion-option>
+                        <ion-option>Hired vehicle</ion-option>
+                        <ion-option>Public transport</ion-option>
+                        </ion-select>
+            </ion-item>
+
+            <ion-label stacked>Transferred From </ion-label>
+            <ion-item>
+            
+                <!-- <ion-input type="text" formControlName="transferredFrom"></ion-input> -->
+                <ion-select formControlName="transferredFrom" interface="popover">
+
+                        <ion-option>Another hospital</ion-option>
+                        <ion-option>Home</ion-option>
+                        <ion-option>Working place</ion-option>
+                        <ion-option>Public place</ion-option>
+                        </ion-select>
+            </ion-item>
+
+            <div radio-group formControlName="pciOrThrombolysis">
+                    <ion-label stacked>Recent intervention?</ion-label>
+
+
+
+                <ion-item >
+                       
+                           <ion-label>PCI</ion-label>
+                           <ion-radio value="pci" ></ion-radio>
+   
+                  </ion-item>
+
+                  <ion-item >
+
+                               <ion-label>Thrombolysis</ion-label>
+                               <ion-radio value="thrombolysis"></ion-radio>          
+                         
+                      </ion-item>
+
+            </div>
+
+            <div formGroupName="cprGiven">
+                    <ion-label stacked>Events on admission</ion-label>
+
+
+                    <ion-item>
+                        <ion-label>CPR</ion-label>
+                        <ion-checkbox 
+                           color="primary" 
+                           formControlName="cpr"></ion-checkbox>
+                    </ion-item>
+
+
+
+                    <ion-item>
+                            <ion-label>Defibrillation</ion-label>
+                            <ion-checkbox 
+                               color="primary" 
+                               formControlName="defibrillation"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label>Thrombolysis</ion-label>
+                            <ion-checkbox 
+                                    color="primary" 
+                                    formControlName="thrombolysis"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label>Vasoactive drugs</ion-label>
+                            <ion-checkbox 
+                                    color="primary" 
+                                    formControlName="vasoactiveDrugs"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label>Furosemide</ion-label>
+                            <ion-checkbox 
+                                    color="primary" 
+                                    formControlName="furosemide"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label>Ventilation</ion-label>
+                            <ion-checkbox 
+                                    color="primary" 
+                                    formControlName="ventilation"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label>None</ion-label>
+                            <ion-checkbox 
+                                    color="primary" 
+                                    formControlName="none"></ion-checkbox>
+                    </ion-item>
+
+            </div>
+
+            <div radio-group formControlName="raisedJvp">
+                    <ion-label stacked>Raised JVP on admission</ion-label>
+
+
+
+                <ion-item >
+                       
+                           <ion-label>Yes</ion-label>
+                           <ion-radio value="yes" ></ion-radio>
+   
+                  </ion-item>
+
+                  <ion-item >
+
+                               <ion-label>No</ion-label>
+                               <ion-radio value="no"></ion-radio>          
+                         
+                      </ion-item>
+
+            </div>
+
+            <ion-label stacked>Number of vasoactive drugs on admission</ion-label>
+            <ion-item>
+            
+                <!-- <ion-input type="text" formControlName="numberOfVasoDrugs"></ion-input> -->
+                <ion-select formControlName="numberOfVasoDrugs" interface="popover">
+
+                        <ion-option>None</ion-option>
+                        <ion-option>1</ion-option>
+                        <ion-option>2</ion-option>
+                        <ion-option>More than 2</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-label stacked>ECG referral for</ion-label>
+            <ion-item>
+            
+                <!-- <ion-input type="text" formControlName="ecgReferral"></ion-input> -->
+                <ion-select formControlName="ecgReferral" interface="popover">
+
+                        <ion-option>STEMI</ion-option>
+                        <ion-option>NSTEMI</ion-option>
+                        </ion-select>
+            </ion-item>
+
+            <ion-label stacked>Date of First ECG</ion-label>
+            <ion-item>
+            
+                <ion-input type="date" formControlName="dateOfFirstEcg"></ion-input>
+            </ion-item>
+            
+            <ion-label stacked>Time of First ECG</ion-label>
+            <ion-item>
+            
+                <ion-input type="time" formControlName="timeOfFirstEcg"></ion-input>
+            </ion-item>
+
+            <div radio-group formControlName="analgesiaGiven">
+                    <ion-label stacked>Analgesia given</ion-label>
+
+
+
+                <ion-item >
+                       
+                           <ion-label>Yes</ion-label>
+                           <ion-radio value="yes" ></ion-radio>
+   
+                  </ion-item>
+
+                  <ion-item >
+
+                               <ion-label>No</ion-label>
+                               <ion-radio value="no"></ion-radio>          
+                         
+                      </ion-item>
+
+            </div>
+
+            <ion-label stacked>Admitted for</ion-label>
+            <ion-item>
+            
+                <!-- <ion-input type="text" formControlName="admittedFor"></ion-input> -->
+                <ion-select formControlName="admittedFor" interface="popover">
+
+                        <ion-option>Primary PCI</ion-option>
+                        <ion-option>Bypass</ion-option>
+                        <ion-option>Acute VR</ion-option>
+                        <ion-option>Pacemaker</ion-option>
+                        <ion-option>HF management with vasoactive</ion-option>
+                        <ion-option>Observation</ion-option>
+                        <ion-option>Thrombolysis SK</ion-option>
+                        <ion-option>Rescue PCI</ion-option>
+                        <ion-option>Thrombolysis Tenecteplase</ion-option>
+                        <ion-option>Angiogram</ion-option>
+                        <ion-option>Reinfarction</ion-option>
+                        </ion-select>
+        
+            </ion-item>
+
+            <!-- <ion-label stacked>Re infarction</ion-label> -->
+            
+            
+                <!-- <ion-input type="text" formControlName="reinfarction"></ion-input> -->
+                <!-- <div formGroupName="reinfarction">
+                    <ion-label stacked>Re infarction</ion-label>
+
+
+                    <ion-item>
+                        <ion-label>Thrombosis</ion-label>
+                        <ion-checkbox 
+                           color="primary" 
+                           formControlName="thrombosis"></ion-checkbox>
+                    </ion-item>
+
+
+
+                    <ion-item>
+                            <ion-label>Stent thrombosis</ion-label>
+                            <ion-checkbox 
+                               color="primary" 
+                               formControlName="stentThrombosis"></ion-checkbox>
+                    </ion-item>
+
+                
+
+                   
+
+                </div> -->
+            
+
+            <ion-label stacked>Weight</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="weight"></ion-input>
+            </ion-item>
+    
+            <ion-label stacked>Height</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="height"></ion-input>
+            </ion-item>
+
+
+
+
+    
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

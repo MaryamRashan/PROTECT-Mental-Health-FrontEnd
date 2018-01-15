@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{passedPatient.admission.patientName}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card (click)="openModal1()">
+    <ion-card-header>
+      Admission
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card (click)="openModal8()">
+    <ion-card-header>
+      Observations
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card (click)="openModal2()">
+    <ion-card-header>
+      Investigations
+    </ion-card-header>
+  </ion-card>
+  
+  <ion-card (click)="openModal4()">
+    <ion-card-header>
+      Co-mobidities and Risk Factors
+    </ion-card-header>
+  </ion-card>
+  <ion-card (click)="openModal5()">
+    <ion-card-header>
+      Intervention PCI
+    </ion-card-header>
+    
+  </ion-card>
+  <ion-card (click)="openModal6()">
+    <ion-card-header>
+      Intervention Thrombolysis
+    </ion-card-header>
+    
+  </ion-card>
+  <ion-card (click)="openModal7()">
+    <ion-card-header>
+      Discharge
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card (click)="openModal3()">
+    <ion-card-header >
+      Quality of Life
+    </ion-card-header>
+  </ion-card>
+  
+</ion-content>
