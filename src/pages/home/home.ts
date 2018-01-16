@@ -97,9 +97,27 @@ export class HomePage {
         age: '',
         nic: '',
         contactNumber: '',
+        admission_date: '',
         dateOfHospitalArrival: '',
         timeOfHospitalArrival: '',
         bht: index,
+        ward_number: '',
+        admission_type: '',
+        comorbidities: {
+          cancer_immune : '',
+          coagulapathy : '',
+          endocrine : '',
+          gastrointestinal : '',
+          liver : '',
+          myocardial : '',
+          neurologic : '',
+          pulmonary : '',
+          renal : '',          
+          vascular : '',                    
+          dyslipidemia : '',
+          psychiatric_disorder : '',
+          non_documented : '',
+        },
         modeOfTransportation: '',
         transferredFrom: '',
         pciOrThrombolysis: '',
@@ -112,6 +130,8 @@ export class HomePage {
         analgesiaGiven: '',
         weight: '50',
         height: '100',
+        admission_report_date: '',
+        admission_report: '',
         timeStamp: new Date().getTime()
   
       }
@@ -176,9 +196,27 @@ export class AddAdmissionModal {
       age: [''],
       nic: [''],
       contactNumber: [''],
+      admission_date: [''],
       dateOfHospitalArrival: [''],
       timeOfHospitalArrival: [''],
       bht: [''],
+      ward_number: [''],
+      admission_type: [''],
+      comprbidities: formBuilder.group({
+        cancer_immune     : [ false ],
+        coagulapathy        : [ false ],
+        endocrine     : [ false ],
+        gastrointestinal     : [ false ],
+        liver       : [ false ],
+        myocardial      : [ false ],
+        neurologic   : [ false ],
+        pulmonary      : [ false ],
+        renal      : [ false ],
+        vascular      : [ false ],
+        dyslipidemia      : [ false ],
+        psychiatric_disorder      : [ false ],
+        non_documented      : [ false ]
+     }),
       modeOfTransportation: [''],
       transferredFrom: [''],
       pciOrThrombolysis: [''],
@@ -203,7 +241,9 @@ export class AddAdmissionModal {
     //     stentThrombosis      : [ false ]
     //  }),
       weight: [''],
-      height: ['']
+      height: [''],
+      admission_report_date: [''],
+      admission_report: ['']
     });
     
   }
@@ -235,10 +275,27 @@ export class AddAdmissionModal {
       age: this.admissionForm.value.age,
       nic: this.admissionForm.value.nic,
       contactNumber: this.admissionForm.value.contactNumber,
+      admission_date: this.admissionForm.value.admission_date,
       dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
       timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
       bht: this.admissionForm.value.bht,
-      modeOfTransportation: this.admissionForm.value.modeOfTransportation,
+      ward_number: this.admissionForm.value.ward_number,
+      admission_type: this.admissionForm.value.admission_type,
+      comorbidities: {
+        cancer_immune : this.admissionForm.value.comorbidities.cancer_immune,
+        coagulapathy : this.admissionForm.value.comorbidities.coagulapathy,
+        endocrine : this.admissionForm.value.comorbidities.endocrine,
+        gastrointestinal : this.admissionForm.value.comorbidities.gastrointestinal,
+        liver : this.admissionForm.value.comorbidities.liver,
+        myocardial : this.admissionForm.value.comorbidities.myocardial,
+        neurologic : this.admissionForm.value.comorbidities.neurologic,
+        pulmonary : this.admissionForm.value.comorbidities.pulmonary,        
+        renal : this.admissionForm.value.comorbidities.renal,
+        vascular : this.admissionForm.value.comorbidities.vascular,
+        dyslipidemia : this.admissionForm.value.comorbidities.dyslipidemia,
+        psychiatric_disorder : this.admissionForm.value.comorbidities.psychiatric_disorder,
+        non_documented : this.admissionForm.value.comorbidities.non_documented,
+      },      
       transferredFrom: this.admissionForm.value.transferredFrom,
       pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
       raisedJvp: this.admissionForm.value.raisedJvp,
@@ -250,6 +307,8 @@ export class AddAdmissionModal {
       analgesiaGiven: this.admissionForm.value.analgesiaGiven,
       weight: this.admissionForm.value.weight,
       height: this.admissionForm.value.height,
+      admission_report_date: this.admissionForm.value.admission_report_date,
+      admission_report: this.admissionForm.value.admission_report,
       timeStamp: new Date().getTime()
 
     }
