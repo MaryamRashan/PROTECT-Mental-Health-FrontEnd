@@ -135,7 +135,7 @@
 
         </div>
 
-        <div *ngIf='outcomeForm.value.comorbidities=="comorbidities"'>
+        <div>
                 <div formGroupName="comorbidities">
                   <ion-label stacked>Comorbidities</ion-label>
 
@@ -236,7 +236,7 @@
           </div>
         
             
-            <div *ngIf='outcomeForm.value.comorbidities=="cancer_immune"'>
+            <div *ngIf='admissionForm.value.comorbidities.cancer_immune'>
                   <div formGroupName="cancer_immune">
                     <ion-label stacked>Cancer/Immune</ion-label>
 
@@ -261,7 +261,7 @@
                             <ion-label>Lymphona</ion-label>
                             <ion-checkbox 
                                     color="primary" 
-                                    formControlName="Lymphona"></ion-checkbox>
+                                    formControlName="lymphona"></ion-checkbox>
                     </ion-item>
 
                     <ion-item>
@@ -295,7 +295,7 @@
             </div>
      
              </div> 
-             <div *ngIf='outcomeForm.value.comorbidities=="endocrine"'>
+             <div *ngIf='admissionForm.value.comorbidities.endocrine'>
                 <div formGroupName="endocrine">
                   <ion-label stacked>Endocrine</ion-label>
 
@@ -321,7 +321,7 @@
           </div>
    
            </div> 
-           <div *ngIf='outcomeForm.value.comorbidities=="gastrointestinal"'>
+           <div *ngIf='admissionForm.value.comorbidities.gastrointestinal'>
                 <div formGroupName="gastrointestinal">
                   <ion-label stacked>Gastrointestinal</ion-label>
 
@@ -353,7 +353,7 @@
           </div>
    
            </div> 
-           <div *ngIf='outcomeForm.value.comorbidities=="liver"'>
+           <div *ngIf='admissionForm.value.comorbidities.liver'>
                 <div formGroupName="liver">
                   <ion-label stacked>Liver</ion-label>
 
@@ -380,7 +380,7 @@
    
            </div> 
            
-           <div *ngIf='outcomeForm.value.comorbidities=="myocardial"'>
+           <div *ngIf='admissionForm.value.comorbidities.myocardial'>
                 <div formGroupName="myocardial">
                   <ion-label stacked>Myocardial</ion-label>
 
@@ -427,7 +427,7 @@
           </div>
    
            </div> 
-           <div *ngIf='outcomeForm.value.comorbidities=="pulmonary"'>
+           <div *ngIf='admissionForm.value.comorbidities.pulmonary'>
                 <div formGroupName="pulmonary">
                   <ion-label stacked>Pulmonary</ion-label>
 
@@ -450,7 +450,7 @@
           </div>
    
            </div> 
-           <div *ngIf='outcomeForm.value.comorbidities=="renal"'>
+           <div *ngIf='admissionForm.value.comorbidities.renal'>
                 <div formGroupName="renal">
                   <ion-label stacked>Renal</ion-label>
 
@@ -476,7 +476,7 @@
    
            </div> 
 
-           <div *ngIf='outcomeForm.value.comorbidities=="vascular"'>
+           <div *ngIf='admissionForm.value.comorbidities.vascular'>
                 <div formGroupName="vascular">
                   <ion-label stacked>Vascular</ion-label>
 
