@@ -214,8 +214,8 @@ export class DataProvider {
       case '-newQualityOfLife-':
             this.addQol(data);
             break;
-      case '-newInvesti-':
-            this.addInvestigation(data);
+      case '-newIntraOp-':
+            this.addIntraOp(data);
             break;
       case '-updateObservation-':
             this.updateObservation(data);
@@ -229,8 +229,8 @@ export class DataProvider {
       case '-updateCormobiditiesAndRisks-':
             this.updateCormobiditiesAndRisks(data);
             break;
-      case '-updateInvesti-':
-            this.updateInvestigation(data);
+      case '-updateIntraOp-':
+            this.updateIntraOp(data);
             break;
       case '-updateQualityOfLife-':
             this.updateQol(data);
@@ -684,20 +684,20 @@ export class DataProvider {
 
   
 
-  async addInvestigation(data){
+  async addIntraOp(data){
 
-    if(data.investigations){
+    if(data.IntraOps){
         let unitId = await this.getUnitId();
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.admission.patientId){
-            patient.investigations = data.investigations;
+            patient.IntraOps = data.IntraOps;
             patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
-        patientFromDb.investigations = data.investigations;
+        patientFromDb.IntraOps = data.IntraOps;
         patientFromDb.timeStamp = data.timeStamp;
         // console.log('data.admission', data.admission)
         // console.log('patientFromDb.admission', patientFromDb.admission)
@@ -711,19 +711,19 @@ export class DataProvider {
             
             // patient.timeStamp = data.timeStamp;
 
-            if(patient.investigations){
-              patient.investigations.push(data.data);
+            if(patient.IntraOps){
+              patient.IntraOps.push(data.data);
             } else {
-              patient.investigations = [data.data];
+              patient.IntraOps = [data.data];
             }
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-        if(patientFromDb.investigations){
-          patientFromDb.investigations.push(data.data);
+        if(patientFromDb.IntraOps){
+          patientFromDb.IntraOps.push(data.data);
         } else {
-          patientFromDb.investigations = [data.data];
+          patientFromDb.IntraOps = [data.data];
         }
         
         // patientFromDb.timeStamp = data.timeStamp;
@@ -734,18 +734,18 @@ export class DataProvider {
     }
   }
 
-  async updateInvestigation(data){
+  async updateIntraOp(data){
     console.log('##########################')
     let unitId = await this.getUnitId();
     let key = '-patient-' + unitId + '-' + data.patientId;
     console.log('KEY>>>>', key)
     this.patientsArray.forEach(patient =>{
       if(patient.admission.patientId == data.patientId){
-        console.log('patient.investigations', patient.investigations)
-        if(patient.investigations){
+        console.log('patient.IntraOps', patient.IntraOps)
+        if(patient.IntraOps){
 
-          let _investigations = patient.investigations.map(item=>{
-            if(item.investigationId == data.data.investigationId){
+          let _IntraOps = patient.IntraOps.map(item=>{
+            if(item.IntraOpId == data.data.IntraOpId){
               console.log('##########################')
               // console.log('pre ', ob)
               item = data.data;
@@ -756,7 +756,7 @@ export class DataProvider {
             return item
           })
           
-          patient.investigations = _investigations;
+          patient.IntraOps = _IntraOps;
         }
         
         // patient.timeStamp = data.timeStamp;
@@ -764,9 +764,9 @@ export class DataProvider {
       }
     })
     let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-    if(patientFromDb.investigations){
-      let _investigations = patientFromDb.investigations.map(item=>{
-        if(item.investigationId == data.data.investigationId){
+    if(patientFromDb.IntraOps){
+      let _IntraOps = patientFromDb.IntraOps.map(item=>{
+        if(item.IntraOpId == data.data.IntraOpId){
           console.log('##########################')
           // console.log('pre ', ob)
           item = data.data;
@@ -776,7 +776,7 @@ export class DataProvider {
         }
         return item
       })
-      patientFromDb.investigations = _investigations;
+      patientFromDb.IntraOps = _IntraOps;
     } 
     
     // patientFromDb.timeStamp = data.timeStamp;

@@ -153,9 +153,9 @@ export class SocketProvider {
                   } else if(convData.type == '-newCormobiditiesAndRisks-'){
                     console.log('-newCormobiditiesAndRisks- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newCormobiditiesAndRisks-')
-                  } else if(convData.type == '-newInvesti-'){
-                    console.log('-newInvesti- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newInvesti-')
+                  } else if(convData.type == '-newIntraOp-'){
+                    console.log('-newIntraOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newIntraOp-')
                   } else if(convData.type == '-newQualityOfLife-'){
                     console.log('-newQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newQualityOfLife-')
@@ -174,9 +174,9 @@ export class SocketProvider {
                   } else if(convData.type == '-updateQualityOfLife-'){
                     console.log('-updateQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateQualityOfLife-')
-                  } else if(convData.type == '-updateInvesti-'){
-                    console.log('-updateInvesti- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updateInvesti-')
+                  } else if(convData.type == '-updateIntraOp-'){
+                    console.log('-updateIntraOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updateIntraOp-')
                   } else if (convData.type == '-discharge-'){
                       this.data.removePatient(convData.patientId);
                       console.log('patient removed >>>>>> ', convData.patientId )
@@ -230,7 +230,7 @@ export class SocketProvider {
             // admission : patient.admission[0],
             // cormobiditiesandrisks : patient.cormobiditiesandrisk[0],
             // interventionpci : patient.interventionpci[0],
-            // investigations : patient.investigation,
+            // IntraOperaratve : patient.IntraOperaratve,
             // observations : patient.observation,
             // qol : patient.qol,
             // thrombolysis : patient.thrombolysis[0]
@@ -246,8 +246,8 @@ export class SocketProvider {
           if (patient.thrombolysis[0]){
             newPatient.thrombolysis = patient.thrombolysis[0];
           }
-          if (patient.investigation[0]){
-            newPatient.investigations = patient.investigation;
+          if (patient.intraOp[0]){
+            newPatient.intraOp = patient.intraOp;
           }
           if (patient.observation[0]){
             newPatient.observations = patient.observation;

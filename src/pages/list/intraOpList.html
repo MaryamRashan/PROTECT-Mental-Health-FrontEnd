@@ -14,11 +14,11 @@
   </ion-header>
 
   <ion-content>
-      <ion-list *ngIf="patient && patient.investigations && patient.investigations.length > 0">
-          <ion-item-sliding *ngFor="let investigation of patient.investigations" >
-            <ion-item (click)="editInvestigation(investigation)" >
+      <ion-list *ngIf="patient && patient.intraOp && patient.intraOp.length > 0">
+          <ion-item-sliding *ngFor="let intraOp of patient.intraOp" >
+            <ion-item (click)="editintraOp(intraOp)" >
               <!-- <ion-icon name="person"></ion-icon> -->
-              {{investigation.investigationTimeStamp | date:' y MMM dd hh:mm a'}}
+              {{intraOp.intraOpTimeStamp | date:' y MMM dd hh:mm a'}}
               <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
               <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
             </ion-item>
@@ -39,6 +39,6 @@
 
 
         <ion-fab right bottom>
-                <button (click)="addInvestigation()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+                <button (click)="addintraOp()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
               </ion-fab>
   </ion-content>

@@ -27,8 +27,8 @@ export class ListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public event: Events) {
     console.log('constructuor() for list page ')
     this.passedPatient = navParams.get("first");
-    console.log('passed patient is ',this.passedPatient);
-    this.event.subscribe('-discharge-', ()=>{
+    console.log('passed patient is ', this.passedPatient);
+    this.event.subscribe('-discharge-', () => {
       console.log('-discharge-')
       this.event.unsubscribe('-discharge-')
       this.navCtrl.setRoot(HomePage)
@@ -37,77 +37,76 @@ export class ListPage {
 
   openModal1() {
 
-        let characterNum = {patient: this.passedPatient};
+    let characterNum = { patient: this.passedPatient };
 
-        let modal = this.modalCtrl.create(ModalContentPage1, characterNum);
-        modal.present();
-      }
+    let modal = this.modalCtrl.create(ModalContentPage1, characterNum);
+    modal.present();
+  }
 
-  openModal2() { // Investigation List
-        let characterNum = {patient: this.passedPatient};
-        let modal = this.modalCtrl.create(ModalContentPage11, characterNum);
-        modal.present();
-      }
+  openModal2() { // intraOp List
+    let characterNum = { patient: this.passedPatient };
+    let modal = this.modalCtrl.create(ModalContentPage11, characterNum);
+    modal.present();
+  }
 
   openModal3() { // QOL list
-      let characterNum = {patient: this.passedPatient};
-        let modal = this.modalCtrl.create(ModalContentPage10, characterNum);
-        modal.present();
-      }
+    let characterNum = { patient: this.passedPatient };
+    let modal = this.modalCtrl.create(ModalContentPage10, characterNum);
+    modal.present();
+  }
 
   openModal4() { // cormobiditiesandrisks
+    let cormobiditiesandrisks;
+    if (this.passedPatient.cormobiditiesandrisks) {
+      cormobiditiesandrisks = this.passedPatient.cormobiditiesandrisks
+    } else {
+      cormobiditiesandrisks = null;
+    }
+    let characterNum = { patient: this.passedPatient, cormobiditiesandrisks: cormobiditiesandrisks };
 
-          let cormobiditiesandrisks;
-          if(this.passedPatient.cormobiditiesandrisks){
-            cormobiditiesandrisks = this.passedPatient.cormobiditiesandrisks
-          } else {
-            cormobiditiesandrisks = null;
-          }
-          let characterNum = {patient: this.passedPatient, cormobiditiesandrisks: cormobiditiesandrisks};
-
-        let modal = this.modalCtrl.create(ModalContentPage4, characterNum);
-        modal.present();
-      }
+    let modal = this.modalCtrl.create(ModalContentPage4, characterNum);
+    modal.present();
+  }
   openModal5() { // intervention PCI
-        let interventionPci;
-        if(this.passedPatient.interventionpci){
-          interventionPci = this.passedPatient.interventionpci
-        } else {
-          interventionPci = null;
-        }
-        let characterNum = {patient: this.passedPatient, interventionPci: interventionPci};
+    let interventionPci;
+    if (this.passedPatient.interventionpci) {
+      interventionPci = this.passedPatient.interventionpci
+    } else {
+      interventionPci = null;
+    }
+    let characterNum = { patient: this.passedPatient, interventionPci: interventionPci };
 
-        let modal = this.modalCtrl.create(ModalContentPage5, characterNum);
-        modal.present();
-      }
+    let modal = this.modalCtrl.create(ModalContentPage5, characterNum);
+    modal.present();
+  }
 
   openModal6() { // thrombolysis
 
-        let thrombolysis;
-        if(this.passedPatient.thrombolysis){
-          thrombolysis = this.passedPatient.thrombolysis
-        } else {
-          thrombolysis = null;
-        }
-        let characterNum = {patient: this.passedPatient, thrombolysis: thrombolysis};
+    let thrombolysis;
+    if (this.passedPatient.thrombolysis) {
+      thrombolysis = this.passedPatient.thrombolysis
+    } else {
+      thrombolysis = null;
+    }
+    let characterNum = { patient: this.passedPatient, thrombolysis: thrombolysis };
 
-        let modal = this.modalCtrl.create(ModalContentPage6, characterNum);
-        modal.present();
-      }
+    let modal = this.modalCtrl.create(ModalContentPage6, characterNum);
+    modal.present();
+  }
 
   openModal7() { // Discharge
 
-    let characterNum = {patient: this.passedPatient};
+    let characterNum = { patient: this.passedPatient };
 
-        let modal = this.modalCtrl.create(ModalContentPage7, characterNum);
-        modal.present();
-      }
+    let modal = this.modalCtrl.create(ModalContentPage7, characterNum);
+    modal.present();
+  }
 
   openModal8() {
-        let characterNum = {patient: this.passedPatient};
-        let modal = this.modalCtrl.create(ModalContentPage9, characterNum);
-        modal.present();
-      }
+    let characterNum = { patient: this.passedPatient };
+    let modal = this.modalCtrl.create(ModalContentPage9, characterNum);
+    modal.present();
+  }
 
 
 
@@ -122,10 +121,10 @@ export class ListPage {
 })
 export class ModalContentPage1 {
 
-  private admissionForm : FormGroup;
+  private admissionForm: FormGroup;
   private patient;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public socket : SocketProvider, public sync : SyncProvider ) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public socket: SocketProvider, public sync: SyncProvider) {
     this.patient = navParams.get("patient");
     console.log('patient inside the edit admission modal ', this.patient)
 
@@ -142,14 +141,14 @@ export class ModalContentPage1 {
       transferredFrom: [this.patient.admission.transferredFrom],
       pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
       cprGiven: formBuilder.group({
-        cpr     : [ this.patient.admission.cprGiven.cpr ],
-        defibrillation        : [ this.patient.admission.cprGiven.defibrillation ],
-        thrombolysis     : [ this.patient.admission.cprGiven.thrombolysis ],
-        vasoactiveDrugs     : [ this.patient.admission.cprGiven.vasoactiveDrugs ],
-        furosemide       : [ this.patient.admission.cprGiven.furosemide ],
-        ventilation      : [ this.patient.admission.cprGiven.ventilation ],
-        none      : [ this.patient.admission.cprGiven.none ]
-     }),
+        cpr: [this.patient.admission.cprGiven.cpr],
+        defibrillation: [this.patient.admission.cprGiven.defibrillation],
+        thrombolysis: [this.patient.admission.cprGiven.thrombolysis],
+        vasoactiveDrugs: [this.patient.admission.cprGiven.vasoactiveDrugs],
+        furosemide: [this.patient.admission.cprGiven.furosemide],
+        ventilation: [this.patient.admission.cprGiven.ventilation],
+        none: [this.patient.admission.cprGiven.none]
+      }),
       raisedJvp: [this.patient.admission.raisedJvp],
       numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
       ecgReferral: [this.patient.admission.ecgReferral],
@@ -164,28 +163,28 @@ export class ModalContentPage1 {
 
   }
 
-  dismiss(){
-    if(this.admissionForm.dirty){
+  dismiss() {
+    if (this.admissionForm.dirty) {
       this.viewCtrl.dismiss();
       this.saveEditAdmission();
     } else {
       this.viewCtrl.dismiss();
     }
-    
+
   }
 
-  saveEditAdmission(){
+  saveEditAdmission() {
     let admission = {
-      patientId : this.patient.patientId,
+      patientId: this.patient.patientId,
       patientName: this.admissionForm.value.patientName,
       cprGiven: {
-        cpr : this.admissionForm.value.cprGiven.cpr,
-        defibrillation : this.admissionForm.value.cprGiven.defibrillation,
-        thrombolysis : this.admissionForm.value.cprGiven.thrombolysis,
-        vasoactiveDrugs : this.admissionForm.value.cprGiven.vasoactiveDrugs,
-        furosemide : this.admissionForm.value.cprGiven.furosemide,
-        ventilation : this.admissionForm.value.cprGiven.ventilation,
-        none : this.admissionForm.value.cprGiven.none,
+        cpr: this.admissionForm.value.cprGiven.cpr,
+        defibrillation: this.admissionForm.value.cprGiven.defibrillation,
+        thrombolysis: this.admissionForm.value.cprGiven.thrombolysis,
+        vasoactiveDrugs: this.admissionForm.value.cprGiven.vasoactiveDrugs,
+        furosemide: this.admissionForm.value.cprGiven.furosemide,
+        ventilation: this.admissionForm.value.cprGiven.ventilation,
+        none: this.admissionForm.value.cprGiven.none,
       },
       gender: this.admissionForm.value.gender,
       age: this.admissionForm.value.age,
@@ -224,172 +223,165 @@ export class ModalContentPage1 {
 
 
 @Component({
-  templateUrl: 'investigation.html',
+  templateUrl: 'intraOp.html',
 })
-export class ModalContentPage2 { // Single Investigation
+export class ModalContentPage2 { // Single intraOp
 
-  private investigationForm : FormGroup;
+  private intraOpForm: FormGroup;
   public patient;
-  public investigation;
+  public intraOp;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
-    this.investigation = navParams.get("investigation");
+    this.intraOp = navParams.get("intraOp");
 
-    
 
-    if(this.investigation === null){
-      this.investigationForm = this.formBuilder.group({
-        investigationDate: [''],
-        investigationTime: [''],
-        wbc: [''],
-        neutrophils: [''],
-        lymphocytes: [''],
-        platelets: [''],
-        haemoglobin: [''],
-        troponin: [''],
-        serumCreatinine: [''],
-        unitOfSerumCreatinine: ['']
-  
+
+    if (this.intraOp === null) {
+      this.intraOpForm = this.formBuilder.group({
+        intraOpDate: [''],
+        intraOpTime: [''],
+        preOp_antibiotic_use: [''],
+        name_preOp_antibiotic: [''],
+        if_other_please_specify: [''],
+        name2_preOp_antibiotic: [''],
+        if_other_please_specify2: [''],
+        name3_preOp_antibiotic: [''],
+        if_other_please_specify3: [''],
+
       });
     } else {
-      this.investigationForm = this.formBuilder.group({
-        investigationDate: [this.investigation.investigationDate],
-        investigationTime: [this.investigation.investigationTime],
-        wbc: [this.investigation.wbc],
-        neutrophils: [this.investigation.neutrophils],
-        lymphocytes: [this.investigation.lymphocytes],
-        platelets: [this.investigation.platelets],
-        haemoglobin: [this.investigation.haemoglobin],
-        troponin: [this.investigation.troponin],
-        serumCreatinine: [this.investigation.serumCreatinine],
-        unitOfSerumCreatinine: [this.investigation.unitOfSerumCreatinine],
-  
+      this.intraOpForm = this.formBuilder.group({
+        intraOpDate: [this.intraOp.intraOpDate],
+        intraOpTime: [this.intraOp.intraOpTime],
+        preOp_antibiotic_use: [this.intraOp.preOp_antibiotic_use],
+        name_preOp_antibiotic: [this.intraOp.name_preOp_antibiotic],
+        if_other_please_specify: [this.intraOp.if_other_please_specify],
+        name2_preOp_antibiotic: [this.intraOp.name2_preOp_antibiotic],
+        if_other_please_specify2: [this.intraOp.if_other_please_specify2],
+        name3_preOp_antibiotic: [this.intraOp.name3_preOp_antibiotic],
+        if_other_please_specify3: [this.intraOp.if_other_please_specify3],
+
       });
     }
 
   }
 
-  dismiss(){
-    // this.saveInvestigation().then(()=>{
+  dismiss() {
+    // this.saveintraOp().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
 
-    if(this.investigationForm.dirty){
-      this.saveInvestigation().then(()=>{
+    if (this.intraOpForm.dirty) {
+      this.saveintraOp().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
       this.viewCtrl.dismiss();
     }
-    
+
   }
 
-  async saveInvestigation(){
-    
-        if ( !this.patient.investigations  && this.investigation === null){
-          console.log('adding first investigation')
-          let investigationTimeStamp = Date.parse((this.investigationForm.value.investigationDate + 'T'+this.investigationForm.value.investigationTime));
-          let investi = {
-            investigationId : UUID(),
+  async saveintraOp() {
 
-            investigationDate: this.investigationForm.value.investigationDate,
-            investigationTime: this.investigationForm.value.investigationTime,
-            investigationTimeStamp : investigationTimeStamp,
-            wbc: this.investigationForm.value.wbc,
-            neutrophils: this.investigationForm.value.neutrophils,
-            lymphocytes: this.investigationForm.value.lymphocytes,
-            platelets: this.investigationForm.value.platelets,
-            haemoglobin: this.investigationForm.value.haemoglobin,
-            troponin: this.investigationForm.value.troponin,
-            serumCreatinine: this.investigationForm.value.serumCreatinine,
-            unitOfSerumCreatinine: this.investigationForm.value.unitOfSerumCreatinine,
-            
-            timeStamp: new Date().getTime()
-          }
+    if (!this.patient.intraOp && this.intraOp === null) {
+      console.log('adding first intraOp')
+      let intraOpTimeStamp = Date.parse((this.intraOpForm.value.intraOpDate + 'T' + this.intraOpForm.value.intraOpTime));
+      let intraOp = {
+        intraOpId: UUID(),
 
-          console.log(investi);
-          let investiArray = [];
-          investiArray.push(investi);
-          this.patient.investigations = investiArray;
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newInvesti-');
-          this.sync.invokeSendDataThroughSocket(investi, '-newInvesti-', this.patient.patientId);
+        intraOpDate: this.intraOpForm.value.intraOpDate,
+        intraOpTime: this.intraOpForm.value.intraOpTime,
+        intraOpTimeStamp: intraOpTimeStamp,
+        preOp_antibiotic_use: this.intraOpForm.value.preOp_antibiotic_use,
+        name_preOp_antibiotic: this.intraOpForm.value.name_preOp_antibiotic,
+        if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
+        name2_preOp_antibiotic: this.intraOpForm.value.name2_preOp_antibiotic,
+        if_other_please_specify2: this.intraOpForm.value.if_other_please_specify2,
+
+        timeStamp: new Date().getTime()
+      }
+
+      console.log(intraOp);
+      let intraOpArray = [];
+      intraOpArray.push(intraOp);
+      this.patient.intraOp = intraOpArray;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newintraOp-');
+      this.sync.invokeSendDataThroughSocket(intraOp, '-newintraOp-', this.patient.patientId);
+    }
+
+    else if (this.patient.intraOp.length > 0 && this.intraOp === null) {
+      console.log('adding another intraOp')
+      let intraOpTimeStamp = Date.parse((this.intraOpForm.value.intraOpDate + 'T' + this.intraOpForm.value.intraOpTime));
+      let intraOp = {
+        intraOpId: UUID(),
+
+        intraOpDate: this.intraOpForm.value.intraOpDate,
+        intraOpTime: this.intraOpForm.value.intraOpTime,
+        intraOpTimeStamp: intraOpTimeStamp,
+        preOp_antibiotic_use: this.intraOpForm.value.preOp_antibiotic_use,
+        name_preOp_antibiotic: this.intraOpForm.value.name_preOp_antibiotic,
+        if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
+        name2_preOp_antibiotic: this.intraOpForm.value.name2_preOp_antibiotic,
+        if_other_please_specify2: this.intraOpForm.value.if_other_please_specify2,
+        name3_preOp_antibiotic: this.intraOpForm.value.name3_preOp_antibiotic,
+        if_other_please_specify3: this.intraOpForm.value.if_other_please_specify3,
+
+
+        timeStamp: new Date().getTime()
+      }
+
+      this.patient.intraOp.push(intraOp);
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newintraOp-');
+      this.sync.invokeSendDataThroughSocket(intraOp, '-newintraOp-', this.patient.patientId);
+    }
+    else {
+
+      console.log('editing intraOp')
+      let intraOpTimeStamp = Date.parse((this.intraOpForm.value.intraOpDate + 'T' + this.intraOpForm.value.intraOpTime));
+
+      let intraOp = {
+        intraOpId: this.intraOp.intraOpId,
+
+        intraOpDate: this.intraOpForm.value.intraOpDate,
+        intraOpTime: this.intraOpForm.value.intraOpTime,
+        intraOpTimeStamp: intraOpTimeStamp,
+        preOp_antibiotic_use: this.intraOpForm.value.preOp_antibiotic_use,
+        name_preOp_antibiotic: this.intraOpForm.value.name_preOp_antibiotic,
+        if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
+        name2_preOp_antibiotic: this.intraOpForm.value.name2_preOp_antibiotic,
+        if_other_please_specify2: this.intraOpForm.value.if_other_please_specify2,
+        name3_preOp_antibiotic: this.intraOpForm.value.name3_preOp_antibiotic,
+        if_other_please_specify3: this.intraOpForm.value.if_other_please_specify3,
+
+        timeStamp: new Date().getTime()
+      }
+
+      let filteredIndex;
+
+      this.patient.intraOp.forEach((element, index) => {
+
+        if (element.intraOpId == this.intraOp.intraOpId) {
+          filteredIndex = index;
+          // console.log('save called for edit obs', element)
+          // element = observation;
+          // console.log('save called for edit obs')
+
+          // console.log('save called for edit obs', element)
         }
-    
-        else if( this.patient.investigations.length > 0 && this.investigation === null){
-          console.log('adding another investigation')
-          let investigationTimeStamp = Date.parse((this.investigationForm.value.investigationDate + 'T'+this.investigationForm.value.investigationTime));
-          let investi = {
-            investigationId : UUID(),
-            
-            investigationDate: this.investigationForm.value.investigationDate,
-            investigationTime: this.investigationForm.value.investigationTime,
-            investigationTimeStamp : investigationTimeStamp,
-            wbc: this.investigationForm.value.wbc,
-            neutrophils: this.investigationForm.value.neutrophils,
-            lymphocytes: this.investigationForm.value.lymphocytes,
-            platelets: this.investigationForm.value.platelets,
-            haemoglobin: this.investigationForm.value.haemoglobin,
-            troponin: this.investigationForm.value.troponin,
-            serumCreatinine: this.investigationForm.value.serumCreatinine,
-            unitOfSerumCreatinine: this.investigationForm.value.unitOfSerumCreatinine,
 
+      });
+      console.log('save called for edit intraOp', filteredIndex)
+      // this.patient.oservations = editedObs;
+      this.patient.intraOp[filteredIndex] = intraOp;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newintraOp-')
+      this.sync.invokeSendDataThroughSocket(intraOp, '-updateintraOp-', this.patient.patientId);
+    }
 
-            timeStamp: new Date().getTime()
-          }
-    
-          this.patient.investigations.push(investi);
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newInvesti-');
-          this.sync.invokeSendDataThroughSocket(investi, '-newInvesti-', this.patient.patientId);
-        }
-        else {
-    
-          console.log('editing investi')
-          let investigationTimeStamp = Date.parse((this.investigationForm.value.investigationDate + 'T'+this.investigationForm.value.investigationTime));
-    
-          let investi = {
-            investigationId : this.investigation.investigationId,
-
-            investigationDate: this.investigationForm.value.investigationDate,
-            investigationTime: this.investigationForm.value.investigationTime,
-            investigationTimeStamp : investigationTimeStamp,
-            wbc: this.investigationForm.value.wbc,
-            neutrophils: this.investigationForm.value.neutrophils,
-            lymphocytes: this.investigationForm.value.lymphocytes,
-            platelets: this.investigationForm.value.platelets,
-            haemoglobin: this.investigationForm.value.haemoglobin,
-            troponin: this.investigationForm.value.troponin,
-            serumCreatinine: this.investigationForm.value.serumCreatinine,
-            unitOfSerumCreatinine: this.investigationForm.value.unitOfSerumCreatinine,
-            
-            timeStamp: new Date().getTime()
-          }
-    
-          let filteredIndex;
-    
-          this.patient.investigations.forEach((element, index) => {
-    
-            if (element.investigationId == this.investigation.investigationId){
-              filteredIndex = index;
-              // console.log('save called for edit obs', element)
-              // element = observation;
-              // console.log('save called for edit obs')
-    
-              // console.log('save called for edit obs', element)
-            }
-    
-          });
-          console.log('save called for edit investigation', filteredIndex)
-          // this.patient.oservations = editedObs;
-          this.patient.investigations[filteredIndex] = investi;
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newInvesti-')
-          this.sync.invokeSendDataThroughSocket(investi, '-updateInvesti-', this.patient.patientId);
-        }
-    
   }
 
 }
@@ -400,18 +392,18 @@ export class ModalContentPage2 { // Single Investigation
 })
 export class ModalContentPage3 { //  single QOL
 
-  private qolForm : FormGroup;
+  private qolForm: FormGroup;
   public patient;
   public qol;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     this.qol = navParams.get("qol");
 
-   
 
-    if(this.qol === null){
+
+    if (this.qol === null) {
       this.qolForm = this.formBuilder.group({
         mobilityEq1: [''],
         selfCareEq2: [''],
@@ -428,7 +420,7 @@ export class ModalContentPage3 { //  single QOL
         runningOrJogging: [''],
         liftingOrMovingHeavyOb: [''],
         participatingInStrenuous: ['']
-  
+
       });
     } else {
       this.qolForm = this.formBuilder.group({
@@ -447,135 +439,135 @@ export class ModalContentPage3 { //  single QOL
         runningOrJogging: [this.qol.runningOrJogging],
         liftingOrMovingHeavyOb: [this.qol.liftingOrMovingHeavyOb],
         participatingInStrenuous: [this.qol.participatingInStrenuous]
-  
+
       });
     }
 
   }
 
-  dismiss(){
+  dismiss() {
     // this.saveQol().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
 
-    if(this.qolForm.dirty){
-      this.saveQol().then(()=>{
+    if (this.qolForm.dirty) {
+      this.saveQol().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
       this.viewCtrl.dismiss();
     }
-    
+
   }
 
-  async saveQol(){
-    
-        if ( !this.patient.qol  && this.qol === null){
-          console.log('adding first qol')
-          let qualityOfLife = {
-            qolId : UUID(),
+  async saveQol() {
 
-            mobilityEq1: this.qolForm.value.mobilityEq1,
-            selfCareEq2: this.qolForm.value.selfCareEq2,
-            usualActivities: this.qolForm.value.usualActivities,
-            painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
-            anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
-            howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
-            dressingYourself: this.qolForm.value.dressingYourself,
-            walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
-            showering: this.qolForm.value.showering,
-            climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
-            gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
-            walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
-            runningOrJogging: this.qolForm.value.runningOrJogging,
-            liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
-            participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
-            
-            timeStamp: new Date().getTime()
-          }
+    if (!this.patient.qol && this.qol === null) {
+      console.log('adding first qol')
+      let qualityOfLife = {
+        qolId: UUID(),
 
-          console.log(qualityOfLife);
-          let qolArray = [];
-          qolArray.push(qualityOfLife);
-          this.patient.qol = qolArray;
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newQualityOfLife-');
-          this.sync.invokeSendDataThroughSocket(qualityOfLife, '-newQualityOfLife-', this.patient.patientId);
+        mobilityEq1: this.qolForm.value.mobilityEq1,
+        selfCareEq2: this.qolForm.value.selfCareEq2,
+        usualActivities: this.qolForm.value.usualActivities,
+        painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
+        anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
+        howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
+        dressingYourself: this.qolForm.value.dressingYourself,
+        walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
+        showering: this.qolForm.value.showering,
+        climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
+        gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
+        walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
+        runningOrJogging: this.qolForm.value.runningOrJogging,
+        liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
+        participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
+
+        timeStamp: new Date().getTime()
+      }
+
+      console.log(qualityOfLife);
+      let qolArray = [];
+      qolArray.push(qualityOfLife);
+      this.patient.qol = qolArray;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newQualityOfLife-');
+      this.sync.invokeSendDataThroughSocket(qualityOfLife, '-newQualityOfLife-', this.patient.patientId);
+    }
+
+    else if (this.patient.qol.length > 0 && this.qol === null) {
+      console.log('adding another qol')
+      let qualityOfLife = {
+        qolId: UUID(),
+        mobilityEq1: this.qolForm.value.mobilityEq1,
+        selfCareEq2: this.qolForm.value.selfCareEq2,
+        usualActivities: this.qolForm.value.usualActivities,
+        painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
+        anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
+        howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
+        dressingYourself: this.qolForm.value.dressingYourself,
+        walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
+        showering: this.qolForm.value.showering,
+        climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
+        gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
+        walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
+        runningOrJogging: this.qolForm.value.runningOrJogging,
+        liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
+        participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
+        timeStamp: new Date().getTime()
+      }
+
+      this.patient.qol.push(qualityOfLife);
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newQualityOfLife-');
+      this.sync.invokeSendDataThroughSocket(qualityOfLife, '-newQualityOfLife-', this.patient.patientId);
+    }
+    else {
+
+      console.log('editing qol')
+
+      let qualityOfLife = {
+        qolId: this.qol.qolId,
+        mobilityEq1: this.qolForm.value.mobilityEq1,
+        selfCareEq2: this.qolForm.value.selfCareEq2,
+        usualActivities: this.qolForm.value.usualActivities,
+        painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
+        anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
+        howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
+        dressingYourself: this.qolForm.value.dressingYourself,
+        walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
+        showering: this.qolForm.value.showering,
+        climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
+        gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
+        walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
+        runningOrJogging: this.qolForm.value.runningOrJogging,
+        liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
+        participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
+        timeStamp: new Date().getTime()
+      }
+
+      let filteredIndex;
+
+      this.patient.qol.forEach((element, index) => {
+
+        if (element.qolId == this.qol.qolId) {
+          filteredIndex = index;
+          // console.log('save called for edit obs', element)
+          // element = observation;
+          // console.log('save called for edit obs')
+
+          // console.log('save called for edit obs', element)
         }
-    
-        else if( this.patient.qol.length > 0 && this.qol === null){
-          console.log('adding another qol')
-          let qualityOfLife = {
-            qolId : UUID(),
-            mobilityEq1: this.qolForm.value.mobilityEq1,
-            selfCareEq2: this.qolForm.value.selfCareEq2,
-            usualActivities: this.qolForm.value.usualActivities,
-            painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
-            anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
-            howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
-            dressingYourself: this.qolForm.value.dressingYourself,
-            walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
-            showering: this.qolForm.value.showering,
-            climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
-            gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
-            walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
-            runningOrJogging: this.qolForm.value.runningOrJogging,
-            liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
-            participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
-            timeStamp: new Date().getTime()
-          }
-    
-          this.patient.qol.push(qualityOfLife);
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newQualityOfLife-');
-          this.sync.invokeSendDataThroughSocket(qualityOfLife, '-newQualityOfLife-', this.patient.patientId);
-        }
-        else {
-    
-          console.log('editing qol')
-    
-          let qualityOfLife = {
-            qolId : this.qol.qolId,
-            mobilityEq1: this.qolForm.value.mobilityEq1,
-            selfCareEq2: this.qolForm.value.selfCareEq2,
-            usualActivities: this.qolForm.value.usualActivities,
-            painDiscomfortEq4: this.qolForm.value.painDiscomfortEq4,
-            anxietyDepressionEq5: this.qolForm.value.anxietyDepressionEq5,
-            howAboutYourHealthToday: this.qolForm.value.howAboutYourHealthToday,
-            dressingYourself: this.qolForm.value.dressingYourself,
-            walkingIndoorsOnLevelGround: this.qolForm.value.walkingIndoorsOnLevelGround,
-            showering: this.qolForm.value.showering,
-            climbingAHillOrAFligh: this.qolForm.value.climbingAHillOrAFligh,
-            gardeningVacuumingOrCar: this.qolForm.value.gardeningVacuumingOrCar,
-            walkingMoreThanABlock: this.qolForm.value.walkingMoreThanABlock,
-            runningOrJogging: this.qolForm.value.runningOrJogging,
-            liftingOrMovingHeavyOb: this.qolForm.value.liftingOrMovingHeavyOb,
-            participatingInStrenuous: this.qolForm.value.participatingInStrenuous,
-            timeStamp: new Date().getTime()
-          }
-    
-          let filteredIndex;
-    
-          this.patient.qol.forEach((element, index) => {
-    
-            if (element.qolId == this.qol.qolId){
-              filteredIndex = index;
-              // console.log('save called for edit obs', element)
-              // element = observation;
-              // console.log('save called for edit obs')
-    
-              // console.log('save called for edit obs', element)
-            }
-    
-          });
-          console.log('save called for edit qol', filteredIndex)
-          // this.patient.oservations = editedObs;
-          this.patient.qol[filteredIndex] = qualityOfLife;
-          this.patient.timeStamp = new Date().getTime();
-          this.data.updatePatient(this.patient, '-newQualityOfLife-')
-          this.sync.invokeSendDataThroughSocket(qualityOfLife, '-updateQualityOfLife-', this.patient.patientId);
-        }
-    
+
+      });
+      console.log('save called for edit qol', filteredIndex)
+      // this.patient.oservations = editedObs;
+      this.patient.qol[filteredIndex] = qualityOfLife;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newQualityOfLife-')
+      this.sync.invokeSendDataThroughSocket(qualityOfLife, '-updateQualityOfLife-', this.patient.patientId);
+    }
+
   }
 
 }
@@ -585,43 +577,42 @@ export class ModalContentPage3 { //  single QOL
   templateUrl: 'cormobiditiesandriskfactors.html',
 })
 export class ModalContentPage4 { // cormobidities and risks
-
-  private cormobiditiesAndRiskForm : FormGroup;
+  private cormobiditiesAndRiskForm: FormGroup;
   public patient;
   public cormobiditiesandrisks;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     this.cormobiditiesandrisks = navParams.get("cormobiditiesandrisks");
     console.log(this.cormobiditiesandrisks)
 
-    if (this.cormobiditiesandrisks == null){
+    if (this.cormobiditiesandrisks == null) {
 
       this.cormobiditiesAndRiskForm = this.formBuilder.group({
 
         corMobiditiesAndRiskFactors: formBuilder.group({
-          angina     : [ false ],
-          previousMi        : [ false ],
-          previousCardiacSurgery     : [ false ],
-          ckd     : [ false ],
-          dialysisBefore       : [ false ],
-          hypertention      : [ false ],
-          stroke      : [ false ],
-          diabetics      : [ false ],
-          smoking      : [ false ],
-          beetleChewing      : [ false ],
-          dyslipidemia      : [ false ],
-          noCormorbidities      : [ false ],
-            }),
+          angina: [false],
+          previousMi: [false],
+          previousCardiacSurgery: [false],
+          ckd: [false],
+          dialysisBefore: [false],
+          hypertention: [false],
+          stroke: [false],
+          diabetics: [false],
+          smoking: [false],
+          beetleChewing: [false],
+          dyslipidemia: [false],
+          noCormorbidities: [false],
+        }),
         familyHistory: formBuilder.group({
-              cad     : [ false ],
-              cvd        : [ false ],
-              dm     : [ false ],
-              ht     : [ false ],
-              dvt       : [ false ],
-              none      : [ false ]
-            })
+          cad: [false],
+          cvd: [false],
+          dm: [false],
+          ht: [false],
+          dvt: [false],
+          none: [false]
+        })
 
 
       });
@@ -629,27 +620,27 @@ export class ModalContentPage4 { // cormobidities and risks
       this.cormobiditiesAndRiskForm = this.formBuilder.group({
 
         corMobiditiesAndRiskFactors: formBuilder.group({
-          angina     : [ this.cormobiditiesandrisks.angina ],
-          previousMi        : [ this.cormobiditiesandrisks.previousMi ],
-          previousCardiacSurgery     : [ this.cormobiditiesandrisks.previousCardiacSurgery ],
-          ckd     : [ this.cormobiditiesandrisks.ckd ],
-          dialysisBefore       : [ this.cormobiditiesandrisks.dialysisBefore ],
-          hypertention      : [ this.cormobiditiesandrisks.hypertention ],
-          stroke      : [ this.cormobiditiesandrisks.stroke ],
-          diabetics      : [ this.cormobiditiesandrisks.diabetics ],
-          smoking      : [ this.cormobiditiesandrisks.smoking ],
-          beetleChewing      : [ this.cormobiditiesandrisks.beetleChewing ],
-          dyslipidemia      : [ this.cormobiditiesandrisks.dyslipidemia ],
-          noCormorbidities      : [ this.cormobiditiesandrisks.noCormorbidities ],
-            }),
+          angina: [this.cormobiditiesandrisks.angina],
+          previousMi: [this.cormobiditiesandrisks.previousMi],
+          previousCardiacSurgery: [this.cormobiditiesandrisks.previousCardiacSurgery],
+          ckd: [this.cormobiditiesandrisks.ckd],
+          dialysisBefore: [this.cormobiditiesandrisks.dialysisBefore],
+          hypertention: [this.cormobiditiesandrisks.hypertention],
+          stroke: [this.cormobiditiesandrisks.stroke],
+          diabetics: [this.cormobiditiesandrisks.diabetics],
+          smoking: [this.cormobiditiesandrisks.smoking],
+          beetleChewing: [this.cormobiditiesandrisks.beetleChewing],
+          dyslipidemia: [this.cormobiditiesandrisks.dyslipidemia],
+          noCormorbidities: [this.cormobiditiesandrisks.noCormorbidities],
+        }),
         familyHistory: formBuilder.group({
-              cad     : [ this.cormobiditiesandrisks.cad ],
-              cvd        : [ this.cormobiditiesandrisks.cvd ],
-              dm     : [ this.cormobiditiesandrisks.dm ],
-              ht     : [ this.cormobiditiesandrisks.ht ],
-              dvt       : [ this.cormobiditiesandrisks.dvt ],
-              none      : [ this.cormobiditiesandrisks.none ]
-            })
+          cad: [this.cormobiditiesandrisks.cad],
+          cvd: [this.cormobiditiesandrisks.cvd],
+          dm: [this.cormobiditiesandrisks.dm],
+          ht: [this.cormobiditiesandrisks.ht],
+          dvt: [this.cormobiditiesandrisks.dvt],
+          none: [this.cormobiditiesandrisks.none]
+        })
 
 
       });
@@ -659,98 +650,94 @@ export class ModalContentPage4 { // cormobidities and risks
 
   }
 
-  dismiss(){
+  dismiss() {
     // this.saveCormobiditesAndRisks().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
-
-    if(this.cormobiditiesAndRiskForm.dirty){
-      this.saveCormobiditesAndRisks().then(()=>{
+    if (this.cormobiditiesAndRiskForm.dirty) {
+      this.saveCormobiditesAndRisks().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
       this.viewCtrl.dismiss();
     }
-    
+
   }
 
-  async saveCormobiditesAndRisks(){
-    if(this.cormobiditiesandrisks == null){
+  async saveCormobiditesAndRisks() {
+    if (this.cormobiditiesandrisks == null) {
 
-              let cormboRisks = {
-                cormobiditiesandrisksId: UUID(),
+      let cormboRisks = {
+        cormobiditiesandrisksId: UUID(),
 
-                angina     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina ,
-                previousMi        :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi ,
-                previousCardiacSurgery     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery ,
-                ckd     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd ,
-                dialysisBefore       :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore ,
-                hypertention      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention ,
-                stroke      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke ,
-                diabetics      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics ,
-                smoking      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking ,
-                beetleChewing      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing ,
-                dyslipidemia      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia ,
-                noCormorbidities      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities ,
-
-
-                    cad     :  this.cormobiditiesAndRiskForm.value.familyHistory.cad ,
-                    cvd        :  this.cormobiditiesAndRiskForm.value.familyHistory.cvd ,
-                    dm     :  this.cormobiditiesAndRiskForm.value.familyHistory.dm ,
-                    ht     :  this.cormobiditiesAndRiskForm.value.familyHistory.ht ,
-                    dvt       :  this.cormobiditiesAndRiskForm.value.familyHistory.dvt ,
-                    none      :  this.cormobiditiesAndRiskForm.value.familyHistory.none,
+        angina: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina,
+        previousMi: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi,
+        previousCardiacSurgery: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery,
+        ckd: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd,
+        dialysisBefore: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore,
+        hypertention: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention,
+        stroke: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke,
+        diabetics: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics,
+        smoking: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking,
+        beetleChewing: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing,
+        dyslipidemia: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia,
+        noCormorbidities: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities,
 
 
-                timeStamp: new Date().getTime()
+        cad: this.cormobiditiesAndRiskForm.value.familyHistory.cad,
+        cvd: this.cormobiditiesAndRiskForm.value.familyHistory.cvd,
+        dm: this.cormobiditiesAndRiskForm.value.familyHistory.dm,
+        ht: this.cormobiditiesAndRiskForm.value.familyHistory.ht,
+        dvt: this.cormobiditiesAndRiskForm.value.familyHistory.dvt,
+        none: this.cormobiditiesAndRiskForm.value.familyHistory.none,
 
 
-              }
-            this.patient.cormobiditiesandrisks = cormboRisks;
-            this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-');
-            this.sync.invokeSendDataThroughSocket(cormboRisks, '-newCormobiditiesAndRisks-', this.patient.patientId);
-
-          } else {
-
-            let cormboRisks = {
-              cormobiditiesandrisksId: this.cormobiditiesandrisks.cormobiditiesandrisksId,
-              angina     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina ,
-              previousMi        :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi ,
-              previousCardiacSurgery     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery ,
-              ckd     :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd ,
-              dialysisBefore       :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore ,
-              hypertention      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention ,
-              stroke      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke ,
-              diabetics      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics ,
-              smoking      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking ,
-              beetleChewing      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing ,
-              dyslipidemia      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia ,
-              noCormorbidities      :  this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities ,
+        timeStamp: new Date().getTime()
 
 
-                  cad     :  this.cormobiditiesAndRiskForm.value.familyHistory.cad ,
-                  cvd        :  this.cormobiditiesAndRiskForm.value.familyHistory.cvd ,
-                  dm     :  this.cormobiditiesAndRiskForm.value.familyHistory.dm ,
-                  ht     :  this.cormobiditiesAndRiskForm.value.familyHistory.ht ,
-                  dvt       :  this.cormobiditiesAndRiskForm.value.familyHistory.dvt ,
-                  none      :  this.cormobiditiesAndRiskForm.value.familyHistory.none,
+      }
+      this.patient.cormobiditiesandrisks = cormboRisks;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-');
+      this.sync.invokeSendDataThroughSocket(cormboRisks, '-newCormobiditiesAndRisks-', this.patient.patientId);
 
-              timeStamp: new Date().getTime()
+    } else {
+
+      let cormboRisks = {
+        cormobiditiesandrisksId: this.cormobiditiesandrisks.cormobiditiesandrisksId,
+        angina: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina,
+        previousMi: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi,
+        previousCardiacSurgery: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery,
+        ckd: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd,
+        dialysisBefore: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore,
+        hypertention: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention,
+        stroke: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke,
+        diabetics: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics,
+        smoking: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking,
+        beetleChewing: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing,
+        dyslipidemia: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia,
+        noCormorbidities: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities,
 
 
-            }
+        cad: this.cormobiditiesAndRiskForm.value.familyHistory.cad,
+        cvd: this.cormobiditiesAndRiskForm.value.familyHistory.cvd,
+        dm: this.cormobiditiesAndRiskForm.value.familyHistory.dm,
+        ht: this.cormobiditiesAndRiskForm.value.familyHistory.ht,
+        dvt: this.cormobiditiesAndRiskForm.value.familyHistory.dvt,
+        none: this.cormobiditiesAndRiskForm.value.familyHistory.none,
 
-            this.patient.cormobiditiesandrisks = cormboRisks;
-            this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-')
-            this.sync.invokeSendDataThroughSocket(cormboRisks, '-updateCormobiditiesAndRisks-', this.patient.patientId);
+        timeStamp: new Date().getTime()
 
-          }
 
-        }
-  
+      }
 
+      this.patient.cormobiditiesandrisks = cormboRisks;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-')
+      this.sync.invokeSendDataThroughSocket(cormboRisks, '-updateCormobiditiesAndRisks-', this.patient.patientId);
+
+    }
+  }
 }
 
 @Component({
@@ -758,17 +745,17 @@ export class ModalContentPage4 { // cormobidities and risks
 })
 export class ModalContentPage5 { //intervention PCI
 
-  private interventionPciForm : FormGroup;
+  private interventionPciForm: FormGroup;
   public patient;
   public interventionPci;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     this.interventionPci = navParams.get("interventionPci");
     console.log(this.interventionPci);
 
-    if(this.interventionPci === null){
+    if (this.interventionPci === null) {
       this.interventionPciForm = this.formBuilder.group({
 
         dateOfPci: [''],
@@ -783,17 +770,17 @@ export class ModalContentPage5 { //intervention PCI
         sizeOfStentTwo: [''],
         typeOfStentThree: [''],
         sizeOfStentThree: [''],
-       complications: formBuilder.group({
-        noReflow     : [ false ],
-        cva        : [ false ],
-        tamponade     : [ false ],
-        ventilation     : [ false ],
-        pacemaker       : [ false ],
-        cpr      : [ false ],
-        defibrillation       : [ false ],
-        vasopressors       : [ false ],
-        bleeding       : [ false ]
-      }),
+        complications: formBuilder.group({
+          noReflow: [false],
+          cva: [false],
+          tamponade: [false],
+          ventilation: [false],
+          pacemaker: [false],
+          cpr: [false],
+          defibrillation: [false],
+          vasopressors: [false],
+          bleeding: [false]
+        }),
         bleedingSite: [''],
         destinationFollowingPci: ['']
 
@@ -814,17 +801,17 @@ export class ModalContentPage5 { //intervention PCI
         sizeOfStentTwo: [this.interventionPci.sizeOfStentTwo],
         typeOfStentThree: [this.interventionPci.typeOfStentThree],
         sizeOfStentThree: [this.interventionPci.sizeOfStentThree],
-       complications: formBuilder.group({
-        noReflow     : [ this.interventionPci.noReflow ],
-        cva        : [ this.interventionPci.cva ],
-        tamponade     : [ this.interventionPci.tamponade ],
-        ventilation     : [ this.interventionPci.ventilation ],
-        pacemaker       : [ this.interventionPci.pacemaker ],
-        cpr      : [ this.interventionPci.cpr ],
-        defibrillation       : [ this.interventionPci.defibrillation ],
-        vasopressors       : [ this.interventionPci.vasopressors ],
-        bleeding       : [ this.interventionPci.bleeding ]
-      }),
+        complications: formBuilder.group({
+          noReflow: [this.interventionPci.noReflow],
+          cva: [this.interventionPci.cva],
+          tamponade: [this.interventionPci.tamponade],
+          ventilation: [this.interventionPci.ventilation],
+          pacemaker: [this.interventionPci.pacemaker],
+          cpr: [this.interventionPci.cpr],
+          defibrillation: [this.interventionPci.defibrillation],
+          vasopressors: [this.interventionPci.vasopressors],
+          bleeding: [this.interventionPci.bleeding]
+        }),
         bleedingSite: [this.interventionPci.bleedingSite],
         destinationFollowingPci: [this.interventionPci.destinationFollowingPci]
 
@@ -836,12 +823,12 @@ export class ModalContentPage5 { //intervention PCI
 
   }
 
-  dismiss(){
+  dismiss() {
     // this.saveInterventionPci();
     // this.viewCtrl.dismiss();
 
-    if(this.interventionPciForm.dirty){
-      this.saveInterventionPci().then(()=>{
+    if (this.interventionPciForm.dirty) {
+      this.saveInterventionPci().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
@@ -849,40 +836,40 @@ export class ModalContentPage5 { //intervention PCI
     }
   }
 
-  async saveInterventionPci(){
-    if(this.interventionPci === null){
+  async saveInterventionPci() {
+    if (this.interventionPci === null) {
 
-        let interventionPci = {
-          interventionPciId: UUID(),
-          dateOfPci: this.interventionPciForm.value.dateOfPci,
-          timeOfPci: this.interventionPciForm.value.timeOfPci,
-          dateOfCa: this.interventionPciForm.value.dateOfCa,
-          timeOfCa: this.interventionPciForm.value.timeOfCa,
-          coronaryAngiogramFindings: this.interventionPciForm.value.coronaryAngiogramFindings,
-          numberOfStents: this.interventionPciForm.value.numberOfStents,
-          typeOfStentOne: this.interventionPciForm.value.typeOfStentOne,
-          sizeOfStentOne: this.interventionPciForm.value.sizeOfStentOne,
-          typeOfStentTwo: this.interventionPciForm.value.typeOfStentTwo,
-          sizeOfStentTwo: this.interventionPciForm.value.sizeOfStentTwo,
-          typeOfStentThree: this.interventionPciForm.value.typeOfStentThree,
-          sizeOfStentThree: this.interventionPciForm.value.sizeOfStentThree,
+      let interventionPci = {
+        interventionPciId: UUID(),
+        dateOfPci: this.interventionPciForm.value.dateOfPci,
+        timeOfPci: this.interventionPciForm.value.timeOfPci,
+        dateOfCa: this.interventionPciForm.value.dateOfCa,
+        timeOfCa: this.interventionPciForm.value.timeOfCa,
+        coronaryAngiogramFindings: this.interventionPciForm.value.coronaryAngiogramFindings,
+        numberOfStents: this.interventionPciForm.value.numberOfStents,
+        typeOfStentOne: this.interventionPciForm.value.typeOfStentOne,
+        sizeOfStentOne: this.interventionPciForm.value.sizeOfStentOne,
+        typeOfStentTwo: this.interventionPciForm.value.typeOfStentTwo,
+        sizeOfStentTwo: this.interventionPciForm.value.sizeOfStentTwo,
+        typeOfStentThree: this.interventionPciForm.value.typeOfStentThree,
+        sizeOfStentThree: this.interventionPciForm.value.sizeOfStentThree,
 
-          noReflow     : this.interventionPciForm.value.complications.noReflow ,
-          cva        : this.interventionPciForm.value.complications.cva ,
-          tamponade     : this.interventionPciForm.value.complications.tamponade ,
-          ventilation     : this.interventionPciForm.value.complications.ventilation ,
-          pacemaker       : this.interventionPciForm.value.complications.pacemaker ,
-          cpr      : this.interventionPciForm.value.complications.cpr ,
-          defibrillation       : this.interventionPciForm.value.complications.defibrillation ,
-          vasopressors       : this.interventionPciForm.value.complications.vasopressors ,
-          bleeding       :  this.interventionPciForm.value.complications.bleeding ,
+        noReflow: this.interventionPciForm.value.complications.noReflow,
+        cva: this.interventionPciForm.value.complications.cva,
+        tamponade: this.interventionPciForm.value.complications.tamponade,
+        ventilation: this.interventionPciForm.value.complications.ventilation,
+        pacemaker: this.interventionPciForm.value.complications.pacemaker,
+        cpr: this.interventionPciForm.value.complications.cpr,
+        defibrillation: this.interventionPciForm.value.complications.defibrillation,
+        vasopressors: this.interventionPciForm.value.complications.vasopressors,
+        bleeding: this.interventionPciForm.value.complications.bleeding,
 
-          bleedingSite: this.interventionPciForm.value.bleedingSite,
-          destinationFollowingPci: this.interventionPciForm.value.destinationFollowingPci,
-          timeStamp: new Date().getTime()
+        bleedingSite: this.interventionPciForm.value.bleedingSite,
+        destinationFollowingPci: this.interventionPciForm.value.destinationFollowingPci,
+        timeStamp: new Date().getTime()
 
 
-        }
+      }
       this.patient.interventionpci = interventionPci;
       this.patient.timeStamp = new Date().getTime();
       this.data.updatePatient(this.patient, '-newInterventionPci-');
@@ -905,15 +892,15 @@ export class ModalContentPage5 { //intervention PCI
         typeOfStentThree: this.interventionPciForm.value.typeOfStentThree,
         sizeOfStentThree: this.interventionPciForm.value.sizeOfStentThree,
 
-        noReflow     : this.interventionPciForm.value.complications.noReflow ,
-        cva        : this.interventionPciForm.value.complications.cva ,
-        tamponade     : this.interventionPciForm.value.complications.tamponade ,
-        ventilation     : this.interventionPciForm.value.complications.ventilation ,
-        pacemaker       : this.interventionPciForm.value.complications.pacemaker ,
-        cpr      : this.interventionPciForm.value.complications.cpr ,
-        defibrillation       : this.interventionPciForm.value.complications.defibrillation ,
-        vasopressors       : this.interventionPciForm.value.complications.vasopressors ,
-        bleeding       :  this.interventionPciForm.value.complications.bleeding ,
+        noReflow: this.interventionPciForm.value.complications.noReflow,
+        cva: this.interventionPciForm.value.complications.cva,
+        tamponade: this.interventionPciForm.value.complications.tamponade,
+        ventilation: this.interventionPciForm.value.complications.ventilation,
+        pacemaker: this.interventionPciForm.value.complications.pacemaker,
+        cpr: this.interventionPciForm.value.complications.cpr,
+        defibrillation: this.interventionPciForm.value.complications.defibrillation,
+        vasopressors: this.interventionPciForm.value.complications.vasopressors,
+        bleeding: this.interventionPciForm.value.complications.bleeding,
 
         bleedingSite: this.interventionPciForm.value.bleedingSite,
         destinationFollowingPci: this.interventionPciForm.value.destinationFollowingPci,
@@ -938,35 +925,35 @@ export class ModalContentPage5 { //intervention PCI
 })
 export class ModalContentPage6 { // thrombolysis
 
-  private thrombolysisForm : FormGroup;
+  private thrombolysisForm: FormGroup;
   public patient;
   public thrombolysis;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     this.thrombolysis = navParams.get("thrombolysis");
 
-    if (this.thrombolysis == null){
+    if (this.thrombolysis == null) {
       this.thrombolysisForm = this.formBuilder.group({
 
         dateOfthrombolysis: [''],
         timeOfthrombolysis: [''],
         drugs: formBuilder.group({
-          streptokinase     : [ false ],
-          rTpa        : [ false ]
+          streptokinase: [false],
+          rTpa: [false]
         }),
         ecgChanges: [''],
         complications: formBuilder.group({
-        noReflow     : [ false ],
-        cva        : [ false ],
-        tamponade     : [ false ],
-        ventilation     : [ false ],
-        pacemaker       : [ false ],
-        cpr      : [ false ],
-        defibrillation       : [ false ],
-        vasopressors       : [ false ],
-        bleeding       : [ false ]
+          noReflow: [false],
+          cva: [false],
+          tamponade: [false],
+          ventilation: [false],
+          pacemaker: [false],
+          cpr: [false],
+          defibrillation: [false],
+          vasopressors: [false],
+          bleeding: [false]
         }),
         bleedingType: ['']
 
@@ -977,37 +964,37 @@ export class ModalContentPage6 { // thrombolysis
         dateOfthrombolysis: [this.thrombolysis.dateOfthrombolysis],
         timeOfthrombolysis: [this.thrombolysis.timeOfthrombolysis],
         drugs: formBuilder.group({
-          streptokinase     : [ this.thrombolysis.streptokinase ],
-          rTpa        : [ this.thrombolysis.rTpa ]
+          streptokinase: [this.thrombolysis.streptokinase],
+          rTpa: [this.thrombolysis.rTpa]
         }),
         ecgChanges: [this.thrombolysis.ecgChanges],
         complications: formBuilder.group({
-        noReflow     : [ this.thrombolysis.noReflow ],
-        cva        : [ this.thrombolysis.cva ],
-        tamponade     : [ this.thrombolysis.tamponade ],
-        ventilation     : [ this.thrombolysis.ventilation ],
-        pacemaker       : [ this.thrombolysis.pacemaker ],
-        cpr      : [ this.thrombolysis.cpr ],
-        defibrillation       : [ this.thrombolysis.defibrillation ],
-        vasopressors       : [ this.thrombolysis.vasopressors ],
-        bleeding       : [ this.thrombolysis.bleeding ]
+          noReflow: [this.thrombolysis.noReflow],
+          cva: [this.thrombolysis.cva],
+          tamponade: [this.thrombolysis.tamponade],
+          ventilation: [this.thrombolysis.ventilation],
+          pacemaker: [this.thrombolysis.pacemaker],
+          cpr: [this.thrombolysis.cpr],
+          defibrillation: [this.thrombolysis.defibrillation],
+          vasopressors: [this.thrombolysis.vasopressors],
+          bleeding: [this.thrombolysis.bleeding]
         }),
         bleedingType: [this.thrombolysis.bleedingType]
-    })
+      })
+
+    }
+
+
 
   }
 
-
-
-  }
-
-  dismiss(){
+  dismiss() {
     // this.saveThrombolysis().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
 
-    if(this.thrombolysisForm.dirty){
-      this.saveThrombolysis().then(()=>{
+    if (this.thrombolysisForm.dirty) {
+      this.saveThrombolysis().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
@@ -1016,66 +1003,66 @@ export class ModalContentPage6 { // thrombolysis
 
   }
 
-  async saveThrombolysis(){
-    if(this.thrombolysis === null){
+  async saveThrombolysis() {
+    if (this.thrombolysis === null) {
 
-              let thrombo = {
-                thrombolysisId: UUID(),
-                dateOfthrombolysis: this.thrombolysisForm.value.dateOfthrombolysis,
-                timeOfthrombolysis: this.thrombolysisForm.value.timeOfthrombolysis,
-                streptokinase     :  this.thrombolysisForm.value.drugs.streptokinase ,
-                rTpa        : this.thrombolysisForm.value.drugs.rTpa,
-                ecgChanges: this.thrombolysisForm.value.ecgChanges,
-                noReflow     :  this.thrombolysisForm.value.complications.noReflow ,
-                cva        :  this.thrombolysisForm.value.complications.cva ,
-                tamponade     :  this.thrombolysisForm.value.complications.tamponade ,
-                ventilation     :  this.thrombolysisForm.value.complications.ventilation ,
-                pacemaker       :  this.thrombolysisForm.value.complications.pacemaker ,
-                cpr      :  this.thrombolysisForm.value.complications.cpr ,
-                defibrillation       :  this.thrombolysisForm.value.complications.defibrillation ,
-                vasopressors       :  this.thrombolysisForm.value.complications.vasopressors ,
-                bleeding       :  this.thrombolysisForm.value.complications.bleeding,
-                bleedingType: this.thrombolysisForm.value.bleedingType,
-                timeStamp: new Date().getTime()
-
-
-              }
-            this.patient.thrombolysis = thrombo;
-            this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newThrombolysis-');
-            this.sync.invokeSendDataThroughSocket(thrombo, '-newThrombolysis-', this.patient.patientId);
-
-          } else {
-
-            let thrombo = {
-              thrombolysisId: this.thrombolysis.thrombolysisId,
-              dateOfthrombolysis: this.thrombolysisForm.value.dateOfthrombolysis,
-              timeOfthrombolysis: this.thrombolysisForm.value.timeOfthrombolysis,
-              streptokinase     :  this.thrombolysisForm.value.drugs.streptokinase ,
-              rTpa        : this.thrombolysisForm.value.drugs.rTpa,
-              ecgChanges: this.thrombolysisForm.value.ecgChanges,
-              noReflow     :  this.thrombolysisForm.value.complications.noReflow ,
-              cva        :  this.thrombolysisForm.value.complications.cva ,
-              tamponade     :  this.thrombolysisForm.value.complications.tamponade ,
-              ventilation     :  this.thrombolysisForm.value.complications.ventilation ,
-              pacemaker       :  this.thrombolysisForm.value.complications.pacemaker ,
-              cpr      :  this.thrombolysisForm.value.complications.cpr ,
-              defibrillation       :  this.thrombolysisForm.value.complications.defibrillation ,
-              vasopressors       :  this.thrombolysisForm.value.complications.vasopressors ,
-              bleeding       :  this.thrombolysisForm.value.complications.bleeding,
-              bleedingType: this.thrombolysisForm.value.bleedingType,
-              timeStamp: new Date().getTime()
+      let thrombo = {
+        thrombolysisId: UUID(),
+        dateOfthrombolysis: this.thrombolysisForm.value.dateOfthrombolysis,
+        timeOfthrombolysis: this.thrombolysisForm.value.timeOfthrombolysis,
+        streptokinase: this.thrombolysisForm.value.drugs.streptokinase,
+        rTpa: this.thrombolysisForm.value.drugs.rTpa,
+        ecgChanges: this.thrombolysisForm.value.ecgChanges,
+        noReflow: this.thrombolysisForm.value.complications.noReflow,
+        cva: this.thrombolysisForm.value.complications.cva,
+        tamponade: this.thrombolysisForm.value.complications.tamponade,
+        ventilation: this.thrombolysisForm.value.complications.ventilation,
+        pacemaker: this.thrombolysisForm.value.complications.pacemaker,
+        cpr: this.thrombolysisForm.value.complications.cpr,
+        defibrillation: this.thrombolysisForm.value.complications.defibrillation,
+        vasopressors: this.thrombolysisForm.value.complications.vasopressors,
+        bleeding: this.thrombolysisForm.value.complications.bleeding,
+        bleedingType: this.thrombolysisForm.value.bleedingType,
+        timeStamp: new Date().getTime()
 
 
-            }
+      }
+      this.patient.thrombolysis = thrombo;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newThrombolysis-');
+      this.sync.invokeSendDataThroughSocket(thrombo, '-newThrombolysis-', this.patient.patientId);
 
-            this.patient.thrombolysis = thrombo;
-            this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newThrombolysis-');
-            this.sync.invokeSendDataThroughSocket(thrombo, '-updateThrombolysis-', this.patient.patientId);
-            
+    } else {
 
-          }
+      let thrombo = {
+        thrombolysisId: this.thrombolysis.thrombolysisId,
+        dateOfthrombolysis: this.thrombolysisForm.value.dateOfthrombolysis,
+        timeOfthrombolysis: this.thrombolysisForm.value.timeOfthrombolysis,
+        streptokinase: this.thrombolysisForm.value.drugs.streptokinase,
+        rTpa: this.thrombolysisForm.value.drugs.rTpa,
+        ecgChanges: this.thrombolysisForm.value.ecgChanges,
+        noReflow: this.thrombolysisForm.value.complications.noReflow,
+        cva: this.thrombolysisForm.value.complications.cva,
+        tamponade: this.thrombolysisForm.value.complications.tamponade,
+        ventilation: this.thrombolysisForm.value.complications.ventilation,
+        pacemaker: this.thrombolysisForm.value.complications.pacemaker,
+        cpr: this.thrombolysisForm.value.complications.cpr,
+        defibrillation: this.thrombolysisForm.value.complications.defibrillation,
+        vasopressors: this.thrombolysisForm.value.complications.vasopressors,
+        bleeding: this.thrombolysisForm.value.complications.bleeding,
+        bleedingType: this.thrombolysisForm.value.bleedingType,
+        timeStamp: new Date().getTime()
+
+
+      }
+
+      this.patient.thrombolysis = thrombo;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newThrombolysis-');
+      this.sync.invokeSendDataThroughSocket(thrombo, '-updateThrombolysis-', this.patient.patientId);
+
+
+    }
   }
 
 }
@@ -1085,10 +1072,10 @@ export class ModalContentPage6 { // thrombolysis
 })
 export class ModalContentPage7 { // Discharge
 
-  private dischargeForm : FormGroup;
+  private dischargeForm: FormGroup;
   public patient;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public navCtrl: NavController, public event: Events, public sync : SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public navCtrl: NavController, public event: Events, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     console.log('discharge', this.patient)
@@ -1103,77 +1090,77 @@ export class ModalContentPage7 { // Discharge
       // vasopressorsGiven: [''],
       lastReportedTropanin: [''],
       drugsOnDischarge: formBuilder.group({
-        aspirin     : [ false ],
-        clopidogrel        : [ false ],
-        prasugrel     : [ false ],
-        ticagrelor     : [ false ],
-        unfractionatedHeparin       : [ false ],
-        lowMolecularWeightHeparin      : [ false ],
-        glycoproteinIIbInhibitors     : [ false ],
-        glycoproteinIIIbInhibitors      : [ false ],
-        bivalirudin      : [ false ],
-        fondaparinux      : [ false ],
-        warfarin      : [ false ],
-        none      : [ false ]
-     }),
-     patientExperience: formBuilder.group({
-      cpr     : [ false ],
-      defibrillation        : [ false ],
-      stentThrombosis     : [ false ],
-      unplannedCriticalCareAdmission     : [ false ],
-      vasopressors       : [ false ],
-      none      : [ false ]
-   })
+        aspirin: [false],
+        clopidogrel: [false],
+        prasugrel: [false],
+        ticagrelor: [false],
+        unfractionatedHeparin: [false],
+        lowMolecularWeightHeparin: [false],
+        glycoproteinIIbInhibitors: [false],
+        glycoproteinIIIbInhibitors: [false],
+        bivalirudin: [false],
+        fondaparinux: [false],
+        warfarin: [false],
+        none: [false]
+      }),
+      patientExperience: formBuilder.group({
+        cpr: [false],
+        defibrillation: [false],
+        stentThrombosis: [false],
+        unplannedCriticalCareAdmission: [false],
+        vasopressors: [false],
+        none: [false]
+      })
 
     });
 
   }
 
-  dismiss(){
-    if(this.dischargeForm.dirty){
-      this.saveDischarge().then(()=>{
+  dismiss() {
+    if (this.dischargeForm.dirty) {
+      this.saveDischarge().then(() => {
         // this.navCtrl.setRoot(HomePage)
         // this.navCtrl.popToRoot()
-        this.viewCtrl.dismiss().then(()=>{
-          this.event.publish('-discharge-', {data:'patient discharged'})
+        this.viewCtrl.dismiss().then(() => {
+          this.event.publish('-discharge-', { data: 'patient discharged' })
           // this.navCtrl.setRoot(HomePage)
           // this.navCtrl.pop()
-          
-              });
+
+        });
       })
     } else {
       this.viewCtrl.dismiss()
     }
-    
-    
+
+
   }
 
-  async saveDischarge(){
+  async saveDischarge() {
     let dischargeData = {
-      disId : UUID(),
-      dischargeDate : this.dischargeForm.value.dischargeDate,
-      dischargeTime : this.dischargeForm.value.dischargeTime,
-      survivalStatus : this.dischargeForm.value.survivalStatus,
-      dischargeDestination : this.dischargeForm.value.dischargeDestination,
-      lastReportedTropanin : this.dischargeForm.value.lastReportedTropanin,
-      aspirin : this.dischargeForm.value.drugsOnDischarge.aspirin,
-      clopidogrel        : this.dischargeForm.value.drugsOnDischarge.clopidogrel,
-      prasugrel     : this.dischargeForm.value.drugsOnDischarge.prasugrel,
-      ticagrelor     : this.dischargeForm.value.drugsOnDischarge.ticagrelor,
-      unfractionatedHeparin       : this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
-      lowMolecularWeightHeparin      : this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
-      glycoproteinIIbInhibitors     : this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
-      glycoproteinIIIbInhibitors      : this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
-      bivalirudin      : this.dischargeForm.value.drugsOnDischarge.bivalirudin,
-      fondaparinux      : this.dischargeForm.value.drugsOnDischarge.fondaparinux,
-      warfarin      : this.dischargeForm.value.drugsOnDischarge.warfarin,
-      none1      : this.dischargeForm.value.drugsOnDischarge.none,
-      cpr     : this.dischargeForm.value.patientExperience.cpr,
-      defibrillation        : this.dischargeForm.value.patientExperience.defibrillation,
-      stentThrombosis     : this.dischargeForm.value.patientExperience.stentThrombosis,
-      unplannedCriticalCareAdmission     : this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
-      vasopressors       : this.dischargeForm.value.patientExperience.vasopressors,
-      none2      : this.dischargeForm.value.patientExperience.none,
+      disId: UUID(),
+      dischargeDate: this.dischargeForm.value.dischargeDate,
+      dischargeTime: this.dischargeForm.value.dischargeTime,
+      survivalStatus: this.dischargeForm.value.survivalStatus,
+      dischargeDestination: this.dischargeForm.value.dischargeDestination,
+      lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
+      aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
+      clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
+      prasugrel: this.dischargeForm.value.drugsOnDischarge.prasugrel,
+      ticagrelor: this.dischargeForm.value.drugsOnDischarge.ticagrelor,
+      unfractionatedHeparin: this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
+      lowMolecularWeightHeparin: this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
+      glycoproteinIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
+      glycoproteinIIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
+      bivalirudin: this.dischargeForm.value.drugsOnDischarge.bivalirudin,
+      fondaparinux: this.dischargeForm.value.drugsOnDischarge.fondaparinux,
+      warfarin: this.dischargeForm.value.drugsOnDischarge.warfarin,
+      none1: this.dischargeForm.value.drugsOnDischarge.none,
+      cpr: this.dischargeForm.value.patientExperience.cpr,
+      defibrillation: this.dischargeForm.value.patientExperience.defibrillation,
+      stentThrombosis: this.dischargeForm.value.patientExperience.stentThrombosis,
+      unplannedCriticalCareAdmission: this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
+      vasopressors: this.dischargeForm.value.patientExperience.vasopressors,
+      none2: this.dischargeForm.value.patientExperience.none,
 
 
       timeStamp: new Date().getTime()
@@ -1189,18 +1176,18 @@ export class ModalContentPage7 { // Discharge
 })
 export class ModalContentPage8 { // single observation
 
-  private observationForm : FormGroup;
+  private observationForm: FormGroup;
   public patient;
   public ob;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider ) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
 
     this.patient = navParams.get("patient");
     this.ob = navParams.get("ob");
     console.log('patient inside the observation modal ', this.patient)
     console.log('ob inside the observation modal ', this.ob)
 
-    if(this.ob === null){
+    if (this.ob === null) {
       this.observationForm = this.formBuilder.group({
         obsDate: [''],
         obsTime: [''],
@@ -1258,13 +1245,13 @@ export class ModalContentPage8 { // single observation
 
   }
 
-  dismiss(){
+  dismiss() {
     // this.saveObservation().then(()=>{
     //   this.viewCtrl.dismiss();
     // });
 
-    if(this.observationForm.dirty){
-      this.saveObservation().then(()=>{
+    if (this.observationForm.dirty) {
+      this.saveObservation().then(() => {
         this.viewCtrl.dismiss();
       })
     } else {
@@ -1273,37 +1260,37 @@ export class ModalContentPage8 { // single observation
 
   }
 
-  async saveObservation(){
+  async saveObservation() {
 
-    if ( !this.patient.observations  && this.ob === null){
+    if (!this.patient.observations && this.ob === null) {
       console.log('adding first observation');
-      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T'+this.observationForm.value.obsTime));
+      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T' + this.observationForm.value.obsTime));
       // console.log(Date.parse(obsTimeStamp));
       let observation = {
-        obsId : UUID(),
-        obsDate : this.observationForm.value.obsDate,
-        obsTime : this.observationForm.value.obsTime,
-        obsTimeStamp : obsTimeStamp,
-        respiratoryRate : this.observationForm.value.respiratoryRate,
-        heartRate :this.observationForm.value.heartRate,
-        temperature : this.observationForm.value.temperature,
-        bed : this.observationForm.value.bed,
-        sbp : this.observationForm.value.sbp,
-        dbp : this.observationForm.value.dbp,
-        saturation : this.observationForm.value.saturation,
-        urineOutput : this.observationForm.value.urineOutput,
-        fluidInput : this.observationForm.value.fluidInput,
-        urineOutputDuration : this.observationForm.value.urineOutputDuration,
-        eye : this.observationForm.value.eye,
-        verbal : this.observationForm.value.verbal,
-        motor : this.observationForm.value.motor,
-        pain : this.observationForm.value.pain,
-        wbc : this.observationForm.value.wbc,
-        hemoglobin : this.observationForm.value.hemoglobin,
-        pcv : this.observationForm.value.pcv,
-        crft : this.observationForm.value.crft,
-        sugar : this.observationForm.value.sugar,
-        platelets : this.observationForm.value.platelets,
+        obsId: UUID(),
+        obsDate: this.observationForm.value.obsDate,
+        obsTime: this.observationForm.value.obsTime,
+        obsTimeStamp: obsTimeStamp,
+        respiratoryRate: this.observationForm.value.respiratoryRate,
+        heartRate: this.observationForm.value.heartRate,
+        temperature: this.observationForm.value.temperature,
+        bed: this.observationForm.value.bed,
+        sbp: this.observationForm.value.sbp,
+        dbp: this.observationForm.value.dbp,
+        saturation: this.observationForm.value.saturation,
+        urineOutput: this.observationForm.value.urineOutput,
+        fluidInput: this.observationForm.value.fluidInput,
+        urineOutputDuration: this.observationForm.value.urineOutputDuration,
+        eye: this.observationForm.value.eye,
+        verbal: this.observationForm.value.verbal,
+        motor: this.observationForm.value.motor,
+        pain: this.observationForm.value.pain,
+        wbc: this.observationForm.value.wbc,
+        hemoglobin: this.observationForm.value.hemoglobin,
+        pcv: this.observationForm.value.pcv,
+        crft: this.observationForm.value.crft,
+        sugar: this.observationForm.value.sugar,
+        platelets: this.observationForm.value.platelets,
         timeStamp: new Date().getTime()
       }
       let obsArray = [];
@@ -1312,40 +1299,40 @@ export class ModalContentPage8 { // single observation
       this.patient.timeStamp = new Date().getTime();
       this.data.updatePatient(this.patient, '-newObservation-');
 
-      
+
 
       this.sync.invokeSendDataThroughSocket(observation, '-newObservation-', this.patient.patientId)
 
     }
 
-    else if( this.patient.observations.length > 0 && this.ob === null){
+    else if (this.patient.observations.length > 0 && this.ob === null) {
       console.log('adding another observation')
-      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T'+this.observationForm.value.obsTime));
+      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T' + this.observationForm.value.obsTime));
       let observation = {
-        obsId : UUID(),
-        obsDate : this.observationForm.value.obsDate,
-        obsTime : this.observationForm.value.obsTime,
-        obsTimeStamp : obsTimeStamp,
-        respiratoryRate : this.observationForm.value.respiratoryRate,
-        heartRate :this.observationForm.value.heartRate,
-        temperature : this.observationForm.value.temperature,
-        bed : this.observationForm.value.bed,
-        sbp : this.observationForm.value.sbp,
-        dbp : this.observationForm.value.dbp,
-        saturation : this.observationForm.value.saturation,
-        urineOutput : this.observationForm.value.urineOutput,
-        fluidInput : this.observationForm.value.fluidInput,
-        urineOutputDuration : this.observationForm.value.urineOutputDuration,
-        eye : this.observationForm.value.eye,
-        verbal : this.observationForm.value.verbal,
-        motor : this.observationForm.value.motor,
-        pain : this.observationForm.value.pain,
-        wbc : this.observationForm.value.wbc,
-        hemoglobin : this.observationForm.value.hemoglobin,
-        pcv : this.observationForm.value.pcv,
-        crft : this.observationForm.value.crft,
-        sugar : this.observationForm.value.sugar,
-        platelets : this.observationForm.value.platelets,
+        obsId: UUID(),
+        obsDate: this.observationForm.value.obsDate,
+        obsTime: this.observationForm.value.obsTime,
+        obsTimeStamp: obsTimeStamp,
+        respiratoryRate: this.observationForm.value.respiratoryRate,
+        heartRate: this.observationForm.value.heartRate,
+        temperature: this.observationForm.value.temperature,
+        bed: this.observationForm.value.bed,
+        sbp: this.observationForm.value.sbp,
+        dbp: this.observationForm.value.dbp,
+        saturation: this.observationForm.value.saturation,
+        urineOutput: this.observationForm.value.urineOutput,
+        fluidInput: this.observationForm.value.fluidInput,
+        urineOutputDuration: this.observationForm.value.urineOutputDuration,
+        eye: this.observationForm.value.eye,
+        verbal: this.observationForm.value.verbal,
+        motor: this.observationForm.value.motor,
+        pain: this.observationForm.value.pain,
+        wbc: this.observationForm.value.wbc,
+        hemoglobin: this.observationForm.value.hemoglobin,
+        pcv: this.observationForm.value.pcv,
+        crft: this.observationForm.value.crft,
+        sugar: this.observationForm.value.sugar,
+        platelets: this.observationForm.value.platelets,
         timeStamp: new Date().getTime()
       }
 
@@ -1357,33 +1344,33 @@ export class ModalContentPage8 { // single observation
     else {
 
       console.log('editing observation')
-      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T'+this.observationForm.value.obsTime));
+      let obsTimeStamp = Date.parse((this.observationForm.value.obsDate + 'T' + this.observationForm.value.obsTime));
 
       let observation = {
-        obsId : this.ob.obsId,
-        obsDate : this.observationForm.value.obsDate,
-        obsTime : this.observationForm.value.obsTime,
-        obsTimeStamp : obsTimeStamp,
-        respiratoryRate : this.observationForm.value.respiratoryRate,
-        heartRate :this.observationForm.value.heartRate,
-        temperature : this.observationForm.value.temperature,
-        bed : this.observationForm.value.bed,
-        sbp : this.observationForm.value.sbp,
-        dbp : this.observationForm.value.dbp,
-        saturation : this.observationForm.value.saturation,
-        urineOutput : this.observationForm.value.urineOutput,
-        fluidInput : this.observationForm.value.fluidInput,
-        urineOutputDuration : this.observationForm.value.urineOutputDuration,
-        eye : this.observationForm.value.eye,
-        verbal : this.observationForm.value.verbal,
-        motor : this.observationForm.value.motor,
-        pain : this.observationForm.value.pain,
-        wbc : this.observationForm.value.wbc,
-        hemoglobin : this.observationForm.value.hemoglobin,
-        pcv : this.observationForm.value.pcv,
-        crft : this.observationForm.value.crft,
-        sugar : this.observationForm.value.sugar,
-        platelets : this.observationForm.value.platelets,
+        obsId: this.ob.obsId,
+        obsDate: this.observationForm.value.obsDate,
+        obsTime: this.observationForm.value.obsTime,
+        obsTimeStamp: obsTimeStamp,
+        respiratoryRate: this.observationForm.value.respiratoryRate,
+        heartRate: this.observationForm.value.heartRate,
+        temperature: this.observationForm.value.temperature,
+        bed: this.observationForm.value.bed,
+        sbp: this.observationForm.value.sbp,
+        dbp: this.observationForm.value.dbp,
+        saturation: this.observationForm.value.saturation,
+        urineOutput: this.observationForm.value.urineOutput,
+        fluidInput: this.observationForm.value.fluidInput,
+        urineOutputDuration: this.observationForm.value.urineOutputDuration,
+        eye: this.observationForm.value.eye,
+        verbal: this.observationForm.value.verbal,
+        motor: this.observationForm.value.motor,
+        pain: this.observationForm.value.pain,
+        wbc: this.observationForm.value.wbc,
+        hemoglobin: this.observationForm.value.hemoglobin,
+        pcv: this.observationForm.value.pcv,
+        crft: this.observationForm.value.crft,
+        sugar: this.observationForm.value.sugar,
+        platelets: this.observationForm.value.platelets,
         timeStamp: new Date().getTime()
       }
 
@@ -1391,7 +1378,7 @@ export class ModalContentPage8 { // single observation
 
       this.patient.observations.forEach((element, index) => {
 
-        if (element.obsId == this.ob.obsId){
+        if (element.obsId == this.ob.obsId) {
           filteredIndex = index;
           // console.log('save called for edit obs', element)
           // element = observation;
@@ -1424,10 +1411,10 @@ export class ModalContentPage8 { // single observation
 })
 export class ModalContentPage9 { // observation list
 
-  private observationForm : FormGroup;
+  private observationForm: FormGroup;
   public patient;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider ) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
     this.patient = navParams.get("patient");
     console.log('patient inside the observation list modal ', this.patient)
 
@@ -1463,7 +1450,7 @@ export class ModalContentPage9 { // observation list
     this.sortObservations();
   }
 
-  sortObservations(){
+  sortObservations() {
     if (this.patient.observations) {
       this.patient.observations.sort((a: any, b: any) => {
         if (a.obsTimeStamp < b.obsTimeStamp) {
@@ -1477,18 +1464,18 @@ export class ModalContentPage9 { // observation list
     }
   }
 
-  dismiss(){
+  dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  addObservation(){
-    let obs = {patient: this.patient, ob: null};
+  addObservation() {
+    let obs = { patient: this.patient, ob: null };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
     modal.present();
   }
 
-  editObservation(observation){
-    let obs = {patient: this.patient, ob: observation};
+  editObservation(observation) {
+    let obs = { patient: this.patient, ob: observation };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
     modal.present();
   }
@@ -1499,10 +1486,10 @@ export class ModalContentPage9 { // observation list
 })
 export class ModalContentPage10 { // QOL list
 
-  
+
   public patient;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider ) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
     this.patient = navParams.get("patient");
     console.log('patient inside the qol list modal ', this.patient)
 
@@ -1514,7 +1501,7 @@ export class ModalContentPage10 { // QOL list
     this.sortQol();
   }
 
-  sortQol(){
+  sortQol() {
     if (this.patient.qol) {
       this.patient.qol.sort((a: any, b: any) => {
         if (a.qolTimeStamp < b.qolTimeStamp) {
@@ -1528,18 +1515,18 @@ export class ModalContentPage10 { // QOL list
     }
   }
 
-  dismiss(){
+  dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  addQol(){
-    let qol = {patient: this.patient, qol: null};
+  addQol() {
+    let qol = { patient: this.patient, qol: null };
     let modal = this.modalCtrl.create(ModalContentPage3, qol);
     modal.present();
   }
 
-  editQol(qol){
-    let data = {patient: this.patient, qol: qol};
+  editQol(qol) {
+    let data = { patient: this.patient, qol: qol };
     let modal = this.modalCtrl.create(ModalContentPage3, data);
     modal.present();
   }
@@ -1547,33 +1534,33 @@ export class ModalContentPage10 { // QOL list
 
 
 @Component({
-  templateUrl: 'investigationlist.html',
+  templateUrl: 'intraOplist.html',
 })
-export class ModalContentPage11 { // Investigation list
+export class ModalContentPage11 { // intraOp list
 
-  
+
   public patient;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider ) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
     this.patient = navParams.get("patient")
-    console.log('patient inside the investigation list modal ', this.patient)
-    
+    console.log('patient inside the intraOp list modal ', this.patient)
+
   }
 
   ionViewDidLoad() {
-    this.sortInvestigations();
+    this.sortintraOp();
   }
 
-  dismiss(){
+  dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  sortInvestigations(){
-    if (this.patient.investigations) {
-      this.patient.investigations.sort((a: any, b: any) => {
-        if (a.investigationTimeStamp < b.investigationTimeStamp) {
+  sortintraOp() {
+    if (this.patient.intraOp) {
+      this.patient.intraOp.sort((a: any, b: any) => {
+        if (a.intraOpTimeStamp < b.intraOpTimeStamp) {
           return -1;
-        } else if (a.investigationTimeStamp > b.investigationTimeStamp) {
+        } else if (a.intraOpTimeStamp > b.intraOpTimeStamp) {
           return 1;
         } else {
           return 0;
@@ -1582,14 +1569,14 @@ export class ModalContentPage11 { // Investigation list
     }
   }
 
-  addInvestigation(){
-    let investigation = {patient: this.patient, investigation: null};
-    let modal = this.modalCtrl.create(ModalContentPage2, investigation);
+  addintraOp() {
+    let intraOp = { patient: this.patient, intraOp: null };
+    let modal = this.modalCtrl.create(ModalContentPage2, intraOp);
     modal.present();
   }
 
-  editInvestigation(investigation){
-    let data = {patient: this.patient, investigation: investigation};
+  editintraOp(intraOp) {
+    let data = { patient: this.patient, intraOp: intraOp };
     let modal = this.modalCtrl.create(ModalContentPage2, data);
     modal.present();
   }
