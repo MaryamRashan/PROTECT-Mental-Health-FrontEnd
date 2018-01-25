@@ -65,7 +65,7 @@
     
 
     
-                 <ion-label stacked>UrineOutput</ion-label>
+                 <ion-label stacked>Urine Output</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="urineOutput"></ion-input>
@@ -75,7 +75,7 @@
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="urineOutputDuration"></ion-input> -->
-                   <ion-select formControlName="eye" interface="popover">
+                   <ion-select formControlName="eye" interface="action-sheet">
                                         
                       <ion-option >1</ion-option>                                  
                       <ion-option >2</ion-option>
@@ -115,7 +115,7 @@
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="eye"></ion-input> -->
-                   <ion-select formControlName="eye" interface="popover">
+                   <ion-select formControlName="eye" interface="action-sheet">
                                         
                         <ion-option >No eye opening</ion-option>                                  
                         <ion-option >Eye opening in response to pain</ion-option>
@@ -129,7 +129,7 @@
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="verbal"></ion-input> -->
-                   <ion-select formControlName="verbal" interface="popover">
+                   <ion-select formControlName="verbal" interface="action-sheet">
                                         
                       <ion-option >None</ion-option>                                  
                       <ion-option >Incomprehensible sounds</ion-option>
@@ -144,14 +144,14 @@
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="motor"></ion-input> -->
-                   <ion-select formControlName="motor" interface="popover">
+                   <ion-select formControlName="motor" interface="action-sheet">
                                         
-                      <ion-option >No Motor response</ion-option>                                  
-                      <ion-option >Extension to Pain</ion-option>
-                      <ion-option >Flexion in response to pain</ion-option>
-                      <ion-option >Withdraws from Pain</ion-option>
-                      <ion-option >Localizes to Pain</ion-option>
-                      <ion-option >Obeys Commands</ion-option>
+                      <ion-option style="font-size: 30px !important;">No Motor response</ion-option>                                  
+                      <ion-option class="item-text-wrap">Extension to Pain</ion-option>
+                      <ion-option>Flexion in response to pain</ion-option>
+                      <ion-option>Withdraws from Pain</ion-option>
+                      <ion-option>Localizes to Pain</ion-option>
+                      <ion-option>Obeys Commands</ion-option>
                       
 
                   </ion-select>
@@ -161,7 +161,7 @@
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="pain"></ion-input> -->
-                   <ion-select formControlName="pain" interface="popover">
+                   <ion-select formControlName="pain" interface="action-sheet">
                                         
                       <ion-option >None</ion-option>                                  
                       <ion-option >Mild</ion-option>
@@ -189,37 +189,37 @@
                    <ion-input type="text" formControlName="crft"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>hemoglobin</ion-label>
+                 <ion-label stacked>Haemoglobin</ion-label>
                  <ion-item>
                    
-                   <ion-input type="text" formControlName="hemoglobin"></ion-input>
+                   <ion-input type="text" formControlName="haemoglobin"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>sugar</ion-label>
+                 <ion-label stacked>Sugar</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="sugar"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>platelets</ion-label>
+                 <ion-label stacked>Platelets</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="platelets"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>respiratoryRate</ion-label>
+                 <ion-label stacked>Respiratory Rate</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="respiratoryRate"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>heartRate</ion-label>
+                 <ion-label stacked>Heart Rate</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="heartRate"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>temperature</ion-label>
+                 <ion-label stacked>Temperature</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="temperature"></ion-input>
@@ -237,7 +237,7 @@
         
            <!-- <ion-row>
              <ion-col>
-               <button ion-button class="login-button" (click)="submit()" >Login</button>
+               <button ion-buttontton" (click)="submit()" >Login</button>
              </ion-col>
            </ion-row> -->
           </form>

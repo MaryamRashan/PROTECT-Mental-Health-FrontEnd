@@ -1,3 +1,14 @@
-page-list {
+.tooLong {
+    font-size:1.25rem; 
+    margin-right:0px;
+    white-space: pre-wrap;
 
+}
+ion-select {
+    min-width: 75% !important;
+    font-size: 15px;
+
+}
+.width100 {
+    min-width: 100%
 }

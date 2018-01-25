@@ -54,7 +54,7 @@
          <ion-item>
            
            <!-- <ion-input type="text" formControlName="coronaryAngiogramFindings"></ion-input> -->
-           <ion-select formControlName="coronaryAngiogramFindings" interface="popover">
+           <ion-select formControlName="coronaryAngiogramFindings" interface="action-sheet">
               <ion-option>SVD</ion-option>
               <ion-option>DVD</ion-option>
               <ion-option>TVD</ion-option>
@@ -66,19 +66,19 @@
          <ion-item>
            
            <!-- <ion-input type="text" formControlName="numberOfStents"></ion-input> -->
-           <ion-select formControlName="numberOfStents" interface="popover">
+           <ion-select formControlName="numberOfStents" interface="action-sheet">
               <ion-option>1</ion-option>
               <ion-option>2</ion-option>
               <ion-option>3</ion-option>
               <ion-option>Normal coronaries</ion-option>
               </ion-select>
          </ion-item>
- 
+<div *ngIf='interventionPciForm.value.numberOfStents!="Normal coronaries"'>
          <ion-label stacked>Type of stent</ion-label>
          <ion-item>
            
            <!-- <ion-input type="text" formControlName="typeOfStentOne"></ion-input> -->
-           <ion-select formControlName="typeOfStentOne" interface="popover">
+           <ion-select formControlName="typeOfStentOne" interface="action-sheet">
               <ion-option>Bare metal stent</ion-option>
               <ion-option>Drug eluting stent</ion-option>
               </ion-select>
@@ -88,14 +88,14 @@
          <ion-item>
            
            <ion-input type="text" formControlName="sizeOfStentOne"></ion-input>
-           
          </ion-item>
- 
-         <ion-label stacked>Type of second stent</ion-label>
+         </div>
+          <div *ngIf='interventionPciForm.value.numberOfStents=="2"||interventionPciForm.value.numberOfStents=="3"'> 
+          <ion-label stacked>Type of second stent</ion-label>
          <ion-item>
            
            <!-- <ion-input type="text" formControlName="typeOfStentTwo"></ion-input> -->
-           <ion-select formControlName="typeOfStentTwo" interface="popover">
+           <ion-select formControlName="typeOfStentTwo" interface="action-sheet">
               <ion-option>Bare metal stent</ion-option>
               <ion-option>Drug eluting stent</ion-option>
               </ion-select>
@@ -106,12 +106,14 @@
            
            <ion-input type="text" formControlName="sizeOfStentTwo"></ion-input>
          </ion-item>
-
+         
+        </div>
+        <div *ngIf='interventionPciForm.value.numberOfStents=="3"'>
          <ion-label stacked>Type of third stent</ion-label>
          <ion-item>
            
            <!-- <ion-input type="text" formControlName="typeOfStentThree"></ion-input> -->
-           <ion-select formControlName="typeOfStentThree" interface="popover">
+           <ion-select formControlName="typeOfStentThree" interface="action-sheet">
               <ion-option>Bare metal stent</ion-option>
               <ion-option>Drug eluting stent</ion-option>
               </ion-select>
@@ -122,7 +124,7 @@
            
            <ion-input type="text" formControlName="sizeOfStentThree"></ion-input>
          </ion-item>
-          
+        </div>  
 
 
          <div formGroupName="complications">
@@ -204,7 +206,7 @@
           
           <!-- <ion-input type="text" formControlName="bleedingSite"></ion-input> -->
 
-          <ion-select formControlName="bleedingSite" interface="popover">
+          <ion-select formControlName="bleedingSite" interface="action-sheet">
               <ion-option>Insertion site</ion-option>
               <ion-option>Transluminal</ion-option>
               <ion-option>CVA</ion-option>
@@ -215,7 +217,7 @@
         <ion-item>
           
           <!-- <ion-input type="text" formControlName="destinationFollowingPci"></ion-input> -->
-          <ion-select formControlName="destinationFollowingPci" interface="popover">
+          <ion-select formControlName="destinationFollowingPci" interface="action-sheet">
               <ion-option>Ward</ion-option>
               <ion-option>ICU</ion-option>
               </ion-select>

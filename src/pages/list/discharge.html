@@ -42,7 +42,7 @@
              <ion-item>
                
                <!-- <ion-input type="text" formControlName="survivalStatus"></ion-input> -->
-               <ion-select formControlName="survivalStatus" interface="popover">
+               <ion-select formControlName="survivalStatus" interface="action-sheet">
                         <ion-option>Alive</ion-option>
                         <ion-option>Dead</ion-option>
                 </ion-select>
@@ -52,17 +52,18 @@
              <ion-item>
                
                <!-- <ion-input type="text" formControlName="dischargeDestination"></ion-input> -->
-               <ion-select formControlName="dischargeDestination" interface="popover">
+               <ion-select formControlName="dischargeDestination" interface="action-sheet">
                         <ion-option>Home</ion-option>
                         <ion-option>Other hospital</ion-option>
+                        <ion-option>Other destination</ion-option>
                 </ion-select>
              </ion-item>
-
-             <!-- <ion-label stacked>Other hospital name</ion-label>
+<div *ngIf='dischargeForm.value.dischargeDestination=="Other destination"'>
+              <ion-label stacked>Other destination name</ion-label>
              <ion-item>
                
-               <ion-input type="text" formControlName="otherHospitalName"></ion-input>
-             </ion-item> -->
+               <ion-input type="text" formControlName="otherDestinationName"></ion-input>
+             </ion-item> </div>
 
              <!-- <ion-label stacked>Did the patient experienced any of these during hospital stay?</ion-label>
              <ion-item>

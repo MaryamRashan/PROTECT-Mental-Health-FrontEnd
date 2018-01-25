@@ -55,14 +55,14 @@ export class ListPage {
     modal.present();
   }
 
-  openModal4() { // cormobiditiesandrisks
-    let cormobiditiesandrisks;
-    if (this.passedPatient.cormobiditiesandrisks) {
-      cormobiditiesandrisks = this.passedPatient.cormobiditiesandrisks
+  openModal4() { // postopday1
+    let postopday1;
+    if (this.passedPatient.postopday1) {
+      postopday1 = this.passedPatient.postopday1
     } else {
-      cormobiditiesandrisks = null;
+      postopday1 = null;
     }
-    let characterNum = { patient: this.passedPatient, cormobiditiesandrisks: cormobiditiesandrisks };
+    let characterNum = { patient: this.passedPatient, postopday1: postopday1 };
 
     let modal = this.modalCtrl.create(ModalContentPage4, characterNum);
     modal.present();
@@ -131,13 +131,19 @@ export class ModalContentPage1 {
     this.admissionForm = this.formBuilder.group({
       patientName: [this.patient.admission.patientName],
       gender: [this.patient.admission.gender],
+      pre_operative_hb_avl: [this.patient.admission.pre_operative_hb_avl],
+      admission_type: [this.patient.admission.admission_type],
       age: [this.patient.admission.age],
       nic: [this.patient.admission.nic],
+      pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
+      admission_date: [this.patient.admission.admission_date],
+      admission_report_date: [this.patient.admission.admission_report_date],
       dateOfHospitalArrival: [this.patient.admission.dateOfHospitalArrival],
       timeOfHospitalArrival: [this.patient.admission.timeOfHospitalArrival],
       bht: [this.patient.admission.bht],
       modeOfTransportation: [this.patient.admission.modeOfTransportation],
+      ward_number: [this.patient.admission.ward_number],
       transferredFrom: [this.patient.admission.transferredFrom],
       pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
       cprGiven: formBuilder.group({
@@ -148,6 +154,69 @@ export class ModalContentPage1 {
         furosemide: [this.patient.admission.cprGiven.furosemide],
         ventilation: [this.patient.admission.cprGiven.ventilation],
         none: [this.patient.admission.cprGiven.none]
+      }),
+      comorbidities: formBuilder.group({
+        cancer_immune: [this.patient.admission.comorbidities.cancer_immune],
+        coagulapathy: [this.patient.admission.comorbidities.coagulapathy],
+        endocrine: [this.patient.admission.comorbidities.endocrine],
+        gastrointestinal: [this.patient.admission.comorbidities.gastrointestinal],
+        liver: [this.patient.admission.comorbidities.liver],
+        myocardial: [this.patient.admission.comorbidities.myocardial],
+        neurologic: [this.patient.admission.comorbidities.neurologic],
+        pulmonary: [this.patient.admission.comorbidities.pulmonary],
+        renal: [this.patient.admission.comorbidities.renal],
+        vascular: [this.patient.admission.comorbidities.vascular],
+        dyslipidemia: [this.patient.admission.comorbidities.dyslipidemia],
+        psychiatric_disorders: [this.patient.admission.comorbidities.psychiatric_disorders],
+        non_documented: [this.patient.admission.comorbidities.non_documented]
+      }),   
+       cancer_immune: formBuilder.group({
+         aids: [this.patient.admission.cancer_immune.aids],
+         leukemia: [this.patient.admission.cancer_immune.leukemia],
+         lymphona: [this.patient.admission.cancer_immune.lymphona],
+         tumor: [this.patient.admission.cancer_immune.tumor],
+         metastatic_cancer: [this.patient.admission.cancer_immune.metastatic_cancer],
+         rheumatologic: [this.patient.admission.cancer_immune.rheumatologic],
+         hiv: [this.patient.admission.cancer_immune.hiv]
+       }),   
+      endocrine: formBuilder.group({
+        diabetes: [this.patient.admission.endocrine.diabetes],
+        non_diabetic_endocrine: [this.patient.admission.endocrine.non_diabetic_endocrine]
+      }),
+      gastrointestinal: formBuilder.group({
+        gi_bleeding: [this.patient.admission.gastrointestinal.gi_bleeding],
+        inflammatory_bowel: [this.patient.admission.gastrointestinal.inflammatory_bowel],
+        peptic_ulcer: [this.patient.admission.gastrointestinal.peptic_ulcer]
+      }),
+      liver: formBuilder.group({
+        mild: [this.patient.admission.liver.mild],
+        moderate_to_severe: [this.patient.admission.liver.moderate_to_severe]
+      }),
+      myocardial: formBuilder.group({
+        angina: [this.patient.admission.myocardial.angina],
+        arrhythmia: [this.patient.admission.myocardial.arrhythmia],
+        congestive_heart_failure: [this.patient.admission.myocardial.congestive_heart_failure],
+        myocardial_infarction: [this.patient.admission.myocardial.myocardial_infarction],
+        valvular: [this.patient.admission.myocardial.valvular]
+      }), 
+      neurologic: formBuilder.group({
+        dementia: [this.patient.admission.neurologic.dementia],
+        depression: [this.patient.admission.neurologic.depression],
+        hemiplegia: [this.patient.admission.neurologic.hemiplegia],
+        other_neurologic: [this.patient.admission.neurologic.other_neurologic]
+      }), 
+      pulmonary: formBuilder.group({
+        mild: [this.patient.admission.pulmonary.mild],
+        moderate_to_severe: [this.patient.admission.pulmonary.moderate_to_severe]
+      }),
+      renal: formBuilder.group({
+        mild_insufficiency: [this.patient.admission.renal.mild_insufficiency],
+        moderate_to_severe: [this.patient.admission.renal.moderate_to_severe]
+      }),
+      vascular: formBuilder.group({
+        cerebrovascular: [this.patient.admission.vascular.cerebrovascular],
+        hypertension: [this.patient.admission.vascular.hypertension],
+        peripheral_vascular: [this.patient.admission.vascular.peripheral_vascular]
       }),
       raisedJvp: [this.patient.admission.raisedJvp],
       numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
@@ -186,14 +255,83 @@ export class ModalContentPage1 {
         ventilation: this.admissionForm.value.cprGiven.ventilation,
         none: this.admissionForm.value.cprGiven.none,
       },
+      comorbidities: {
+        cancer_immune: this.admissionForm.value.comorbidities.cancer_immune,
+        coagulapathy: this.admissionForm.value.comorbidities.coagulapathy,
+        endocrine: this.admissionForm.value.comorbidities.endocrine,
+        gastrointestinal: this.admissionForm.value.comorbidities.gastrointestinal,
+        liver: this.admissionForm.value.comorbidities.liver,
+        myocardial: this.admissionForm.value.comorbidities.myocardial,
+        neurologic: this.admissionForm.value.comorbidities.neurologic,
+        pulmonary: this.admissionForm.value.comorbidities.pulmonary,
+        renal: this.admissionForm.value.comorbidities.renal,
+        vascular: this.admissionForm.value.comorbidities.vascular,
+        dyslipidemia: this.admissionForm.value.comorbidities.dyslipidemia,
+        psychiatric_disorders: this.admissionForm.value.comorbidities.psychiatric_disorders,
+        non_documented: this.admissionForm.value.comorbidities.non_documented,
+      },
+       cancer_immune: {
+         aids: this.admissionForm.value.cancer_immune.aids,
+         leukemia: this.admissionForm.value.cancer_immune.leukemia,
+         lymphona: this.admissionForm.value.cancer_immune.lymphona,
+         tumor: this.admissionForm.value.cancer_immune.tumor,
+         metastatic_cancer: this.admissionForm.value.cancer_immune.metastatic_cancer,
+         rheumatologic: this.admissionForm.value.cancer_immune.rheumatologic,
+         hiv: this.admissionForm.value.cancer_immune.hiv,
+       },      
+      endocrine: {
+        diabetes: this.admissionForm.value.endocrine.diabetes,
+        non_diabetic_endocrine: this.admissionForm.value.endocrine.non_diabetic_endocrine,
+      },  
+      gastrointestinal: {
+        gi_bleeding: this.admissionForm.value.gastrointestinal.gi_bleeding,
+        inflammatory_bowel: this.admissionForm.value.gastrointestinal.inflammatory_bowel,
+        peptic_ulcer: this.admissionForm.value.gastrointestinal.peptic_ulcer,
+      },
+      liver: {
+        mild: this.admissionForm.value.liver.mild,
+        moderate_to_severe: this.admissionForm.value.liver.moderate_to_severe,
+      },
+      myocardial: {
+        angina: this.admissionForm.value.myocardial.angina,
+        arrhythmia: this.admissionForm.value.myocardial.arrhythmia,
+        congestive_heart_failure: this.admissionForm.value.myocardial.congestive_heart_failure,
+        myocardial_infarction: this.admissionForm.value.myocardial.myocardial_infarction,
+        valvular: this.admissionForm.value.myocardial.valvular,
+      },    
+      neurologic: {
+        dementia: this.admissionForm.value.neurologic.dementia,
+        depression: this.admissionForm.value.neurologic.depression,
+        hemiplegia: this.admissionForm.value.neurologic.hemiplegia,
+        other_neurologic: this.admissionForm.value.neurologic.other_neurologic
+      },    
+      pulmonary: {
+        mild: this.admissionForm.value.pulmonary.mild,
+        moderate_to_severe: this.admissionForm.value.pulmonary.moderate_to_severe,
+      },   
+      renal: {
+        mild_insufficiency: this.admissionForm.value.renal.mild_insufficiency,
+        moderate_to_severe: this.admissionForm.value.renal.moderate_to_severe,
+      },        
+      vascular: {
+        cerebrovascular: this.admissionForm.value.vascular.cerebrovascular,
+        hypertension: this.admissionForm.value.vascular.hypertension,
+        peripheral_vascular: this.admissionForm.value.vascular.peripheral_vascular,
+      },   
       gender: this.admissionForm.value.gender,
+      pre_operative_hb_avl: this.admissionForm.value.pre_operative_hb_avl,
       age: this.admissionForm.value.age,
       nic: this.admissionForm.value.nic,
+      pre_operative_hb: this.admissionForm.value.pre_operative_hb,
+      admission_type: this.admissionForm.value.admission_type,
       contactNumber: this.admissionForm.value.contactNumber,
+      admission_date: this.admissionForm.value.admission_date,
+      admission_report_date: this.admissionForm.value.admission_report_date,
       dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
       timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
       bht: this.admissionForm.value.bht,
       modeOfTransportation: this.admissionForm.value.modeOfTransportation,
+      ward_number: this.admissionForm.value.ward_number,
       transferredFrom: this.admissionForm.value.transferredFrom,
       pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
       raisedJvp: this.admissionForm.value.raisedJvp,
@@ -574,73 +712,72 @@ export class ModalContentPage3 { //  single QOL
 
 
 @Component({
-  templateUrl: 'cormobiditiesandriskfactors.html',
+  templateUrl: 'postOpDay1.html',
 })
 export class ModalContentPage4 { // cormobidities and risks
-  private cormobiditiesAndRiskForm: FormGroup;
+  private postOpDay1Form : FormGroup;
   public patient;
-  public cormobiditiesandrisks;
+  public postopday1;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
 
     this.patient = navParams.get("patient");
-    this.cormobiditiesandrisks = navParams.get("cormobiditiesandrisks");
-    console.log(this.cormobiditiesandrisks)
+    this.postopday1 = navParams.get("postopday1");
+    console.log(this.postopday1)
 
-    if (this.cormobiditiesandrisks == null) {
+    if (this.postopday1 == null){
 
-      this.cormobiditiesAndRiskForm = this.formBuilder.group({
-
-        corMobiditiesAndRiskFactors: formBuilder.group({
-          angina: [false],
-          previousMi: [false],
-          previousCardiacSurgery: [false],
-          ckd: [false],
-          dialysisBefore: [false],
-          hypertention: [false],
-          stroke: [false],
-          diabetics: [false],
-          smoking: [false],
-          beetleChewing: [false],
-          dyslipidemia: [false],
-          noCormorbidities: [false],
-        }),
-        familyHistory: formBuilder.group({
-          cad: [false],
-          cvd: [false],
-          dm: [false],
-          ht: [false],
-          dvt: [false],
-          none: [false]
-        })
+      this.postOpDay1Form = this.formBuilder.group({
+        postop_day1_report_date: [''],
+        postop_day1_report_time: [''],
+        icu_admission: [''],
+        poms_score_day1: formBuilder.group({
+          pulmonary     : [ false ],
+          infectious        : [ false ],
+          renal     : [ false ],
+          gastrointestinal     : [ false ],
+          cardiovascular       : [ false ],
+          neurological      : [ false ],
+          haematological      : [ false ],
+          wound      : [ false ],
+          pain      : [ false ],
+            }),
+        complications_day1: formBuilder.group({
+              icu_admissions     : [ false ],
+              confirmed_infections_antibiotic_use        : [ false ],
+              laparoscopy_laparotomy_same_admission     : [ false ],
+              ct_scan_abdomen     : [ false ],
+            })
 
 
       });
     } else {
-      this.cormobiditiesAndRiskForm = this.formBuilder.group({
-
-        corMobiditiesAndRiskFactors: formBuilder.group({
-          angina: [this.cormobiditiesandrisks.angina],
-          previousMi: [this.cormobiditiesandrisks.previousMi],
-          previousCardiacSurgery: [this.cormobiditiesandrisks.previousCardiacSurgery],
-          ckd: [this.cormobiditiesandrisks.ckd],
-          dialysisBefore: [this.cormobiditiesandrisks.dialysisBefore],
-          hypertention: [this.cormobiditiesandrisks.hypertention],
-          stroke: [this.cormobiditiesandrisks.stroke],
-          diabetics: [this.cormobiditiesandrisks.diabetics],
-          smoking: [this.cormobiditiesandrisks.smoking],
-          beetleChewing: [this.cormobiditiesandrisks.beetleChewing],
-          dyslipidemia: [this.cormobiditiesandrisks.dyslipidemia],
-          noCormorbidities: [this.cormobiditiesandrisks.noCormorbidities],
-        }),
-        familyHistory: formBuilder.group({
-          cad: [this.cormobiditiesandrisks.cad],
-          cvd: [this.cormobiditiesandrisks.cvd],
-          dm: [this.cormobiditiesandrisks.dm],
-          ht: [this.cormobiditiesandrisks.ht],
-          dvt: [this.cormobiditiesandrisks.dvt],
-          none: [this.cormobiditiesandrisks.none]
-        })
+      this.postOpDay1Form = this.formBuilder.group({
+        postop_day1_report_date: [this.postopday1.postop_day1_report_date],
+        postop_day1_report_time: [this.postopday1.postop_day1_report_time],
+        icu_admission: [this.postopday1.icu_admission],
+        poms_score_day1: formBuilder.group({
+          pulmonary     : [ this.postopday1.pulmonary ],
+          infectious        : [ this.postopday1.infectious ],
+          renal     : [ this.postopday1.renal ],
+          gastrointestinal     : [ this.postopday1.gastrointestinal ],
+          cardiovascular       : [ this.postopday1.cardiovascular ],
+          neurological      : [ this.postopday1.neurological ],
+          haematological      : [ this.postopday1.haematological ],
+          wound      : [ this.postopday1.wound ],
+          pain      : [ this.postopday1.pain ],
+          beetleChewing      : [ this.postopday1.beetleChewing ],
+          dyslipidemia      : [ this.postopday1.dyslipidemia ],
+          noCormorbidities      : [ this.postopday1.noCormorbidities ],
+            }),
+        complications_day1: formBuilder.group({
+              icu_admissions     : [ this.postopday1.icu_admissions ],
+              confirmed_infections_antibiotic_use        : [ this.postopday1.confirmed_infections_antibiotic_use ],
+              laparoscopy_laparotomy_same_admission     : [ this.postopday1.laparoscopy_laparotomy_same_admission ],
+              ct_scan_abdomen     : [ this.postopday1.ct_scan_abdomen ],
+              dvt       : [ this.postopday1.dvt ],
+              none      : [ this.postopday1.none ]
+            })
 
 
       });
@@ -650,95 +787,105 @@ export class ModalContentPage4 { // cormobidities and risks
 
   }
 
-  dismiss() {
-    // this.saveCormobiditesAndRisks().then(()=>{
+  dismiss(){
+    // this.savePostOpDay1().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
-    if (this.cormobiditiesAndRiskForm.dirty) {
-      this.saveCormobiditesAndRisks().then(() => {
+    if(this.postOpDay1Form.dirty){
+      this.savePostOpDay1().then(()=>{
         this.viewCtrl.dismiss();
       })
     } else {
       this.viewCtrl.dismiss();
     }
-
+    
   }
 
-  async saveCormobiditesAndRisks() {
-    if (this.cormobiditiesandrisks == null) {
+  async savePostOpDay1(){
+    if(this.postopday1 == null){
 
-      let cormboRisks = {
-        cormobiditiesandrisksId: UUID(),
+              let postOp1 = {
+                postopday1ID: UUID(),
+                postop_day1_report_date: this.postOpDay1Form.value.postop_day1_report_date,
+                postop_day1_report_time: this.postOpDay1Form.value.postop_day1_report_time,
+                icu_admission: this.postOpDay1Form.value.icu_admission,
 
-        angina: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina,
-        previousMi: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi,
-        previousCardiacSurgery: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery,
-        ckd: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd,
-        dialysisBefore: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore,
-        hypertention: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention,
-        stroke: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke,
-        diabetics: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics,
-        smoking: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking,
-        beetleChewing: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing,
-        dyslipidemia: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia,
-        noCormorbidities: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities,
-
-
-        cad: this.cormobiditiesAndRiskForm.value.familyHistory.cad,
-        cvd: this.cormobiditiesAndRiskForm.value.familyHistory.cvd,
-        dm: this.cormobiditiesAndRiskForm.value.familyHistory.dm,
-        ht: this.cormobiditiesAndRiskForm.value.familyHistory.ht,
-        dvt: this.cormobiditiesAndRiskForm.value.familyHistory.dvt,
-        none: this.cormobiditiesAndRiskForm.value.familyHistory.none,
+                pulmonary     :  this.postOpDay1Form.value.poms_score_day1.pulmonary ,
+                infectious        :  this.postOpDay1Form.value.poms_score_day1.infectious ,
+                renal     :  this.postOpDay1Form.value.poms_score_day1.renal ,
+                gastrointestinal     :  this.postOpDay1Form.value.poms_score_day1.gastrointestinal ,
+                cardiovascular       :  this.postOpDay1Form.value.poms_score_day1.cardiovascular ,
+                neurological      :  this.postOpDay1Form.value.poms_score_day1.neurological ,
+                haematological      :  this.postOpDay1Form.value.poms_score_day1.haematological ,
+                wound      :  this.postOpDay1Form.value.poms_score_day1.wound ,
+                pain      :  this.postOpDay1Form.value.poms_score_day1.pain ,
+                beetleChewing      :  this.postOpDay1Form.value.poms_score_day1.beetleChewing ,
+                dyslipidemia      :  this.postOpDay1Form.value.poms_score_day1.dyslipidemia ,
+                noCormorbidities      :  this.postOpDay1Form.value.poms_score_day1.noCormorbidities ,
 
 
-        timeStamp: new Date().getTime()
+                    icu_admissions     :  this.postOpDay1Form.value.complications_day1.icu_admissions ,
+                    confirmed_infections_antibiotic_use        :  this.postOpDay1Form.value.complications_day1.confirmed_infections_antibiotic_use ,
+                    laparoscopy_laparotomy_same_admission     :  this.postOpDay1Form.value.complications_day1.laparoscopy_laparotomy_same_admission ,
+                    ct_scan_abdomen     :  this.postOpDay1Form.value.complications_day1.ct_scan_abdomen ,
+                    dvt       :  this.postOpDay1Form.value.complications_day1.dvt ,
+                    none      :  this.postOpDay1Form.value.complications_day1.none,
 
 
-      }
-      this.patient.cormobiditiesandrisks = cormboRisks;
-      this.patient.timeStamp = new Date().getTime();
-      this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-');
-      this.sync.invokeSendDataThroughSocket(cormboRisks, '-newCormobiditiesAndRisks-', this.patient.patientId);
-
-    } else {
-
-      let cormboRisks = {
-        cormobiditiesandrisksId: this.cormobiditiesandrisks.cormobiditiesandrisksId,
-        angina: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.angina,
-        previousMi: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousMi,
-        previousCardiacSurgery: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.previousCardiacSurgery,
-        ckd: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.ckd,
-        dialysisBefore: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dialysisBefore,
-        hypertention: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.hypertention,
-        stroke: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.stroke,
-        diabetics: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.diabetics,
-        smoking: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.smoking,
-        beetleChewing: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.beetleChewing,
-        dyslipidemia: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.dyslipidemia,
-        noCormorbidities: this.cormobiditiesAndRiskForm.value.corMobiditiesAndRiskFactors.noCormorbidities,
+                timeStamp: new Date().getTime()
 
 
-        cad: this.cormobiditiesAndRiskForm.value.familyHistory.cad,
-        cvd: this.cormobiditiesAndRiskForm.value.familyHistory.cvd,
-        dm: this.cormobiditiesAndRiskForm.value.familyHistory.dm,
-        ht: this.cormobiditiesAndRiskForm.value.familyHistory.ht,
-        dvt: this.cormobiditiesAndRiskForm.value.familyHistory.dvt,
-        none: this.cormobiditiesAndRiskForm.value.familyHistory.none,
+              }
+            this.patient.postopday1 = postOp1;
+            this.patient.timeStamp = new Date().getTime();
+            this.data.updatePatient(this.patient, '-newPostOpDay1-');
+            this.sync.invokeSendDataThroughSocket(postOp1, '-newPostOpDay1-', this.patient.patientId);
 
-        timeStamp: new Date().getTime()
+          } else {
+
+            let postOp1 = {
+              postopday1ID: this.postopday1.postopday1ID,
+              postop_day1_report_date: this.postOpDay1Form.value.postop_day1_report_date,
+              postop_day1_report_time: this.postOpDay1Form.value.postop_day1_report_time,
+              icu_admission     :  this.postOpDay1Form.value.icu_admission ,
+              pulmonary     :  this.postOpDay1Form.value.poms_score_day1.pulmonary ,
+              infectious        :  this.postOpDay1Form.value.poms_score_day1.infectious ,
+              renal     :  this.postOpDay1Form.value.poms_score_day1.renal ,
+              gastrointestinal     :  this.postOpDay1Form.value.poms_score_day1.gastrointestinal ,
+              cardiovascular       :  this.postOpDay1Form.value.poms_score_day1.cardiovascular ,
+              neurological      :  this.postOpDay1Form.value.poms_score_day1.neurological ,
+              haematological      :  this.postOpDay1Form.value.poms_score_day1.haematological ,
+              wound      :  this.postOpDay1Form.value.poms_score_day1.wound ,
+              pain      :  this.postOpDay1Form.value.poms_score_day1.pain ,
+              beetleChewing      :  this.postOpDay1Form.value.poms_score_day1.beetleChewing ,
+              dyslipidemia      :  this.postOpDay1Form.value.poms_score_day1.dyslipidemia ,
+              noCormorbidities      :  this.postOpDay1Form.value.poms_score_day1.noCormorbidities ,
 
 
-      }
+                  icu_admissions     :  this.postOpDay1Form.value.complications_day1.icu_admissions ,
+                  confirmed_infections_antibiotic_use        :  this.postOpDay1Form.value.complications_day1.confirmed_infections_antibiotic_use ,
+                  laparoscopy_laparotomy_same_admission     :  this.postOpDay1Form.value.complications_day1.laparoscopy_laparotomy_same_admission ,
+                  ct_scan_abdomen     :  this.postOpDay1Form.value.complications_day1.ct_scan_abdomen ,
+                  dvt       :  this.postOpDay1Form.value.complications_day1.dvt ,
+                  none      :  this.postOpDay1Form.value.complications_day1.none,
 
-      this.patient.cormobiditiesandrisks = cormboRisks;
-      this.patient.timeStamp = new Date().getTime();
-      this.data.updatePatient(this.patient, '-newCormobiditiesAndRisks-')
-      this.sync.invokeSendDataThroughSocket(cormboRisks, '-updateCormobiditiesAndRisks-', this.patient.patientId);
+              timeStamp: new Date().getTime()
 
-    }
-  }
+
+            }
+
+            this.patient.postopday1 = postOp1;
+            this.patient.timeStamp = new Date().getTime();
+            this.data.updatePatient(this.patient, '-newPostOpDay1-')
+            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOpDay1-', this.patient.patientId);
+
+          }
+
+        }
+  
+
 }
+
 
 @Component({
   templateUrl: 'interventionpci.html',
@@ -1085,7 +1232,7 @@ export class ModalContentPage7 { // Discharge
       dischargeTime: [''],
       survivalStatus: [''],
       dischargeDestination: [''],
-      // otherHospitalName: [''],
+      otherDestinationName: [''],
       // patientExperience: [''],
       // vasopressorsGiven: [''],
       lastReportedTropanin: [''],
@@ -1142,6 +1289,7 @@ export class ModalContentPage7 { // Discharge
       dischargeTime: this.dischargeForm.value.dischargeTime,
       survivalStatus: this.dischargeForm.value.survivalStatus,
       dischargeDestination: this.dischargeForm.value.dischargeDestination,
+      otherDestinationName: this.dischargeForm.value.otherDestinationName,
       lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
       aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
       clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
@@ -1205,7 +1353,7 @@ export class ModalContentPage8 { // single observation
         wbc: [''],
         pcv: [''],
         crft: [''],
-        hemoglobin: [''],
+        haemoglobin: [''],
         sugar: [''],
         platelets: [''],
         respiratoryRate: [''],
@@ -1231,7 +1379,7 @@ export class ModalContentPage8 { // single observation
         wbc: [this.ob.wbc],
         pcv: [this.ob.pcv],
         crft: [this.ob.crft],
-        hemoglobin: [this.ob.hemoglobin],
+        haemoglobin: [this.ob.haemoglobin],
         sugar: [this.ob.sugar],
         platelets: [this.ob.platelets],
         respiratoryRate: [this.ob.respiratoryRate],
@@ -1286,7 +1434,7 @@ export class ModalContentPage8 { // single observation
         motor: this.observationForm.value.motor,
         pain: this.observationForm.value.pain,
         wbc: this.observationForm.value.wbc,
-        hemoglobin: this.observationForm.value.hemoglobin,
+        haemoglobin: this.observationForm.value.haemoglobin,
         pcv: this.observationForm.value.pcv,
         crft: this.observationForm.value.crft,
         sugar: this.observationForm.value.sugar,
@@ -1298,9 +1446,6 @@ export class ModalContentPage8 { // single observation
       this.patient.observations = obsArray;
       this.patient.timeStamp = new Date().getTime();
       this.data.updatePatient(this.patient, '-newObservation-');
-
-
-
       this.sync.invokeSendDataThroughSocket(observation, '-newObservation-', this.patient.patientId)
 
     }
@@ -1328,7 +1473,7 @@ export class ModalContentPage8 { // single observation
         motor: this.observationForm.value.motor,
         pain: this.observationForm.value.pain,
         wbc: this.observationForm.value.wbc,
-        hemoglobin: this.observationForm.value.hemoglobin,
+        haemoglobin: this.observationForm.value.haemoglobin,
         pcv: this.observationForm.value.pcv,
         crft: this.observationForm.value.crft,
         sugar: this.observationForm.value.sugar,
@@ -1348,6 +1493,7 @@ export class ModalContentPage8 { // single observation
 
       let observation = {
         obsId: this.ob.obsId,
+        
         obsDate: this.observationForm.value.obsDate,
         obsTime: this.observationForm.value.obsTime,
         obsTimeStamp: obsTimeStamp,
@@ -1366,7 +1512,7 @@ export class ModalContentPage8 { // single observation
         motor: this.observationForm.value.motor,
         pain: this.observationForm.value.pain,
         wbc: this.observationForm.value.wbc,
-        hemoglobin: this.observationForm.value.hemoglobin,
+        haemoglobin: this.observationForm.value.haemoglobin,
         pcv: this.observationForm.value.pcv,
         crft: this.observationForm.value.crft,
         sugar: this.observationForm.value.sugar,

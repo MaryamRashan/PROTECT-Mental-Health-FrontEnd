@@ -70,7 +70,7 @@
         <ion-item>
           
           <!-- <ion-input type="text" formControlName="ecgChanges"></ion-input> -->
-          <ion-select formControlName="ecgChanges" interface="popover">
+          <ion-select formControlName="ecgChanges" interface="action-sheet">
               <ion-option>Elevated</ion-option>
               <ion-option>Normal</ion-option>
               <ion-option>Depression</ion-option>
@@ -154,18 +154,17 @@
           
 
       </div>
-
-        <ion-label stacked>If bleeding, severity</ion-label>
+<div *ngIf='thrombolysisForm.value.complications.bleeding'>
+        <ion-label stacked>Severity of Bleeding</ion-label>
         <ion-item>
           
           <!-- <ion-input type="text" formControlName="bleedingType"></ion-input> -->
-          <ion-select formControlName="bleedingType" interface="popover">
+          <ion-select style="width:95%;" formControlName="bleedingType" interface="action-sheet">
               <ion-option>Major</ion-option>
               <ion-option>Minor</ion-option>
-              
               </ion-select>
         </ion-item>
-
+</div>
         
 
         

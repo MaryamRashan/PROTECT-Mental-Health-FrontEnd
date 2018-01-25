@@ -17,17 +17,17 @@
           <ion-list *ngIf="patient && patient.observations && patient.observations.length > 0">
               <ion-item-sliding *ngFor="let observation of patient.observations" >
                 <ion-item (click)="editObservation(observation)" >
-                  <!-- <ion-icon name="person"></ion-icon> -->
+                   <ion-icon name="eye"></ion-icon> 
                   {{observation.obsTimeStamp | date:' y MMM dd hh:mm a'}}
                   
-                  <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
-                  <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
+                  <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
+                  <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon>
                 </ion-item>
                 <ion-item-options side="right">
-                    <!-- <button ion-button color="primary">
+                     <button ion-button color="primary">
                       <ion-icon name="text"></ion-icon>
                       Text
-                    </button> -->
+                    </button> 
                     <button ion-button color="secondary" (click)="gotoChat(patient)">
                       <ion-icon name="chatboxes"></ion-icon>
                       Chat
