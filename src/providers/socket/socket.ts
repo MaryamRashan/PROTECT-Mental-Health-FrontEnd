@@ -153,9 +153,15 @@ export class SocketProvider {
                   } else if(convData.type == '-newPostOpDay1-'){
                     console.log('-newPostOpDay1- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newPostOpDay1-')
-                  } else if(convData.type == '-newIntraOp-'){
-                    console.log('-newIntraOp- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newIntraOp-')
+                  } else if(convData.type == '-newPostOpDay3-'){
+                    console.log('-newPostOpDay3- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOpDay3-')
+                  } else if(convData.type == '-newPostOpDay7-'){
+                    console.log('-newPostOpDay7- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOpDay7-')                    
+                  } else if(convData.type == '-newIntOp-'){
+                    console.log('-newIntOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newIntOp-')
                   } else if(convData.type == '-newQualityOfLife-'){
                     console.log('-newQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newQualityOfLife-')
@@ -171,12 +177,18 @@ export class SocketProvider {
                   } else if(convData.type == '-updatePostOpDay1-'){
                     console.log('-updatePostOpDay1- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updatePostOpDay1-')
+                  } else if(convData.type == '-updatePostOpDay3-'){
+                    console.log('-updatePostOpDay3- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOpDay3-')
+                  } else if(convData.type == '-updatePostOpDay7-'){
+                    console.log('-updatePostOpDay7- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOpDay7-')
                   } else if(convData.type == '-updateQualityOfLife-'){
                     console.log('-updateQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateQualityOfLife-')
-                  } else if(convData.type == '-updateIntraOp-'){
-                    console.log('-updateIntraOp- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updateIntraOp-')
+                  } else if(convData.type == '-updateIntOp-'){
+                    console.log('-updateIntOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updateIntOp-')
                   } else if (convData.type == '-discharge-'){
                       this.data.removePatient(convData.patientId);
                       console.log('patient removed >>>>>> ', convData.patientId )
@@ -230,7 +242,7 @@ export class SocketProvider {
             // admission : patient.admission[0],
             // postopday1s : patient.postopday1[0],
             // interventionpci : patient.interventionpci[0],
-            // IntraOperaratve : patient.intraOperaratve,
+            // intraOps : patient.intraOp,
             // observations : patient.observation,
             // qol : patient.qol,
             // thrombolysis : patient.thrombolysis[0]
@@ -239,6 +251,12 @@ export class SocketProvider {
           newPatient.admission = patient.admission[0];
           if(patient.postopday1[0]){
             newPatient.postopday1s = patient.postopday1[0];
+          }
+          if(patient.postopday3[0]){
+            newPatient.postopday3s = patient.postopday3[0];
+          }
+          if(patient.postopday7[0]){
+            newPatient.postopday7s = patient.postopday7[0];
           }
           if (patient.interventionpci[0]){
             newPatient.interventionpci = patient.interventionpci[0];

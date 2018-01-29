@@ -1,0 +1,467 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+      
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="postOpDay7Form" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+
+                        <ion-label stacked>Date of Post-Op Day 7 Report</ion-label>
+                        <ion-item>
+                          
+                          <ion-input type="date" formControlName="postop_day7_report_date"></ion-input>
+                        </ion-item>
+               
+                        <ion-label stacked>Time of Post-Op Day 7 Report</ion-label>
+                        <ion-item>
+                          
+                          <ion-input type="time" formControlName="postop_day7_report_time"></ion-input>
+                        </ion-item>
+
+                    <div radio-group formControlName="icu_admission">
+                                        <ion-label stacked>ICU Admission </ion-label>
+                                    <ion-item >
+                                               <ion-label>Elective</ion-label>
+                                               <ion-radio value="elective" ></ion-radio>
+                                      </ion-item>
+                                      <ion-item >
+                                                <ion-label>Emergency</ion-label>
+                                                <ion-radio value="emergency"></ion-radio>          
+                                          </ion-item>
+            
+            
+                                </div>
+            
+                <div formGroupName="change_antibiotics_day7">
+                <ion-label stacked>Change in Antibiotics</ion-label>
+
+
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Added</ion-label>
+                        <ion-checkbox 
+                           color="secondary" 
+                           formControlName="added"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Omitted</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="omitted"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">No Change</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="no_change"></ion-checkbox>
+                </ion-item>
+
+                </div>
+                <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.omitted'>
+                    <ion-label stacked>Antibiotic Omitted</ion-label>
+                  <ion-item>
+                  
+                      <ion-select class="width100" formControlName="name_of_antibiotic_omm" interface="popover">
+        
+                              <ion-option>Augmentin</ion-option>
+                              <ion-option>Ceftriaxone</ion-option>
+                              <ion-option>Cefuroxime</ion-option>
+                              <ion-option>Ciprofloxasim</ion-option>
+                              <ion-option>Cloxacillin</ion-option>
+                              <ion-option>Co-amoxiclav</ion-option>
+                              <ion-option>Doxycycline</ion-option>
+                              <ion-option>Erithromicine</ion-option>
+                              <ion-option>Flagyl</ion-option>
+                              <ion-option>Levofloxacin</ion-option>
+                              <ion-option>Meropenem</ion-option>
+                              <ion-option>Metronidazole</ion-option>
+                              <ion-option>Penicilline</ion-option>
+                              <ion-option>Piperacillin</ion-option>
+                              <ion-option>Trazabactum</ion-option>
+                              <ion-option>Teicoplanin</ion-option>
+                              <ion-option>Ticarcillin</ion-option>
+                              <ion-option>Ticarcillin clavulanic acid</ion-option>
+                              <ion-option>Timentin</ion-option>
+                              <ion-option>Vencomycin</ion-option>
+                              <ion-option>Imipenem</ion-option>
+                              <ion-option>Cefotaxime</ion-option>
+                              <ion-option>Gentamicin</ion-option>
+                              <ion-option>Other</ion-option>
+                              </ion-select>
+                  </ion-item>
+                  </div>
+                 <div *ngIf='postOpDay7Form.value.name_of_antibiotic_omm=="Other"'>
+                  <ion-label stacked>If other, Please specify</ion-label>
+                  <ion-item>
+                    
+                    <ion-input type="text" formControlName="if_other_please_specifyomit"></ion-input>
+                  </ion-item>
+        
+                 </div>
+                 <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.omitted'>
+                 <ion-label stacked>Date of Antibiotic Omission</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="date" formControlName="date_antibiotic_omitted"></ion-input>
+                 </ion-item>
+                </div>
+                 <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.omitted'>
+                    <ion-label stacked>Antibiotic Omitted</ion-label>
+                  <ion-item>
+                  
+                      <ion-select class="width100" formControlName="name_of_antibiotic_omm2" interface="popover">
+        
+                              <ion-option>Augmentin</ion-option>
+                              <ion-option>Ceftriaxone</ion-option>
+                              <ion-option>Cefuroxime</ion-option>
+                              <ion-option>Ciprofloxasim</ion-option>
+                              <ion-option>Cloxacillin</ion-option>
+                              <ion-option>Co-amoxiclav</ion-option>
+                              <ion-option>Doxycycline</ion-option>
+                              <ion-option>Erithromicine</ion-option>
+                              <ion-option>Flagyl</ion-option>
+                              <ion-option>Levofloxacin</ion-option>
+                              <ion-option>Meropenem</ion-option>
+                              <ion-option>Metronidazole</ion-option>
+                              <ion-option>Penicilline</ion-option>
+                              <ion-option>Piperacillin</ion-option>
+                              <ion-option>Trazabactum</ion-option>
+                              <ion-option>Teicoplanin</ion-option>
+                              <ion-option>Ticarcillin</ion-option>
+                              <ion-option>Ticarcillin clavulanic acid</ion-option>
+                              <ion-option>Timentin</ion-option>
+                              <ion-option>Vencomycin</ion-option>
+                              <ion-option>Imipenem</ion-option>
+                              <ion-option>Cefotaxime</ion-option>
+                              <ion-option>Gentamicin</ion-option>
+                              <ion-option>Other</ion-option>
+                              </ion-select>
+                  </ion-item>
+                  </div>
+
+
+                 <div *ngIf='postOpDay7Form.value.name_of_antibiotic_omm2=="Other"'>
+                  <ion-label stacked>If other, Please specify</ion-label>
+                  <ion-item>
+                    
+                    <ion-input type="text" formControlName="if_other_please_specifyomit2"></ion-input>
+                  </ion-item>
+        
+                 </div>
+                 <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.omitted'>
+                    <ion-label stacked>Date of Antibiotic Omission</ion-label>
+                    <ion-item>
+                      
+                      <ion-input type="date" formControlName="date_antibiotic_omitted2"></ion-input>
+                    </ion-item>
+                   </div>
+                   <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.omitted'>
+                   <ion-label stacked>Antibiotics omitted with date of omission</ion-label>
+                   <ion-item>
+                     
+                     <ion-input type="notes" formControlName="antibiotics_omit_day7"></ion-input>
+                   </ion-item>
+                   </div>
+                   <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+                     <div *ngIf='postOpDay7Form.value.name_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify"></ion-input>
+                      </ion-item>
+            
+                     </div>
+
+                     <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name2_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+    
+    
+                     <div *ngIf='postOpDay7Form.value.name2_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
+                      </ion-item>
+            
+                     </div>
+
+                     <div *ngIf='postOpDay7Form.value.change_antibiotics_day7.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name7_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+    
+    
+                     <div *ngIf='postOpDay7Form.value.name7_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
+                      </ion-item>
+            
+                     </div>
+                     <div radio-group formControlName="hb_avl_day7">
+                        <ion-label stacked>HB availability</ion-label>
+                    <ion-item >
+                               <ion-label>Available</ion-label>
+                               <ion-radio value="available" ></ion-radio>
+                      </ion-item>
+                      <ion-item >
+                                   <ion-label>Not Available</ion-label>
+                                   <ion-radio value="not_available"></ion-radio>          
+                          </ion-item>
+                </div>
+                <div *ngIf='postOpDay7Form.value.hb_avl_day7=="available"'>
+                    <ion-label stacked>HB Level</ion-label>
+                    <ion-item>
+                    
+                        <ion-input type="text" placeholder="g/dL"formControlName="hb_day7"></ion-input>
+                    </ion-item>
+                </div>
+
+                <ion-label stacked>POMS</ion-label>
+                <ion-item>
+                
+                    <ion-input type="text" placeholder=""formControlName="poms_day7"></ion-input>
+                </ion-item>
+            <div formGroupName="poms_score_day7">
+                <ion-label stacked>Post Operative Morbidity</ion-label>
+
+
+                <ion-item>
+                        <ion-label><h2>Pulmonary</h2>
+                                <p class="tooLong" >New requirement for oxygen or respiratory support</p></ion-label>
+                        <ion-checkbox 
+                           color="secondary" 
+                           formControlName="pulmonary"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Infectious</h2>
+                                   <p class="tooLong">Currently on antibiotics and/or has developed a temperature of >/= 78oC in past 24 hours</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="infectious"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Renal</h2>
+                                   <p class="tooLong">Presence of oliguria (&lt; 500ml urine /24 hours), increased serum creatinine (&gt;70% from pre-operative level), urinary catheter in situ</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="renal"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Gastrointestinal</h2>
+                                <p class="tooLong">Unable to tolerate enteral diet for any reason including nausea, vomiting and abdominal distension, use of anti-emetic</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="gastrointestinal"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Cardiovascular</h2>
+                                   <p class="tooLong">Diagnostic tests and /or treatment for any of the following in the past 24 hours: new myocardial infarction or ischaemia, hypertension (requiring fluid therapy >200ml/h or pharmacological therapy), atrial or ventricular arrhythmias, cardiogenic pulmonary oedema, thrombotic event requiring anticoagulation</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="cardiovascular"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label unstacked><h2>Neurological</h2>
+                                <p class="tooLong">New focal neurological deficit, confusion, delirium or coma</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="neurological"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Haematological</h2>
+                                   <p class="tooLong">Requirement for any of the following within the past 24 hours; Packed erythrocytes; Fresh frozen plasma; Cryoprecipitate</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="haematological"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label> <h2>Wound</h2>
+                                    <p class="tooLong">Wound dehiscence requiring surgical exploration or drainage of pus from the operation wound with or without isolation of organisms</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="wound"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label><h2>Pain</h2>
+                                   <p class="tooLong">New post-operative pain significant enough to require parenteral opioids or regional analgesia</p></ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="pain"></ion-checkbox>
+                </ion-item>
+
+        </div>
+
+
+        <div formGroupName="complications_day7">
+                <ion-label stacked>Complications</ion-label>
+
+
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">ICU Admissions</ion-label>
+                        <ion-checkbox 
+                           color="secondary" 
+                           formControlName="icu_admissions"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Confirmed Infections and Antibiotic Use</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="confirmed_infections_antibiotic_use"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Redo laparoscopy/laparotomy in same admission</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="laparoscopy_laparotomy_same_admission"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">CT scan Abdomen</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="ct_scan_abdomen"></ion-checkbox>
+                </ion-item>
+
+
+        </div>
+
+        
+
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content>

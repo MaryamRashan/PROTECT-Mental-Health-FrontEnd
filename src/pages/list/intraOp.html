@@ -1,108 +1,67 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
+  <ion-toolbar>
+    <ion-title>
+      
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Ok</span>
+        <span ion-text color="primary" showWhen="android, windows">Ok</span>
         
-      </ion-title>
-      <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-          <span ion-text color="primary" showWhen="ios">Ok</span>
-          <span ion-text color="primary" showWhen="android, windows">Ok</span>
-          
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <div padding  id="cloud-layer">
-        <form [formGroup]="intraOpForm" >
-    
-       <ion-row>
-         <ion-col>
-         </ion-col>
-       </ion-row>
-    
-       <ion-row>
-         <ion-col>
-           <ion-list >
-                <ion-label stacked>Date</ion-label>
-             <ion-item>
-               
-               <ion-input type="date" formControlName="intraOpDate"></ion-input>
-             </ion-item>
+<ion-content>
+  <div padding  id="cloud-layer">
+      <form [formGroup]="intraOpForm" >
+  
+     <ion-row>
+       <ion-col>
+         <!-- <img  src="assets/images/joshuamorony.png" /> -->
+       </ion-col>
+     </ion-row>
+  
+     <ion-row>
+       <ion-col>
+         <ion-list >
+              <ion-label stacked>Date</ion-label>
+           <ion-item>
+             
+             <ion-input type="date" formControlName="intraOpDate"></ion-input>
+           </ion-item>
 
-             <ion-label stacked>Time</ion-label>
-             <ion-item>
-               
-               <ion-input type="time" formControlName="intraOpTime"></ion-input>
-             </ion-item> 
+           <ion-label stacked>Time</ion-label>
+           <ion-item>
+             
+             <ion-input type="time" formControlName="intraOpTime"></ion-input>
+           </ion-item> 
 
-            <div radio-group formControlName="preOp_antibiotic_use">
-                    <ion-label stacked>PreOp Antibiotic Use</ion-label>
+          <div radio-group formControlName="preOp_antibiotic_use">
+                  <ion-label stacked>PreOp Antibiotic Use</ion-label>
 
-                <ion-item >
+              <ion-item >
+                     
+                         <ion-label>Yes</ion-label>
+                         <ion-radio value="yes" ></ion-radio>
+ 
+              </ion-item>
+
+              <ion-item >
+
+                             <ion-label>No</ion-label>
+                             <ion-radio value="no"></ion-radio>          
                        
-                           <ion-label>Yes</ion-label>
-                           <ion-radio value="yes" ></ion-radio>
-   
-                </ion-item>
+              </ion-item>
 
-                <ion-item >
-
-                               <ion-label>No</ion-label>
-                               <ion-radio value="no"></ion-radio>          
-                         
-                </ion-item>
-
-            </div>
-            
-             <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
-              <ion-label stacked>Antibiotic 1</ion-label>
-            <ion-item>
-            
-                <ion-select class="width100" formControlName="name_preOp_antibiotic" interface="popover">
-
-                        <ion-option>Augmentin</ion-option>
-                        <ion-option>Ceftriaxone</ion-option>
-                        <ion-option>Cefuroxime</ion-option>
-                        <ion-option>Ciprofloxasim</ion-option>
-                        <ion-option>Cloxacillin</ion-option>
-                        <ion-option>Co-amoxiclav</ion-option>
-                        <ion-option>Doxycycline</ion-option>
-                        <ion-option>Erithromicine</ion-option>
-                        <ion-option>Flagyl</ion-option>
-                        <ion-option>Levofloxacin</ion-option>
-                        <ion-option>Meropenem</ion-option>
-                        <ion-option>Metronidazole</ion-option>
-                        <ion-option>Penicilline</ion-option>
-                        <ion-option>Piperacillin</ion-option>
-                        <ion-option>Trazabactum</ion-option>
-                        <ion-option>Teicoplanin</ion-option>
-                        <ion-option>Ticarcillin</ion-option>
-                        <ion-option>Ticarcillin clavulanic acid</ion-option>
-                        <ion-option>Timentin</ion-option>
-                        <ion-option>Vencomycin</ion-option>
-                        <ion-option>Imipenem</ion-option>
-                        <ion-option>Cefotaxime</ion-option>
-                        <ion-option>Gentamicin</ion-option>
-                        <ion-option>Other</ion-option>
-                        </ion-select>
-            </ion-item>
-            </div>
-           <div *ngIf='intraOpForm.value.name_preOp_antibiotic=="Other"'>
-            <ion-label stacked>If other, Please specify</ion-label>
-            <ion-item>
-              
-              <ion-input type="text" formControlName="if_other_please_specify"></ion-input>
-            </ion-item>
-
-           </div>
-
+          </div>
+          
            <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
-            <ion-label stacked>Antibiotic 2</ion-label>
+            <ion-label stacked>Antibiotic 1</ion-label>
           <ion-item>
           
-              <ion-select class="width100"formControlName="name2_preOp_antibiotic" interface="popover">
+              <ion-select class="width100" formControlName="name_preOp_antibiotic" interface="popover">
 
                       <ion-option>Augmentin</ion-option>
                       <ion-option>Ceftriaxone</ion-option>
@@ -131,20 +90,20 @@
                       </ion-select>
           </ion-item>
           </div>
-         <div *ngIf='intraOpForm.value.name2_preOp_antibiotic=="Other"'>
+         <div *ngIf='intraOpForm.value.name_preOp_antibiotic=="Other"'>
           <ion-label stacked>If other, Please specify</ion-label>
           <ion-item>
             
-            <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
+            <ion-input type="text" formControlName="if_other_please_specify"></ion-input>
           </ion-item>
 
          </div>
 
          <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
-          <ion-label stacked>Antibiotic 3</ion-label>
+          <ion-label stacked>Antibiotic 2</ion-label>
         <ion-item>
         
-            <ion-select class="width100" formControlName="name3_preOp_antibiotic" interface="popover">
+            <ion-select class="width100"formControlName="name2_preOp_antibiotic" interface="popover">
 
                     <ion-option>Augmentin</ion-option>
                     <ion-option>Ceftriaxone</ion-option>
@@ -173,31 +132,76 @@
                     </ion-select>
         </ion-item>
         </div>
-       <div *ngIf='intraOpForm.value.name3_preOp_antibiotic=="Other"'>
+       <div *ngIf='intraOpForm.value.name2_preOp_antibiotic=="Other"'>
         <ion-label stacked>If other, Please specify</ion-label>
         <ion-item>
           
-          <ion-input type="text" formControlName="if_other_please_specify3"></ion-input>
+          <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
         </ion-item>
 
        </div>
 
- 
+       <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
+        <ion-label stacked>Antibiotic 3</ion-label>
+      <ion-item>
+      
+          <ion-select class="width100" formControlName="name3_preOp_antibiotic" interface="popover">
 
+                  <ion-option>Augmentin</ion-option>
+                  <ion-option>Ceftriaxone</ion-option>
+                  <ion-option>Cefuroxime</ion-option>
+                  <ion-option>Ciprofloxasim</ion-option>
+                  <ion-option>Cloxacillin</ion-option>
+                  <ion-option>Co-amoxiclav</ion-option>
+                  <ion-option>Doxycycline</ion-option>
+                  <ion-option>Erithromicine</ion-option>
+                  <ion-option>Flagyl</ion-option>
+                  <ion-option>Levofloxacin</ion-option>
+                  <ion-option>Meropenem</ion-option>
+                  <ion-option>Metronidazole</ion-option>
+                  <ion-option>Penicilline</ion-option>
+                  <ion-option>Piperacillin</ion-option>
+                  <ion-option>Trazabactum</ion-option>
+                  <ion-option>Teicoplanin</ion-option>
+                  <ion-option>Ticarcillin</ion-option>
+                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                  <ion-option>Timentin</ion-option>
+                  <ion-option>Vencomycin</ion-option>
+                  <ion-option>Imipenem</ion-option>
+                  <ion-option>Cefotaxime</ion-option>
+                  <ion-option>Gentamicin</ion-option>
+                  <ion-option>Other</ion-option>
+                  </ion-select>
+      </ion-item>
+      </div>
+     <div *ngIf='intraOpForm.value.name3_preOp_antibiotic=="Other"'>
+      <ion-label stacked>If other, Please specify</ion-label>
+      <ion-item>
+        
+        <ion-input type="text" formControlName="if_other_please_specify3"></ion-input>
+      </ion-item>
 
-
-
-
-    
-           </ion-list>
-         </ion-col>
-       </ion-row>
-    
-        <!-- <ion-row>
-         <ion-col>
-           <button ion-button class="login-button" (click)="submit()" >Login</button>
-         </ion-col>
-       </ion-row>  -->
-      </form>
      </div>
-  </ion-content>
+           
+
+
+
+
+
+
+
+
+
+  
+         </ion-list>
+       </ion-col>
+     </ion-row>
+  
+     <!-- <ion-row>
+       <ion-col>
+         <button ion-button class="login-button" (click)="submit()" >Login</button>
+       </ion-col>
+     </ion-row> -->
+    </form>
+   </div>
+</ion-content>

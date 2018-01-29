@@ -38,15 +38,275 @@
                <ion-input type="time" formControlName="dischargeTime"></ion-input>
              </ion-item>
 
-             <ion-label stacked>Survival status</ion-label>
+             <ion-label stacked>Discharge status</ion-label>
              <ion-item>
                
-               <!-- <ion-input type="text" formControlName="survivalStatus"></ion-input> -->
-               <ion-select formControlName="survivalStatus" interface="action-sheet">
+               <!-- <ion-input type="text" formControlName="dischargeStatus"></ion-input> -->
+               <ion-select formControlName="dischargeStatus" interface="action-sheet">
                         <ion-option>Alive</ion-option>
                         <ion-option>Dead</ion-option>
                 </ion-select>
              </ion-item>
+
+                 <div formGroupName="change_antibiotics_discharge">
+                <ion-label stacked>Change in Antibiotics</ion-label>
+
+
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Added</ion-label>
+                        <ion-checkbox 
+                           color="secondary" 
+                           formControlName="added"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Omitted</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="omitted"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">No Change</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="no_change"></ion-checkbox>
+                </ion-item>
+
+                </div>
+                <div *ngIf='dischargeForm.value.change_antibiotics_discharge.omitted'>
+                    <ion-label stacked>Antibiotic Omitted</ion-label>
+                  <ion-item>
+                  
+                      <ion-select class="width100" formControlName="name_of_antibiotic_omm" interface="popover">
+        
+                              <ion-option>Augmentin</ion-option>
+                              <ion-option>Ceftriaxone</ion-option>
+                              <ion-option>Cefuroxime</ion-option>
+                              <ion-option>Ciprofloxasim</ion-option>
+                              <ion-option>Cloxacillin</ion-option>
+                              <ion-option>Co-amoxiclav</ion-option>
+                              <ion-option>Doxycycline</ion-option>
+                              <ion-option>Erithromicine</ion-option>
+                              <ion-option>Flagyl</ion-option>
+                              <ion-option>Levofloxacin</ion-option>
+                              <ion-option>Meropenem</ion-option>
+                              <ion-option>Metronidazole</ion-option>
+                              <ion-option>Penicilline</ion-option>
+                              <ion-option>Piperacillin</ion-option>
+                              <ion-option>Trazabactum</ion-option>
+                              <ion-option>Teicoplanin</ion-option>
+                              <ion-option>Ticarcillin</ion-option>
+                              <ion-option>Ticarcillin clavulanic acid</ion-option>
+                              <ion-option>Timentin</ion-option>
+                              <ion-option>Vencomycin</ion-option>
+                              <ion-option>Imipenem</ion-option>
+                              <ion-option>Cefotaxime</ion-option>
+                              <ion-option>Gentamicin</ion-option>
+                              <ion-option>Other</ion-option>
+                              </ion-select>
+                  </ion-item>
+                 <ion-label stacked>Date of Antibiotic Omission</ion-label>
+                 <ion-item>
+                   
+                   <ion-input type="date" formControlName="date_antibiotic_omitted"></ion-input>
+                 </ion-item>                  
+                </div>
+                 <div *ngIf='dischargeForm.value.name_of_antibiotic_omm=="Other"'>
+                  <ion-label stacked>If other, Please specify</ion-label>
+                  <ion-item>
+                    
+                    <ion-input type="text" formControlName="if_other_please_specifyomit"></ion-input>
+                  </ion-item>
+        
+                 </div>
+
+                 <div *ngIf='dischargeForm.value.change_antibiotics_discharge.omitted'>
+                    <ion-label stacked>Antibiotic Omitted</ion-label>
+                  <ion-item>
+                  
+                      <ion-select class="width100" formControlName="name_of_antibiotic_omm2" interface="popover">
+        
+                              <ion-option>Augmentin</ion-option>
+                              <ion-option>Ceftriaxone</ion-option>
+                              <ion-option>Cefuroxime</ion-option>
+                              <ion-option>Ciprofloxasim</ion-option>
+                              <ion-option>Cloxacillin</ion-option>
+                              <ion-option>Co-amoxiclav</ion-option>
+                              <ion-option>Doxycycline</ion-option>
+                              <ion-option>Erithromicine</ion-option>
+                              <ion-option>Flagyl</ion-option>
+                              <ion-option>Levofloxacin</ion-option>
+                              <ion-option>Meropenem</ion-option>
+                              <ion-option>Metronidazole</ion-option>
+                              <ion-option>Penicilline</ion-option>
+                              <ion-option>Piperacillin</ion-option>
+                              <ion-option>Trazabactum</ion-option>
+                              <ion-option>Teicoplanin</ion-option>
+                              <ion-option>Ticarcillin</ion-option>
+                              <ion-option>Ticarcillin clavulanic acid</ion-option>
+                              <ion-option>Timentin</ion-option>
+                              <ion-option>Vencomycin</ion-option>
+                              <ion-option>Imipenem</ion-option>
+                              <ion-option>Cefotaxime</ion-option>
+                              <ion-option>Gentamicin</ion-option>
+                              <ion-option>Other</ion-option>
+                              </ion-select>
+                  </ion-item>
+                    <ion-label stacked>Date of Antibiotic Omission</ion-label>
+                    <ion-item>
+                      
+                      <ion-input type="date" formControlName="date_antibiotic_omitted2"></ion-input>
+                    </ion-item>                  
+                </div>
+
+
+                 <div *ngIf='dischargeForm.value.name_of_antibiotic_omm2=="Other"'>
+                  <ion-label stacked>If other, Please specify</ion-label>
+                  <ion-item>
+                    
+                    <ion-input type="text" formControlName="if_other_please_specifyomit2"></ion-input>
+                  </ion-item>
+        
+                 </div>
+
+                   <div *ngIf='dischargeForm.value.change_antibiotics_discharge.omitted'>
+                   <ion-label stacked>Antibiotics omitted with date of omission</ion-label>
+                   <ion-item>
+                     
+                     <ion-input type="notes" formControlName="antibiotics_omit_discharge"></ion-input>
+                   </ion-item>
+                   </div>
+                   <div *ngIf='dischargeForm.value.change_antibiotics_discharge.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+                     <div *ngIf='dischargeForm.value.name_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify"></ion-input>
+                      </ion-item>
+            
+                     </div>
+
+                     <div *ngIf='dischargeForm.value.change_antibiotics_discharge.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name2_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+    
+    
+                     <div *ngIf='dischargeForm.value.name2_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
+                      </ion-item>
+            
+                     </div>
+
+                     <div *ngIf='dischargeForm.value.change_antibiotics_discharge.added'>
+                        <ion-label stacked>Antibiotic Added</ion-label>
+                      <ion-item>
+                      
+                          <ion-select class="width100" formControlName="name3_of_antibiotic" interface="popover">
+            
+                                  <ion-option>Augmentin</ion-option>
+                                  <ion-option>Ceftriaxone</ion-option>
+                                  <ion-option>Cefuroxime</ion-option>
+                                  <ion-option>Ciprofloxasim</ion-option>
+                                  <ion-option>Cloxacillin</ion-option>
+                                  <ion-option>Co-amoxiclav</ion-option>
+                                  <ion-option>Doxycycline</ion-option>
+                                  <ion-option>Erithromicine</ion-option>
+                                  <ion-option>Flagyl</ion-option>
+                                  <ion-option>Levofloxacin</ion-option>
+                                  <ion-option>Meropenem</ion-option>
+                                  <ion-option>Metronidazole</ion-option>
+                                  <ion-option>Penicilline</ion-option>
+                                  <ion-option>Piperacillin</ion-option>
+                                  <ion-option>Trazabactum</ion-option>
+                                  <ion-option>Teicoplanin</ion-option>
+                                  <ion-option>Ticarcillin</ion-option>
+                                  <ion-option>Ticarcillin clavulanic acid</ion-option>
+                                  <ion-option>Timentin</ion-option>
+                                  <ion-option>Vencomycin</ion-option>
+                                  <ion-option>Imipenem</ion-option>
+                                  <ion-option>Cefotaxime</ion-option>
+                                  <ion-option>Gentamicin</ion-option>
+                                  <ion-option>Other</ion-option>
+                                  </ion-select>
+                      </ion-item>
+                      </div>
+    
+    
+                     <div *ngIf='dischargeForm.value.name3_of_antibiotic=="Other"'>
+                      <ion-label stacked>If other, Please specify</ion-label>
+                      <ion-item>
+                        
+                        <ion-input type="text" formControlName="if_other_please_specify2"></ion-input>
+                      </ion-item>
+            
+                     </div>
 
              <ion-label stacked>Destination following discharge</ion-label>
              <ion-item>
@@ -70,6 +330,135 @@
                
                <ion-input type="text" formControlName="patientExperience"></ion-input>
              </ion-item> -->
+             
+             <div formGroupName="complications_discharge">
+                <ion-label stacked>Complications</ion-label>
+
+
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">ICU Admissions</ion-label>
+                        <ion-checkbox 
+                           color="secondary" 
+                           formControlName="icu_admissions"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Confirmed Infections and Antibiotic Use</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="confirmed_infections_antibiotic_use"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">Redo laparoscopy/laparotomy in same admission</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="laparoscopy_laparotomy_same_admission"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label style="white-space:pre-wrap;">CT scan Abdomen</ion-label>
+                        <ion-checkbox 
+                                color="secondary" 
+                                formControlName="ct_scan_abdomen"></ion-checkbox>
+                </ion-item>
+
+
+        </div> 
+
+            <div radio-group formControlName="clavien_dindo">
+                <ion-label class='tooLong'>Clavien Dindo classification of Surgical complications</ion-label>
+
+
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade I</h3> <p class='tooLong'>Any deviation from the normal postoperative course without the need for pharmacological treatment or surgical, endoscopic, and radiological interventions.</p></ion-label>
+                        <ion-radio value="grade1" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+
+                            <ion-label><h3>Grade II</h3> <p class='tooLong'>Requiring pharmacological treatment with drugs other than in grade I. Blood transfusions and total parenteral nutrition are also included.</p></ion-label>
+                            <ion-radio value="grade2"></ion-radio>          
+                        
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade III</h3> <p class='tooLong'>Requiring surgical, endoscopic or radiological intervention.</p></ion-label>
+                        <ion-radio value="grade3" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade IIIa</h3> <p class='tooLong'>Intervention not under general anesthesia.</p></ion-label>
+                        <ion-radio value="grade3a" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade IIIb</h3> <p class='tooLong'>Intervention under general anesthesia.</p></ion-label>
+                        <ion-radio value="grade3b" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade IV</h3> <p class='tooLong'>Life-threatening complication (including CNS complications)* requiring IC/ICU management.</p></ion-label>
+                        <ion-radio value="grade4" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade IVa</h3> <p class='tooLong'>Single organ dysfunction (including dialysis).</p></ion-label>
+                        <ion-radio value="grade4a" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade IVb</h3> <p class='tooLong'>Multiorgan dysfunction.</p></ion-label>
+                        <ion-radio value="grade4b" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+                    
+                        <ion-label><h3>Grade V</h3> <p class='tooLong'>Death of a patient.</p></ion-label>
+                        <ion-radio value="grade5" ></ion-radio>
+
+                </ion-item>
+
+            </div> 
+
+            <div *ngIf='dischargeForm.value.clavien_dindo!="grade5"'>
+            <div radio-group formControlName="clavien_dindo_disab">
+                <ion-label stacked>Is the patient suffering from the complication at the time of discharge?</ion-label>
+
+
+
+                <ion-item >
+                    
+                        <ion-label>Yes</ion-label>
+                        <ion-radio value="yes" ></ion-radio>
+
+                </ion-item>
+
+                <ion-item >
+
+                            <ion-label>No</ion-label>
+                            <ion-radio value="no"></ion-radio>          
+                        
+                    </ion-item>
+
+            </div>
+            </div>
 
              <div formGroupName="patientExperience">
               <ion-label stacked>Did the patient experienced any of these during hospital stay?</ion-label>
