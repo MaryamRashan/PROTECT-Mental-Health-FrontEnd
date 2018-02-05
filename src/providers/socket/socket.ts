@@ -249,14 +249,14 @@ export class SocketProvider {
           };
           newPatient.patientId = patient.patientId;
           newPatient.admission = patient.admission[0];
-          // if(patient.postopday1[0]){
-          //   newPatient.postopday1s = patient.postopday1[0];
-          // }
-          // if(patient.postopday3[0]){
-          //   newPatient.postopday3s = patient.postopday3[0];
-          // }
-          // if(patient.postopday7[0]){
-          //   newPatient.postopday7s = patient.postopday7[0];
+           if(patient.postopday1[0]){
+             newPatient.postopday1s = patient.postopday1[0];
+           }
+           if(patient.postopday3[0]){
+             newPatient.postopday3s = patient.postopday3[0];
+           }
+           if(patient.postopday7[0]){
+             newPatient.postopday7s = patient.postopday7[0];
            }
           // if (patient.interventionpci[0]){
           //   newPatient.interventionpci = patient.interventionpci[0];
