@@ -241,32 +241,32 @@ export class SocketProvider {
             // patientId : patient.patientId,
             // admission : patient.admission[0],
             // postopday1s : patient.postopday1[0],
-            // interventionpci : patient.interventionpci[0],
+            // postopday3s : patient.postopday3[0],
+            // postopday7s : patient.postopday7[0],            
             // intraOps : patient.intraOp,
             // observations : patient.observation,
             // qol : patient.qol,
-            // thrombolysis : patient.thrombolysis[0]
           };
           newPatient.patientId = patient.patientId;
           newPatient.admission = patient.admission[0];
-          if(patient.postopday1[0]){
-            newPatient.postopday1s = patient.postopday1[0];
-          }
-          if(patient.postopday3[0]){
-            newPatient.postopday3s = patient.postopday3[0];
-          }
-          if(patient.postopday7[0]){
-            newPatient.postopday7s = patient.postopday7[0];
-          }
-          if (patient.interventionpci[0]){
-            newPatient.interventionpci = patient.interventionpci[0];
-          }
-          if (patient.thrombolysis[0]){
-            newPatient.thrombolysis = patient.thrombolysis[0];
-          }
-          if (patient.intraOp[0]){
-            newPatient.intraOps = patient.intraOp;
-          }
+          // if(patient.postopday1[0]){
+          //   newPatient.postopday1s = patient.postopday1[0];
+          // }
+          // if(patient.postopday3[0]){
+          //   newPatient.postopday3s = patient.postopday3[0];
+          // }
+          // if(patient.postopday7[0]){
+          //   newPatient.postopday7s = patient.postopday7[0];
+          // }
+          // if (patient.interventionpci[0]){
+          //   newPatient.interventionpci = patient.interventionpci[0];
+          // }
+          // if (patient.thrombolysis[0]){
+          //   newPatient.thrombolysis = patient.thrombolysis[0];
+          // }
+          // if (patient.intraOp[0]){
+          //   newPatient.intraOps = patient.intraOp;
+          // }
           if (patient.observation[0]){
             newPatient.observations = patient.observation;
           }
