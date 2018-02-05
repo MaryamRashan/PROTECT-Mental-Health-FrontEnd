@@ -257,7 +257,7 @@ export class SocketProvider {
           // }
           // if(patient.postopday7[0]){
           //   newPatient.postopday7s = patient.postopday7[0];
-          // }
+           }
           // if (patient.interventionpci[0]){
           //   newPatient.interventionpci = patient.interventionpci[0];
           // }
