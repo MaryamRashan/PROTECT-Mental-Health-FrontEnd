@@ -38,8 +38,333 @@
              <ion-input type="time" formControlName="intraOpTime"></ion-input>
            </ion-item> 
 
-          <div radio-group formControlName="preOp_antibiotic_use">
-                  <ion-label stacked>PreOp Antibiotic Use</ion-label>
+           <ion-label stacked>Date of Surgery</ion-label>
+           <ion-item>
+             
+             <ion-input type="date" formControlName="date_of_surgery"></ion-input>
+           </ion-item>
+
+           <ion-label stacked>Surgical Details</ion-label>
+           <ion-item>
+             
+             <ion-input type="text" formControlName="surgical_details"></ion-input>
+           </ion-item>
+
+           <div>
+           <ion-label stacked>Indication for Surgery</ion-label>
+           <ion-item>
+           
+               <ion-select class="width100" formControlName="indication_for_surgery" interface="popover">
+ 
+                       <ion-option>Abdominal abscess</ion-option>
+                       <ion-option>Abdominal compartment syndrome</ion-option>
+                       <ion-option>Abdominal wound dehiscence</ion-option>
+                       <ion-option>Anastomotic leak</ion-option>
+                       <ion-option>Colitis</ion-option>
+                       <ion-option>Haemorrhage</ion-option>
+                       <ion-option>Intestinal fistula</ion-option>
+                       <ion-option>Intestinal obstruction</ion-option>
+                       <ion-option>Ischaemia</ion-option>
+                       <ion-option>Perforation</ion-option>
+                       <ion-option>Peritonitis</ion-option>
+                       <ion-option>Planned relook</ion-option>
+                       <ion-option>Sepsis (other)</ion-option>
+                       <ion-option>Other (Please give details)</ion-option>
+                       </ion-select>
+           </ion-item>
+           </div>
+           <div *ngIf='intraOpForm.value.indication_for_surgery=="Other (Please give details)"'>
+            <ion-label stacked>If other, Please give details</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="if_other_details"></ion-input>
+            </ion-item>
+  
+           </div>
+          
+          <div>
+           <ion-label stacked>Operative Findings</ion-label>
+         <ion-item>
+         
+             <ion-select class="width100" formControlName="operative_findings" interface="popover">
+
+                     <ion-option>Normal intra-abdominal findings</ion-option>
+                     <ion-option>Abdominal compartment syndrome</ion-option>
+                     <ion-option>Abscess</ion-option>
+                     <ion-option>Adhesions</ion-option>
+                     <ion-option>Anastomotic leak</ion-option>
+                     <ion-option>Colitis</ion-option>
+                     <ion-option>Crohn's disease</ion-option>
+                     <ion-option>Diverticulitis</ion-option>
+                     <ion-option>Haemorrhage - intestinal</ion-option>
+                     <ion-option>Haemorrhage - peptic ulcer</ion-option>
+                     <ion-option>Haemorrhage - postoperative</ion-option>
+                     <ion-option>Perforation - small bowel/colonic</ion-option>
+                     <ion-option>Volvulus</ion-option>
+                     <ion-option>Benign neoplasm of unspecified ovary</ion-option>
+                     <ion-option>Cholecystitis, unspecified</ion-option>
+                     <ion-option>Ectopic pregnancy, unspecified</ion-option>
+                     <ion-option>Endometriosis of ovary</ion-option>
+                     <ion-option>Endometriosis of uterus</ion-option>
+                     <ion-option>Endometriosis, unspecified</ion-option>
+                     <ion-option>Female pelvic peritoneal adhesions (postinfective)</ion-option>
+                     <ion-option>Hypertrophy of uterus</ion-option>
+                     <ion-option>Leiomyoma of uterus, unspecified</ion-option>
+                     <ion-option>Neoplasm of unspecified behavior of digestive system</ion-option>
+                     <ion-option>Other intra-abdominal and pelvic swelling, mass and lump</ion-option>
+                     <ion-option>Other specified diseases of liver</ion-option>
+                     <ion-option>Polycystic ovarian syndrome</ion-option>
+                     <ion-option>Unspecified ovarian cysts</ion-option>
+                     <ion-option>Abscess of appendix</ion-option>
+                     <ion-option>Acute gangrenous appendicitis</ion-option>
+                     <ion-option>Ascites</ion-option>
+                     <ion-option>Benign teratoma of ovary</ion-option>
+                     <ion-option>Cholecystitis</ion-option>
+                     <ion-option>Chronic cholecystitis</ion-option>
+                     <ion-option>Cirrhosis of liver</ion-option>
+                     <ion-option>Cyst of gallbladder</ion-option>
+                     <ion-option>Dilatation of intestine</ion-option>
+                     <ion-option>Disorder of uterus</ion-option>
+                     <ion-option>Duodenal perforation</ion-option>
+                     <ion-option>Endometrial cyst of ovary</ion-option>
+                     <ion-option>Foreign body in intestine</ion-option>
+                     <ion-option>Gallstone</ion-option>
+                     <ion-option>Gastrointestinal stromal tumor</ion-option>
+                     <ion-option>Gastro-omental lymphadenopathy</ion-option>
+                     <ion-option>Hydrosalpinx</ion-option>
+                     <ion-option>Hypoplasia of uterus and cervix</ion-option>
+                     <ion-option>Gastrointestinal stromal tumor</ion-option>
+                     <ion-option>Gastro-omental lymphadenopathy</ion-option>
+                     <ion-option>Hydrosalpinx</ion-option>
+                     <ion-option>Hypoplasia of uterus and cervix</ion-option>
+                     <ion-option>Iliac fossa abdominal mass</ion-option>
+                     <ion-option>Intestinal lymphadenopathy</ion-option>
+                     <ion-option>Intrahepatic gallbladder</ion-option>
+                     <ion-option>Intussusception of intestine</ion-option>
+                     <ion-option>Lesser sac abscess</ion-option>
+                     <ion-option>Lymphadenopathy</ion-option>
+                     <ion-option>Mass of pancreas</ion-option>
+                     <ion-option>Neoplasm of pancreas</ion-option>
+                     <ion-option>Neoplasm of sigmoid colon</ion-option>
+                     <ion-option>Nodular hyperplasia of liver</ion-option>
+                     <ion-option>Perforation of colon</ion-option>
+                     <ion-option>Perforation of rectum</ion-option>
+                     <ion-option>Perforation of small intestine</ion-option>
+                     <ion-option>Polycystic ovaries</ion-option>
+                     <ion-option>Pyloric obstruction</ion-option>
+                     <ion-option>Rupture of appendix</ion-option>
+                     <ion-option>Sigmoid volvulus</ion-option>
+                     <ion-option>Small intestinal gangrene</ion-option>
+                     <ion-option>Steatosis of liver</ion-option>
+                     <ion-option>Stricture of bile duct</ion-option>
+                     <ion-option>Unspecified appendicitis</ion-option>
+                     <ion-option>Other (please specify)</ion-option>
+
+
+
+
+                     </ion-select>
+         </ion-item>
+        </div>
+        <div *ngIf='intraOpForm.value.operative_findings=="Other (please specify)"'>
+            <ion-label stacked>If other, Please specify</ion-label>
+            <ion-item>
+              
+              <ion-input type="text" formControlName="specify_findings"></ion-input>
+            </ion-item>
+  
+        </div>
+        <div>
+              <ion-label stacked>The peritoneal contamination</ion-label>
+              <ion-item>
+              
+                  <ion-select class="width100" formControlName="the_perit_contam" interface="popover">
+    
+                          <ion-option>None or reactive serous fluid only</ion-option>
+                          <ion-option>Bile</ion-option>
+                          <ion-option>Blood/haematoma</ion-option>
+                          <ion-option>Faeces</ion-option>
+                          <ion-option>Faeculent fluid</ion-option>
+                          <ion-option>Free gas from perforation +/- minimal contamination</ion-option>
+                          <ion-option>Gastro-duodenal contents</ion-option>
+                          <ion-option>Pus</ion-option>
+                          <ion-option>Small bowel contents</ion-option>
+                          </ion-select>
+              </ion-item>
+          </div>
+          <div>
+                  <ion-label stacked>Operative Approach</ion-label>
+                  <ion-item>
+                  
+                      <ion-select class="width100" formControlName="operative_approach" interface="action-sheet">
+        
+                              <ion-option>Open</ion-option>
+                              <ion-option>Laparoscopic</ion-option>
+                              <ion-option>Laparoscopic assisted</ion-option>
+                              <ion-option>Laparoscopic converted to open</ion-option>
+                              </ion-select>
+                
+                            </ion-item>
+          </div>
+
+          <ion-label stacked>Operative Duration (Hours)</ion-label>
+          <ion-item> 
+            <ion-input type="text" formControlName="operative_duration">Hours</ion-input>
+          </ion-item>
+          
+      <div>
+              <ion-label stacked>Designation of most senior surgeon present</ion-label>
+              <ion-item>
+              
+                  <ion-select class="width100" formControlName="desig_of_mst_sr_surg" interface="action-sheet">
+    
+                          <ion-option>Consultant</ion-option>
+                          <ion-option>SR</ion-option>
+                          <ion-option>Registrar</ion-option>
+                          <ion-option>SHO</ion-option>
+                          <ion-option>MO</ion-option>
+                          <ion-option>Other</ion-option>
+                          </ion-select>
+            
+                        </ion-item>
+      </div>
+
+      <div radio-group formControlName="gen_ana">
+          <ion-label stacked>General anaesthesia</ion-label>
+
+      <ion-item >
+             
+                 <ion-label>Yes</ion-label>
+                 <ion-radio value="yes" ></ion-radio>
+
+      </ion-item>
+
+      <ion-item >
+
+                     <ion-label>No</ion-label>
+                     <ion-radio value="no"></ion-radio>          
+               
+      </ion-item>
+
+  </div>
+  
+  <div>
+      <ion-label stacked>Designation of most senior anaesthetist present</ion-label>
+      <ion-item>
+      
+          <ion-select class="width100" formControlName="desig_of_mst_sr_ana" interface="action-sheet">
+
+                  <ion-option>Consultant</ion-option>
+                  <ion-option>SR</ion-option>
+                  <ion-option>Registrar</ion-option>
+                  <ion-option>SHO</ion-option>
+                  <ion-option>MO</ion-option>
+                  <ion-option>Other</ion-option>
+                  </ion-select>
+    
+                </ion-item>
+</div>
+
+<div radio-group formControlName="blood_prod_transf">
+    <ion-label stacked>Blood products were transfused</ion-label>
+
+<ion-item >
+       
+           <ion-label>Yes</ion-label>
+           <ion-radio value="yes" ></ion-radio>
+
+</ion-item>
+
+<ion-item >
+
+               <ion-label>No</ion-label>
+               <ion-radio value="no"></ion-radio>          
+         
+</ion-item>
+
+</div>
+
+<div *ngIf='intraOpForm.value.blood_prod_transf=="yes"'>
+    <div>
+        <ion-label stacked>Type of Blood Product</ion-label>
+        <ion-item>
+        
+            <ion-select class="width100" formControlName="type_blood_product" interface="action-sheet">
+  
+                    <ion-option>Packed red cells</ion-option>
+                    <ion-option>Platelets</ion-option>
+                    <ion-option>Fresh frozen plasma</ion-option>
+                    <ion-option>Cryoprecipiitate</ion-option>
+                    <ion-option>White blood cells</ion-option>
+                    <ion-option>Whole blood</ion-option>
+                    </ion-select>
+      
+                  </ion-item>
+  </div>
+        <ion-label stacked>Units transfused</ion-label>
+        <ion-item>
+          <ion-input input-type='text' formControlName='units_transfused'></ion-input>
+        </ion-item>        
+</div>
+
+<ion-label stacked>Lowest perioperative HB</ion-label>
+<ion-item>
+  <ion-input input-type='text' formControlName='lowest_perioperative_hb' placeholder='g/dL'></ion-input>
+</ion-item>     
+
+
+<div formGroupName="complications_intraOp">
+  <ion-label stacked>Complications</ion-label>
+
+
+<ion-item>
+    <ion-label style="white-space:pre-wrap;">Conversion laparotomy from laparoscopy</ion-label>
+    <ion-checkbox 
+       color="secondary" 
+       formControlName="conversion_laparotomy_from_laparoscopy"></ion-checkbox>
+</ion-item>
+
+  <ion-item>
+          <ion-label style="white-space:pre-wrap;">ICU Admission</ion-label>
+          <ion-checkbox 
+             color="secondary" 
+             formControlName="icu_admission"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+          <ion-label style="white-space:pre-wrap;">Abdominal drain insertion</ion-label>
+          <ion-checkbox 
+                  color="secondary" 
+                  formControlName="abdominal_drain_insertion"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+          <ion-label style="white-space:pre-wrap;">Redo laparoscopy/laparotomy</ion-label>
+          <ion-checkbox 
+                  color="secondary" 
+                  formControlName="redo_laparoscopy_laparotomy"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+          <ion-label style="white-space:pre-wrap;">CT scan Abdomen</ion-label>
+          <ion-checkbox 
+                  color="secondary" 
+                  formControlName="ct_scan_abdomen"></ion-checkbox>
+  </ion-item>
+
+  <ion-item>
+          <ion-label style="white-space:pre-wrap;">No Complications</ion-label>
+          <ion-checkbox 
+                  color="secondary" 
+                  formControlName="no_complications"></ion-checkbox>
+  </ion-item>
+
+
+</div>
+
+
+          <div radio-group formControlName="intraOp_antibiotic_use">
+                  <ion-label stacked>Antibiotic Use</ion-label>
 
               <ion-item >
                      
@@ -57,11 +382,11 @@
 
           </div>
           
-           <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
+           <div *ngIf='intraOpForm.value.intraOp_antibiotic_use=="yes"'>
             <ion-label stacked>Antibiotic 1</ion-label>
           <ion-item>
           
-              <ion-select class="width100" formControlName="name_preOp_antibiotic" interface="popover">
+              <ion-select class="width100" formControlName="name_intraOp_antibiotic" interface="popover">
 
                       <ion-option>Augmentin</ion-option>
                       <ion-option>Ceftriaxone</ion-option>
@@ -90,7 +415,7 @@
                       </ion-select>
           </ion-item>
           </div>
-         <div *ngIf='intraOpForm.value.name_preOp_antibiotic=="Other"'>
+         <div *ngIf='intraOpForm.value.name_intraOp_antibiotic=="Other"'>
           <ion-label stacked>If other, Please specify</ion-label>
           <ion-item>
             
@@ -99,11 +424,11 @@
 
          </div>
 
-         <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
+         <div *ngIf='intraOpForm.value.intraOp_antibiotic_use=="yes"'>
           <ion-label stacked>Antibiotic 2</ion-label>
         <ion-item>
         
-            <ion-select class="width100"formControlName="name2_preOp_antibiotic" interface="popover">
+            <ion-select class="width100"formControlName="name2_intraOp_antibiotic" interface="popover">
 
                     <ion-option>Augmentin</ion-option>
                     <ion-option>Ceftriaxone</ion-option>
@@ -132,7 +457,7 @@
                     </ion-select>
         </ion-item>
         </div>
-       <div *ngIf='intraOpForm.value.name2_preOp_antibiotic=="Other"'>
+       <div *ngIf='intraOpForm.value.name2_intraOp_antibiotic=="Other"'>
         <ion-label stacked>If other, Please specify</ion-label>
         <ion-item>
           
@@ -141,11 +466,11 @@
 
        </div>
 
-       <div *ngIf='intraOpForm.value.preOp_antibiotic_use=="yes"'>
+       <div *ngIf='intraOpForm.value.intraOp_antibiotic_use=="yes"'>
         <ion-label stacked>Antibiotic 3</ion-label>
       <ion-item>
       
-          <ion-select class="width100" formControlName="name3_preOp_antibiotic" interface="popover">
+          <ion-select class="width100" formControlName="name3_intraOp_antibiotic" interface="popover">
 
                   <ion-option>Augmentin</ion-option>
                   <ion-option>Ceftriaxone</ion-option>
@@ -174,7 +499,7 @@
                   </ion-select>
       </ion-item>
       </div>
-     <div *ngIf='intraOpForm.value.name3_preOp_antibiotic=="Other"'>
+     <div *ngIf='intraOpForm.value.name3_intraOp_antibiotic=="Other"'>
       <ion-label stacked>If other, Please specify</ion-label>
       <ion-item>
         

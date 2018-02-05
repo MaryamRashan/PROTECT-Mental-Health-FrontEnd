@@ -5,10 +5,10 @@
 
 }
 ion-select {
-    min-width: 75% !important;
+    min-width: 100% !important;
     font-size: 15px;
+    margin-right: 0px;
+
 
 }
-.width100 {
-    min-width: 100%
-}
+$popover-ios-width: 400px;

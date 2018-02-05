@@ -1,6 +1,6 @@
 {
   "name": "FrontEnd",
-  "app_id": "",
+  "app_id": "53ba364e",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
