@@ -25,7 +25,7 @@ export class SocketProvider {
 
   public deviceId: any = 'Is not recieved :[ ';
   // private baseUrl = 'http://localhost:7171';
-  private baseUrl = 'http://mi.nicst.net';
+  private baseUrl = 'http://dev-abdo.nicst.net';
   // public token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OWZlZjRmYmFiZGEwNTFhM2M2OWQ4MzgiLCJ1c2VyTmFtZSI6InRlc3QxIiwicm9sZSI6ImFkbWluIiwiaG9zcGl0YWxzIjpbIjU5ZmVlYWExMjAwMzI4MDY3NDhlNzQ5NSJdLCJ1bml0cyI6WyI1OWZlZWUzNWJlODkzMjE5MTAyOTUyNmYiXSwiaWF0IjoxNTA5ODgyODk2LCJleHAiOjE2MTA2ODI4OTZ9.c8ceFurWEx4TFrzNLhKoUytQQ16UUpAdvwezGN7dODg';
   public token = '';
   public nspData;
@@ -150,12 +150,18 @@ export class SocketProvider {
                   } else if(convData.type == '-newThrombolysis-'){
                     console.log('-newThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newThrombolysis-')
-                  } else if(convData.type == '-newCormobiditiesAndRisks-'){
-                    console.log('-newCormobiditiesAndRisks- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newCormobiditiesAndRisks-')
-                  } else if(convData.type == '-newInvesti-'){
-                    console.log('-newInvesti- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newInvesti-')
+                  } else if(convData.type == '-newPostOpDay1-'){
+                    console.log('-newPostOpDay1- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOpDay1-')
+                  } else if(convData.type == '-newPostOpDay3-'){
+                    console.log('-newPostOpDay3- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOpDay3-')
+                  } else if(convData.type == '-newPostOpDay7-'){
+                    console.log('-newPostOpDay7- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOpDay7-')                    
+                  } else if(convData.type == '-newIntOp-'){
+                    console.log('-newIntOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newIntOp-')
                   } else if(convData.type == '-newQualityOfLife-'){
                     console.log('-newQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newQualityOfLife-')
@@ -168,15 +174,21 @@ export class SocketProvider {
                   } else if(convData.type == '-updateThrombolysis-'){
                     console.log('-updateThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateThrombolysis-')
-                  } else if(convData.type == '-updateCormobiditiesAndRisks-'){
-                    console.log('-updateCormobiditiesAndRisks- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updateCormobiditiesAndRisks-')
+                  } else if(convData.type == '-updatePostOpDay1-'){
+                    console.log('-updatePostOpDay1- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOpDay1-')
+                  } else if(convData.type == '-updatePostOpDay3-'){
+                    console.log('-updatePostOpDay3- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOpDay3-')
+                  } else if(convData.type == '-updatePostOpDay7-'){
+                    console.log('-updatePostOpDay7- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOpDay7-')
                   } else if(convData.type == '-updateQualityOfLife-'){
                     console.log('-updateQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateQualityOfLife-')
-                  } else if(convData.type == '-updateInvesti-'){
-                    console.log('-updateInvesti- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updateInvesti-')
+                  } else if(convData.type == '-updateIntOp-'){
+                    console.log('-updateIntOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updateIntOp-')
                   } else if (convData.type == '-discharge-'){
                       this.data.removePatient(convData.patientId);
                       console.log('patient removed >>>>>> ', convData.patientId )
@@ -228,27 +240,33 @@ export class SocketProvider {
           let newPatient: any = {
             // patientId : patient.patientId,
             // admission : patient.admission[0],
-            // cormobiditiesandrisks : patient.cormobiditiesandrisk[0],
-            // interventionpci : patient.interventionpci[0],
-            // investigations : patient.investigation,
+            // postopday1s : patient.postopday1[0],
+            // postopday3s : patient.postopday3[0],
+            // postopday7s : patient.postopday7[0],            
+            // intraOps : patient.intraOp,
             // observations : patient.observation,
             // qol : patient.qol,
-            // thrombolysis : patient.thrombolysis[0]
           };
           newPatient.patientId = patient.patientId;
           newPatient.admission = patient.admission[0];
-          if(patient.cormobiditiesandrisk[0]){
-            newPatient.cormobiditiesandrisks = patient.cormobiditiesandrisk[0];
-          }
-          if (patient.interventionpci[0]){
-            newPatient.interventionpci = patient.interventionpci[0];
-          }
-          if (patient.thrombolysis[0]){
-            newPatient.thrombolysis = patient.thrombolysis[0];
-          }
-          if (patient.investigation[0]){
-            newPatient.investigations = patient.investigation;
-          }
+           if(patient.postopday1[0]){
+             newPatient.postopday1s = patient.postopday1[0];
+           }
+           if(patient.postopday3[0]){
+             newPatient.postopday3s = patient.postopday3[0];
+           }
+           if(patient.postopday7[0]){
+             newPatient.postopday7s = patient.postopday7[0];
+           }
+          // if (patient.interventionpci[0]){
+          //   newPatient.interventionpci = patient.interventionpci[0];
+          // }
+          // if (patient.thrombolysis[0]){
+          //   newPatient.thrombolysis = patient.thrombolysis[0];
+          // }
+          // if (patient.intraOp[0]){
+          //   newPatient.intraOps = patient.intraOp;
+          // }
           if (patient.observation[0]){
             newPatient.observations = patient.observation;
           }

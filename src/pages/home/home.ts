@@ -131,7 +131,6 @@ export class HomePage {
   //       weight: '50',
   //       height: '100',
   //       admission_report_date: '',
-  //       admission_report: '',
   //       timeStamp: new Date().getTime()
   
   //     }
@@ -193,8 +192,10 @@ export class AddAdmissionModal {
     this.admissionForm = this.formBuilder.group({
       patientName: [''],
       gender: [''],
+      pre_operative_hb_avl: [''],
       age: [''],
       nic: [''],
+      pre_operative_hb: [''],
       contactNumber: [''],
       admission_date: [''],
       dateOfHospitalArrival: [''],
@@ -243,13 +244,21 @@ export class AddAdmissionModal {
       mild     : [ false ],
       moderate_to_severe     : [ false ],
    }),  
-     myocardial: formBuilder.group({
+
+   myocardial: formBuilder.group({
       angina     : [ false ],
       arrhythmia        : [ false ],
       congestive_heart_failure     : [ false ],
       myocardial_infarction     : [ false ],
       valvular       : [ false ],
      }),   
+     neurologic: formBuilder.group({
+      dementia     : [ false ],
+      depression        : [ false ],
+      hemiplegia     : [ false ],
+      other_neurologic     : [ false ],
+     }),   
+
      pulmonary: formBuilder.group({
       mild     : [ false ],
       moderate_to_severe     : [ false ],
@@ -289,7 +298,6 @@ export class AddAdmissionModal {
       weight: [''],
       height: [''],
       admission_report_date: [''],
-      admission_report: ['']
     });
     
   }
@@ -318,8 +326,10 @@ export class AddAdmissionModal {
         none : this.admissionForm.value.cprGiven.none,
       },
       gender: this.admissionForm.value.gender,
+      pre_operative_hb_avl: this.admissionForm.value.pre_operative_hb_avl,
       age: this.admissionForm.value.age,
       nic: this.admissionForm.value.nic,
+      pre_operative_hb: this.admissionForm.value.pre_operative_hb,
       contactNumber: this.admissionForm.value.contactNumber,
       admission_date: this.admissionForm.value.admission_date,
       dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
@@ -372,6 +382,12 @@ export class AddAdmissionModal {
         myocardial_infarction : this.admissionForm.value.myocardial.myocardial_infarction,
         valvular : this.admissionForm.value.myocardial.valvular,       
       },        
+      neurologic: {
+        dementia : this.admissionForm.value.neurologic.dementia,
+        depression : this.admissionForm.value.neurologic.depression,
+        hemiplegia : this.admissionForm.value.neurologic.hemiplegia,
+        other_neurologic : this.admissionForm.value.neurologic.other_neurologic,
+      },        
       pulmonary: {
         mild : this.admissionForm.value.pulmonary.mild,
         moderate_to_severe : this.admissionForm.value.pulmonary.moderate_to_severe,
@@ -397,7 +413,6 @@ export class AddAdmissionModal {
       weight: this.admissionForm.value.weight,
       height: this.admissionForm.value.height,
       admission_report_date: this.admissionForm.value.admission_report_date,
-      admission_report: this.admissionForm.value.admission_report,
       timeStamp: new Date().getTime()
 
     }

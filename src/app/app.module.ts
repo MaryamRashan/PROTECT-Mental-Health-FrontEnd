@@ -19,6 +19,9 @@ import { ModalContentPage8 } from '../pages/list/list';
 import { ModalContentPage9 } from '../pages/list/list';
 import { ModalContentPage10 } from '../pages/list/list';
 import { ModalContentPage11 } from '../pages/list/list';
+import { ModalContentPage13 } from '../pages/list/list';
+import { ModalContentPage14 } from '../pages/list/list';
+
 
 import { AddAdmissionModal } from '../pages/home/home';
 
@@ -50,11 +53,13 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage9,
     ModalContentPage10,
     ModalContentPage11,
+    ModalContentPage13,
+    ModalContentPage14,
     AddAdmissionModal
   ],
   imports: [
     IonicStorageModule.forRoot({
-      name: '__cardio',
+      name: '__abdo',
          driverOrder: ['sqlite', 'indexeddb',  'websql']
     }),
     BrowserModule,
@@ -78,6 +83,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage9,
     ModalContentPage10,
     ModalContentPage11,
+    ModalContentPage13,
+    ModalContentPage14,
     AddAdmissionModal
   ],
   providers: [

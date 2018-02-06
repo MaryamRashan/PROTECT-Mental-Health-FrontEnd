@@ -1,3 +1,14 @@
-page-list {
+.tooLong {
+    font-size:1.25rem; 
+    margin-right:0px;
+    white-space: pre-wrap;
 
 }
+ion-select {
+    min-width: 100% !important;
+    font-size: 15px;
+    margin-right: 0px;
+
+
+}
+$popover-ios-width: 400px;

@@ -90,7 +90,7 @@
                 <ion-input type="time" formControlName="timeOfHospitalArrival"></ion-input>
             </ion-item>
 
-            <ion-label stacked>BHT</ion-label>
+            <ion-label stacked>Medical Record Number (BHT)</ion-label>
             <ion-item>
             
                 <ion-input type="text" formControlName="bht"></ion-input>
@@ -99,7 +99,7 @@
             <ion-label stacked>Ward Number</ion-label>
             <ion-item>
             
-                <ion-select formControlName="ward_number" interface="popover">
+                <ion-select formControlName="ward_number" interface="action-sheet">
 
                         <ion-option>17</ion-option>
                         <ion-option>18</ion-option>
@@ -427,6 +427,47 @@
           </div>
    
            </div> 
+           <div *ngIf='admissionForm.value.comorbidities.neurologic'>
+                <div formGroupName="neurologic">
+                  <ion-label stacked>Neurologic</ion-label>
+
+
+                  <ion-item>
+                      <ion-label>Dementia</ion-label>
+                      <ion-checkbox 
+                         color="primary" 
+                         formControlName="dementia"></ion-checkbox>
+                  </ion-item>
+
+
+
+                  <ion-item>
+                          <ion-label>Depression</ion-label>
+                          <ion-checkbox 
+                             color="primary" 
+                             formControlName="depression"></ion-checkbox>
+                  </ion-item>
+
+                  <ion-item>
+                          <ion-label>Hemiplegia (Paraplegia)</ion-label>
+                          <ion-checkbox 
+                                  color="primary" 
+                                  formControlName="hemiplegia"></ion-checkbox>
+                  </ion-item>
+
+                  <ion-item>
+                          <ion-label>Other Neurologic</ion-label>
+                          <ion-checkbox 
+                                  color="primary" 
+                                  formControlName="other_neurologic"></ion-checkbox>
+                  </ion-item>
+
+
+
+          </div>
+   
+           </div> 
+
            <div *ngIf='admissionForm.value.comorbidities.pulmonary'>
                 <div formGroupName="pulmonary">
                   <ion-label stacked>Pulmonary</ion-label>
@@ -514,7 +555,7 @@
             <ion-item>
             
 
-                <ion-select formControlName="modeOfTransportation" interface="popover">
+                <ion-select formControlName="modeOfTransportation" interface="action-sheet">
 
                         <ion-option>Emergency ambulance</ion-option>
                         <ion-option>Own vehicle</ion-option>
@@ -526,7 +567,7 @@
             <ion-label stacked>Transferred From </ion-label>
             <ion-item>
             
-                <ion-select formControlName="transferredFrom" interface="popover">
+                <ion-select formControlName="transferredFrom" interface="action-sheet">
 
                         <ion-option>Another hospital</ion-option>
                         <ion-option>Home</ion-option>
@@ -637,7 +678,7 @@
             <ion-label stacked>Number of vasoactive drugs on admission</ion-label>
             <ion-item>
             
-                <ion-select formControlName="numberOfVasoDrugs" interface="popover">
+                <ion-select formControlName="numberOfVasoDrugs" interface="action-sheet">
 
                         <ion-option>None</ion-option>
                         <ion-option>1</ion-option>
@@ -650,7 +691,7 @@
             <ion-item>
             
                 <!-- <ion-input type="text" formControlName="ecgReferral"></ion-input> -->
-                <ion-select formControlName="ecgReferral" interface="popover">
+                <ion-select formControlName="ecgReferral" interface="action-sheet">
 
                         <ion-option>STEMI</ion-option>
                         <ion-option>NSTEMI</ion-option>
@@ -737,13 +778,25 @@
                 <ion-input type="date" formControlName="admission_report_date"></ion-input>
             </ion-item>
  
-            <ion-label stacked>Admission Report</ion-label>
+
+            <div radio-group formControlName="pre_operative_hb_avl">
+                <ion-label stacked>Pre Operative HB availability</ion-label>
+            <ion-item >
+                       <ion-label>Available</ion-label>
+                       <ion-radio value="available" ></ion-radio>
+              </ion-item>
+              <ion-item >
+                           <ion-label>Not Available</ion-label>
+                           <ion-radio value="not_available"></ion-radio>          
+                  </ion-item>
+        </div>
+        <div *ngIf='admissionForm.value.pre_operative_hb_avl=="available"'>
+            <ion-label stacked>Pre Operative HB</ion-label>
             <ion-item>
             
-                <ion-input type="text" formControlName="admission_report"></ion-input>
+                <ion-input type="text" placeholder="g/dL"formControlName="pre_operative_hb"></ion-input>
             </ion-item>
-            
-
+        </div>
     
            </ion-list>
          </ion-col>
