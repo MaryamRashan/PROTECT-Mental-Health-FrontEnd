@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AuthProvider {
 
-  private baseUrl = 'http://mi.nicst.net/auth/login';
+  private baseUrl = 'http://dev-abdo.nicst.net/auth/login';
   // private baseUrl = 'http://localhost:7171/auth/login';
 
   constructor(public http: Http) {

@@ -25,7 +25,7 @@ export class SocketProvider {
 
   public deviceId: any = 'Is not recieved :[ ';
   // private baseUrl = 'http://localhost:7171';
-  private baseUrl = 'http://mi.nicst.net';
+  private baseUrl = 'http://dev-abdo.nicst.net';
   // public token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OWZlZjRmYmFiZGEwNTFhM2M2OWQ4MzgiLCJ1c2VyTmFtZSI6InRlc3QxIiwicm9sZSI6ImFkbWluIiwiaG9zcGl0YWxzIjpbIjU5ZmVlYWExMjAwMzI4MDY3NDhlNzQ5NSJdLCJ1bml0cyI6WyI1OWZlZWUzNWJlODkzMjE5MTAyOTUyNmYiXSwiaWF0IjoxNTA5ODgyODk2LCJleHAiOjE2MTA2ODI4OTZ9.c8ceFurWEx4TFrzNLhKoUytQQ16UUpAdvwezGN7dODg';
   public token = '';
   public nspData;
