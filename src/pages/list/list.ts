@@ -55,18 +55,12 @@ export class ListPage {
     modal.present();
   }
 
-  openModal4() { // postopday1
-    let postopday1;
-    if (this.passedPatient.postopday1) {
-      postopday1 = this.passedPatient.postopday1
-    } else {
-      postopday1 = null;
-    }
-    let characterNum = { patient: this.passedPatient, postopday1: postopday1 };
-
-    let modal = this.modalCtrl.create(ModalContentPage4, characterNum);
+  openModal4() { // Post-Op list
+    let characterNum = { patient: this.passedPatient };
+    let modal = this.modalCtrl.create(ModalContentPage16, characterNum);
     modal.present();
   }
+
   openModal5() { // intervention PCI
     let interventionPci;
     if (this.passedPatient.interventionpci) {
@@ -748,26 +742,76 @@ export class ModalContentPage3 { //  single QOL
 
 }
 
+@Component({
+  templateUrl: 'postOplist.html',
+})
+export class ModalContentPage16 { // Post-Op list
+
+
+  public patient;
+
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
+    this.patient = navParams.get("patient");
+    console.log('patient inside the postOp list modal ', this.patient)
+
+
+
+  }
+
+  ionViewDidLoad() {
+    this.sortPostOp();
+  }
+
+  sortPostOp() {
+    if (this.patient.postOp) {
+      this.patient.postOp.sort((a: any, b: any) => {
+        if (a.postOpTimeStamp < b.postOpTimeStamp) {
+          return -1;
+        } else if (a.postOpTimeStamp > b.postOpTimeStamp) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  addPostOp() {
+    let postOp = { patient: this.patient, postOp: null };
+    let modal = this.modalCtrl.create(ModalContentPage4, postOp);
+    modal.present();
+  }
+
+  editPostOp(postOp) {
+    let data = { patient: this.patient, postOp: postOp };
+    let modal = this.modalCtrl.create(ModalContentPage4, data);
+    modal.present();
+  }
+}
 
 @Component({
-  templateUrl: 'postOpDay1.html',
+  templateUrl: 'postOp.html',
 })
 export class ModalContentPage4 { // cormobidities and risks
-  private postOpDay1Form : FormGroup;
+  private postOpForm : FormGroup;
   public patient;
-  public postopday1;
+  public postOp;
 
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
 
     this.patient = navParams.get("patient");
-    this.postopday1 = navParams.get("postopday1");
-    console.log(this.postopday1)
+    this.postOp = navParams.get("postOp");
+    console.log(this.postOp)
 
-    if (this.postopday1 == null){
+    if (this.postOp == null){
 
-      this.postOpDay1Form = this.formBuilder.group({
-        postop_day1_report_date: [''],
-        postop_day1_report_time: [''],
+      this.postOpForm = this.formBuilder.group({
+        postop_report_date: [''],
+        postop_report_time: [''],
         icu_admission: [''],
         notes_pod1: [''],
         cprExperienced: [''],
@@ -778,7 +822,7 @@ export class ModalContentPage4 { // cormobidities and risks
         hb_avl: formBuilder.group({
           not_available     : [ false ],
             }),
-        poms_score_day1: formBuilder.group({
+        poms_score: formBuilder.group({
           pulmonary     : [ false ],
           infections        : [ false ],
           renal     : [ false ],
@@ -788,12 +832,12 @@ export class ModalContentPage4 { // cormobidities and risks
           haematological      : [ false ],
           redo_laparoscopy_laparotomy      : [ false ],
           pain      : [ false ],
-        change_antibiotics_day1: formBuilder.group({
+        change_antibiotics: formBuilder.group({
           added     : [ false ],
           omitted        : [ false ],
           no_change     : [ false ],
             }),
-            antibiotics_omit_day1: [''],        
+            antibiotics_omit: [''],        
             name_of_antibiotic_omm: [''],        
             if_other_please_specifyomit: [''],
             date_antibiotic_omitted: [''],
@@ -813,50 +857,50 @@ export class ModalContentPage4 { // cormobidities and risks
 
       });
     } else {
-      this.postOpDay1Form = this.formBuilder.group({
-        postop_day1_report_date: [this.postopday1.postop_day1_report_date],
-        postop_day1_report_time: [this.postopday1.postop_day1_report_time],
-        icu_admission: [this.postopday1.icu_admission],
-        notes_pod1: [this.postopday1.notes_pod1],
-        cprExperienced: [this.postopday1.cprExperienced],
-        hb_level: [this.postopday1.hb_level],
-        wound_infection: [this.postopday1.wound_infection],
-        feeding: [this.postopday1.feeding],
-        bowels: [this.postopday1.bowels],
+      this.postOpForm = this.formBuilder.group({
+        postop_report_date: [this.postOp.postop_report_date],
+        postop_report_time: [this.postOp.postop_report_time],
+        icu_admission: [this.postOp.icu_admission],
+        notes_pod1: [this.postOp.notes_pod1],
+        cprExperienced: [this.postOp.cprExperienced],
+        hb_level: [this.postOp.hb_level],
+        wound_infection: [this.postOp.wound_infection],
+        feeding: [this.postOp.feeding],
+        bowels: [this.postOp.bowels],
         hb_avl: formBuilder.group({
-          not_available     : [ this.postopday1.not_available ],
+          not_available     : [ this.postOp.not_available ],
           }),
-        poms_score_day1: formBuilder.group({
-          pulmonary     : [ this.postopday1.pulmonary ],
-          infections        : [ this.postopday1.infections ],
-          renal     : [ this.postopday1.renal ],
-          gastrointestinal     : [ this.postopday1.gastrointestinal ],
-          cardiovascular       : [ this.postopday1.cardiovascular ],
-          neurological      : [ this.postopday1.neurological ],
-          haematological      : [ this.postopday1.haematological ],
-          redo_laparoscopy_laparotomy      : [ this.postopday1.redo_laparoscopy_laparotomy ],
-          pain      : [ this.postopday1.pain ],
-          beetleChewing      : [ this.postopday1.beetleChewing ],
-          dyslipidemia      : [ this.postopday1.dyslipidemia ],
-          noCormorbidities      : [ this.postopday1.noCormorbidities ],
-        change_antibiotics_day1: formBuilder.group({
-            added     : [ this.postopday1.added ],
-            omitted        : [ this.postopday1.omitted ],
-            no_change     : [ this.postopday1.no_change ],
+        poms_score: formBuilder.group({
+          pulmonary     : [ this.postOp.pulmonary ],
+          infections        : [ this.postOp.infections ],
+          renal     : [ this.postOp.renal ],
+          gastrointestinal     : [ this.postOp.gastrointestinal ],
+          cardiovascular       : [ this.postOp.cardiovascular ],
+          neurological      : [ this.postOp.neurological ],
+          haematological      : [ this.postOp.haematological ],
+          redo_laparoscopy_laparotomy      : [ this.postOp.redo_laparoscopy_laparotomy ],
+          pain      : [ this.postOp.pain ],
+          beetleChewing      : [ this.postOp.beetleChewing ],
+          dyslipidemia      : [ this.postOp.dyslipidemia ],
+          noCormorbidities      : [ this.postOp.noCormorbidities ],
+        change_antibiotics: formBuilder.group({
+            added     : [ this.postOp.added ],
+            omitted        : [ this.postOp.omitted ],
+            no_change     : [ this.postOp.no_change ],
             }),
-            name_of_antibiotic_omm: [this.postopday1.name_of_antibiotic_omm],
-            if_other_please_specifyomit: [this.postopday1.if_other_please_specifyomit],
-            date_antibiotic_omitted: [this.postopday1.date_antibiotic_omitted],
-            name_of_antibiotic_omm2: [this.postopday1.name_of_antibiotic_omm2],
-            if_other_please_specifyomit2: [this.postopday1.if_other_please_specifyomit2],
-            date_antibiotic_omitted2: [this.postopday1.date_antibiotic_omitted2],
-            antibiotics_omit_day1: [this.postopday1.antibiotics_omit_day1],
-            name_of_antibiotic: [this.postopday1.name_of_antibiotic_omm],
-            if_other_please_specify: [this.postopday1.if_other_please_specify],
-            name2_of_antibiotic: [this.postopday1.name2_of_antibiotic],
-            if_other_please_specify2: [this.postopday1.if_other_please_specify2],
-            name3_of_antibiotic: [this.postopday1.name1_of_antibiotic],
-            if_other_please_specify3: [this.postopday1.if_other_please_specify3],
+            name_of_antibiotic_omm: [this.postOp.name_of_antibiotic_omm],
+            if_other_please_specifyomit: [this.postOp.if_other_please_specifyomit],
+            date_antibiotic_omitted: [this.postOp.date_antibiotic_omitted],
+            name_of_antibiotic_omm2: [this.postOp.name_of_antibiotic_omm2],
+            if_other_please_specifyomit2: [this.postOp.if_other_please_specifyomit2],
+            date_antibiotic_omitted2: [this.postOp.date_antibiotic_omitted2],
+            antibiotics_omit: [this.postOp.antibiotics_omit],
+            name_of_antibiotic: [this.postOp.name_of_antibiotic_omm],
+            if_other_please_specify: [this.postOp.if_other_please_specify],
+            name2_of_antibiotic: [this.postOp.name2_of_antibiotic],
+            if_other_please_specify2: [this.postOp.if_other_please_specify2],
+            name3_of_antibiotic: [this.postOp.name1_of_antibiotic],
+            if_other_please_specify3: [this.postOp.if_other_please_specify3],
     
           }),
 
@@ -870,11 +914,11 @@ export class ModalContentPage4 { // cormobidities and risks
   }
 
   dismiss(){
-    // this.savePostOpDay1().then(()=>{
+    // this.savePostOp().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
-    if(this.postOpDay1Form.dirty){
-      this.savePostOpDay1().then(()=>{
+    if(this.postOpForm.dirty){
+      this.savePostOp().then(()=>{
         this.viewCtrl.dismiss();
       })
     } else {
@@ -883,48 +927,48 @@ export class ModalContentPage4 { // cormobidities and risks
     
   }
 
-  async savePostOpDay1(){
-    if(this.postopday1 == null){
+  async savePostOp(){
+    if(!this.patient.postOp && this.postOp === null){
 
               let postOp1 = {
-                postopday1ID: UUID(),
-                postop_day1_report_date: this.postOpDay1Form.value.postop_day1_report_date,
-                postop_day1_report_time: this.postOpDay1Form.value.postop_day1_report_time,
-                icu_admission: this.postOpDay1Form.value.icu_admission,
-                notes_pod1: this.postOpDay1Form.value.notes_pod1,
-                cprExperienced: this.postOpDay1Form.value.cprExperienced,
-                wound_infection: this.postOpDay1Form.value.wound_infection,
-                feeding: this.postOpDay1Form.value.feeding,
-                bowels: this.postOpDay1Form.value.bowels,
+                postOpID: UUID(),
+                postop_report_date: this.postOpForm.value.postop_report_date,
+                postop_report_time: this.postOpForm.value.postop_report_time,
+                icu_admission: this.postOpForm.value.icu_admission,
+                notes_pod1: this.postOpForm.value.notes_pod1,
+                cprExperienced: this.postOpForm.value.cprExperienced,
+                wound_infection: this.postOpForm.value.wound_infection,
+                feeding: this.postOpForm.value.feeding,
+                bowels: this.postOpForm.value.bowels,
 
-                pulmonary     :  this.postOpDay1Form.value.poms_score_day1.pulmonary ,
-                infections        :  this.postOpDay1Form.value.poms_score_day1.infections ,
-                renal     :  this.postOpDay1Form.value.poms_score_day1.renal ,
-                gastrointestinal     :  this.postOpDay1Form.value.poms_score_day1.gastrointestinal ,
-                cardiovascular       :  this.postOpDay1Form.value.poms_score_day1.cardiovascular ,
-                neurological      :  this.postOpDay1Form.value.poms_score_day1.neurological ,
-                haematological      :  this.postOpDay1Form.value.poms_score_day1.haematological ,
-                redo_laparoscopy_laparotomy      :  this.postOpDay1Form.value.poms_score_day1.redo_laparoscopy_laparotomy ,
-                pain      :  this.postOpDay1Form.value.poms_score_day1.pain ,
-                beetleChewing      :  this.postOpDay1Form.value.poms_score_day1.beetleChewing ,
-                dyslipidemia      :  this.postOpDay1Form.value.poms_score_day1.dyslipidemia ,
-                noCormorbidities      :  this.postOpDay1Form.value.poms_score_day1.noCormorbidities ,
-                added     :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.added ,
-                omitted        :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.omitted ,
-                no_change     :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.no_change ,
-                name_of_antibiotic_omm: this.postOpDay1Form.value.name_of_antibiotic_omm,
-                if_other_please_specifyomit: this.postOpDay1Form.value.if_other_please_specifyomit,
-                date_antibiotic_omitted: this.postOpDay1Form.value.date_antibiotic_omitted,
-                name_of_antibiotic_omm2: this.postOpDay1Form.value.name_of_antibiotic_omm2,
-                if_other_please_specifyomit2: this.postOpDay1Form.value.if_other_please_specifyomit2,
-                date_antibiotic_omitted2: this.postOpDay1Form.value.date_antibiotic_omitted2,
-                antibiotics_omit_day1: this.postOpDay1Form.value.antibiotics_omit_day1,
-                name_of_antibiotic: this.postOpDay1Form.value.name_of_antibiotic,
-                if_other_please_specify: this.postOpDay1Form.value.if_other_please_specify,
-                name2_of_antibiotic: this.postOpDay1Form.value.name2_of_antibiotic,
-                if_other_please_specify2: this.postOpDay1Form.value.if_other_please_specify2,
-                name3_of_antibiotic: this.postOpDay1Form.value.name3_of_antibiotic,
-                if_other_please_specify3: this.postOpDay1Form.value.if_other_please_specify3,
+                pulmonary     :  this.postOpForm.value.poms_score.pulmonary ,
+                infections        :  this.postOpForm.value.poms_score.infections ,
+                renal     :  this.postOpForm.value.poms_score.renal ,
+                gastrointestinal     :  this.postOpForm.value.poms_score.gastrointestinal ,
+                cardiovascular       :  this.postOpForm.value.poms_score.cardiovascular ,
+                neurological      :  this.postOpForm.value.poms_score.neurological ,
+                haematological      :  this.postOpForm.value.poms_score.haematological ,
+                redo_laparoscopy_laparotomy      :  this.postOpForm.value.poms_score.redo_laparoscopy_laparotomy ,
+                pain      :  this.postOpForm.value.poms_score.pain ,
+                beetleChewing      :  this.postOpForm.value.poms_score.beetleChewing ,
+                dyslipidemia      :  this.postOpForm.value.poms_score.dyslipidemia ,
+                noCormorbidities      :  this.postOpForm.value.poms_score.noCormorbidities ,
+                added     :  this.postOpForm.value.poms_score.change_antibiotics.added ,
+                omitted        :  this.postOpForm.value.poms_score.change_antibiotics.omitted ,
+                no_change     :  this.postOpForm.value.poms_score.change_antibiotics.no_change ,
+                name_of_antibiotic_omm: this.postOpForm.value.name_of_antibiotic_omm,
+                if_other_please_specifyomit: this.postOpForm.value.if_other_please_specifyomit,
+                date_antibiotic_omitted: this.postOpForm.value.date_antibiotic_omitted,
+                name_of_antibiotic_omm2: this.postOpForm.value.name_of_antibiotic_omm2,
+                if_other_please_specifyomit2: this.postOpForm.value.if_other_please_specifyomit2,
+                date_antibiotic_omitted2: this.postOpForm.value.date_antibiotic_omitted2,
+                antibiotics_omit: this.postOpForm.value.antibiotics_omit,
+                name_of_antibiotic: this.postOpForm.value.name_of_antibiotic,
+                if_other_please_specify: this.postOpForm.value.if_other_please_specify,
+                name2_of_antibiotic: this.postOpForm.value.name2_of_antibiotic,
+                if_other_please_specify2: this.postOpForm.value.if_other_please_specify2,
+                name3_of_antibiotic: this.postOpForm.value.name3_of_antibiotic,
+                if_other_please_specify3: this.postOpForm.value.if_other_please_specify3,
 
 
 
@@ -934,51 +978,55 @@ export class ModalContentPage4 { // cormobidities and risks
 
 
               }
-            this.patient.postopday1 = postOp1;
+              
+            let postOpArray = [];
+            postOpArray.push(postOp1);
+            this.patient.postOp = postOpArray;
             this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newPostOpDay1-');
-            this.sync.invokeSendDataThroughSocket(postOp1, '-newPostOpDay1-', this.patient.patientId);
+            this.data.updatePatient(this.patient, '-newPostOp-');
+            this.sync.invokeSendDataThroughSocket(postOp1, '-newPostOp-', this.patient.patientId);
 
-          } else {
+          }     else if (this.patient.postOp.length > 0 && this.postOp === null) {
+            console.log('adding another postOp')
 
             let postOp1 = {
-              postopday1ID: this.postopday1.postopday1ID,
-              postop_day1_report_date: this.postOpDay1Form.value.postop_day1_report_date,
-              postop_day1_report_time: this.postOpDay1Form.value.postop_day1_report_time,
-              icu_admission     :  this.postOpDay1Form.value.icu_admission ,
-              notes_pod1     :  this.postOpDay1Form.value.notes_pod1 ,
-              cprExperienced     :  this.postOpDay1Form.value.cprExperienced ,
-              wound_infection     :  this.postOpDay1Form.value.wound_infection ,
-              feeding     :  this.postOpDay1Form.value.feeding ,
-              bowels     :  this.postOpDay1Form.value.bowels ,
-              pulmonary     :  this.postOpDay1Form.value.poms_score_day1.pulmonary ,
-              infections        :  this.postOpDay1Form.value.poms_score_day1.infections ,
-              renal     :  this.postOpDay1Form.value.poms_score_day1.renal ,
-              gastrointestinal     :  this.postOpDay1Form.value.poms_score_day1.gastrointestinal ,
-              cardiovascular       :  this.postOpDay1Form.value.poms_score_day1.cardiovascular ,
-              neurological      :  this.postOpDay1Form.value.poms_score_day1.neurological ,
-              haematological      :  this.postOpDay1Form.value.poms_score_day1.haematological ,
-              redo_laparoscopy_laparotomy      :  this.postOpDay1Form.value.poms_score_day1.redo_laparoscopy_laparotomy ,
-              pain      :  this.postOpDay1Form.value.poms_score_day1.pain ,
-              beetleChewing      :  this.postOpDay1Form.value.poms_score_day1.beetleChewing ,
-              dyslipidemia      :  this.postOpDay1Form.value.poms_score_day1.dyslipidemia ,
-              noCormorbidities      :  this.postOpDay1Form.value.poms_score_day1.noCormorbidities ,
-              added     :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.added ,
-              omitted        :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.omitted ,
-              no_change     :  this.postOpDay1Form.value.poms_score_day1.change_antibiotics_day1.no_change ,
-              antibiotics_omit_day1     :  this.postOpDay1Form.value.antibiotics_omit_day1 ,
-              date_antibiotic_omitted: this.postOpDay1Form.value.date_antibiotic_omitted,
-              date_antibiotic_omitted2: this.postOpDay1Form.value.date_antibiotic_omitted2,
-              if_other_please_specifyomit     :  this.postOpDay1Form.value.if_other_please_specifyomit ,
-              if_other_please_specifyomit2     :  this.postOpDay1Form.value.if_other_please_specifyomit2 ,
-              if_other_please_specify     :  this.postOpDay1Form.value.if_other_please_specify ,
-              if_other_please_specify2     :  this.postOpDay1Form.value.if_other_please_specify2 ,
-              if_other_please_specify3     :  this.postOpDay1Form.value.if_other_please_specify3 ,
-              name_of_antibiotic_omm     :  this.postOpDay1Form.value.name_of_antibiotic_omm ,
-              name_of_antibiotic_omm2     :  this.postOpDay1Form.value.name_of_antibiotic_omm2 ,
-              name_of_antibiotic     :  this.postOpDay1Form.value.name_of_antibiotic ,
-              name2_of_antibiotic     :  this.postOpDay1Form.value.name2_of_antibiotic ,     
-              name3_of_antibiotic     :  this.postOpDay1Form.value.name3_of_antibiotic ,                    
+              postOpID: UUID(),
+              postop_report_date: this.postOpForm.value.postop_report_date,
+              postop_report_time: this.postOpForm.value.postop_report_time,
+              icu_admission     :  this.postOpForm.value.icu_admission ,
+              notes_pod1     :  this.postOpForm.value.notes_pod1 ,
+              cprExperienced     :  this.postOpForm.value.cprExperienced ,
+              wound_infection     :  this.postOpForm.value.wound_infection ,
+              feeding     :  this.postOpForm.value.feeding ,
+              bowels     :  this.postOpForm.value.bowels ,
+              pulmonary     :  this.postOpForm.value.poms_score.pulmonary ,
+              infections        :  this.postOpForm.value.poms_score.infections ,
+              renal     :  this.postOpForm.value.poms_score.renal ,
+              gastrointestinal     :  this.postOpForm.value.poms_score.gastrointestinal ,
+              cardiovascular       :  this.postOpForm.value.poms_score.cardiovascular ,
+              neurological      :  this.postOpForm.value.poms_score.neurological ,
+              haematological      :  this.postOpForm.value.poms_score.haematological ,
+              redo_laparoscopy_laparotomy      :  this.postOpForm.value.poms_score.redo_laparoscopy_laparotomy ,
+              pain      :  this.postOpForm.value.poms_score.pain ,
+              beetleChewing      :  this.postOpForm.value.poms_score.beetleChewing ,
+              dyslipidemia      :  this.postOpForm.value.poms_score.dyslipidemia ,
+              noCormorbidities      :  this.postOpForm.value.poms_score.noCormorbidities ,
+              added     :  this.postOpForm.value.poms_score.change_antibiotics.added ,
+              omitted        :  this.postOpForm.value.poms_score.change_antibiotics.omitted ,
+              no_change     :  this.postOpForm.value.poms_score.change_antibiotics.no_change ,
+              antibiotics_omit     :  this.postOpForm.value.antibiotics_omit ,
+              date_antibiotic_omitted: this.postOpForm.value.date_antibiotic_omitted,
+              date_antibiotic_omitted2: this.postOpForm.value.date_antibiotic_omitted2,
+              if_other_please_specifyomit     :  this.postOpForm.value.if_other_please_specifyomit ,
+              if_other_please_specifyomit2     :  this.postOpForm.value.if_other_please_specifyomit2 ,
+              if_other_please_specify     :  this.postOpForm.value.if_other_please_specify ,
+              if_other_please_specify2     :  this.postOpForm.value.if_other_please_specify2 ,
+              if_other_please_specify3     :  this.postOpForm.value.if_other_please_specify3 ,
+              name_of_antibiotic_omm     :  this.postOpForm.value.name_of_antibiotic_omm ,
+              name_of_antibiotic_omm2     :  this.postOpForm.value.name_of_antibiotic_omm2 ,
+              name_of_antibiotic     :  this.postOpForm.value.name_of_antibiotic ,
+              name2_of_antibiotic     :  this.postOpForm.value.name2_of_antibiotic ,     
+              name3_of_antibiotic     :  this.postOpForm.value.name3_of_antibiotic ,                    
 
 
 
@@ -987,13 +1035,83 @@ export class ModalContentPage4 { // cormobidities and risks
 
             }
 
-            this.patient.postopday1 = postOp1;
+            this.patient.postOp.push(postOp1);
             this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newPostOpDay1-')
-            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOpDay1-', this.patient.patientId);
+            this.data.updatePatient(this.patient, '-newPostOp-');
+            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOp-', this.patient.patientId);
 
           }
+          else {
 
+            console.log('editing postOp')
+      
+            let postOp1 = {
+              postOpID: this.postOp.postOpID,
+              postop_report_date: this.postOpForm.value.postop_report_date,
+              postop_report_time: this.postOpForm.value.postop_report_time,
+              icu_admission     :  this.postOpForm.value.icu_admission ,
+              notes_pod1     :  this.postOpForm.value.notes_pod1 ,
+              cprExperienced     :  this.postOpForm.value.cprExperienced ,
+              wound_infection     :  this.postOpForm.value.wound_infection ,
+              feeding     :  this.postOpForm.value.feeding ,
+              bowels     :  this.postOpForm.value.bowels ,
+              pulmonary     :  this.postOpForm.value.poms_score.pulmonary ,
+              infections        :  this.postOpForm.value.poms_score.infections ,
+              renal     :  this.postOpForm.value.poms_score.renal ,
+              gastrointestinal     :  this.postOpForm.value.poms_score.gastrointestinal ,
+              cardiovascular       :  this.postOpForm.value.poms_score.cardiovascular ,
+              neurological      :  this.postOpForm.value.poms_score.neurological ,
+              haematological      :  this.postOpForm.value.poms_score.haematological ,
+              redo_laparoscopy_laparotomy      :  this.postOpForm.value.poms_score.redo_laparoscopy_laparotomy ,
+              pain      :  this.postOpForm.value.poms_score.pain ,
+              beetleChewing      :  this.postOpForm.value.poms_score.beetleChewing ,
+              dyslipidemia      :  this.postOpForm.value.poms_score.dyslipidemia ,
+              noCormorbidities      :  this.postOpForm.value.poms_score.noCormorbidities ,
+              added     :  this.postOpForm.value.poms_score.change_antibiotics.added ,
+              omitted        :  this.postOpForm.value.poms_score.change_antibiotics.omitted ,
+              no_change     :  this.postOpForm.value.poms_score.change_antibiotics.no_change ,
+              antibiotics_omit     :  this.postOpForm.value.antibiotics_omit ,
+              date_antibiotic_omitted: this.postOpForm.value.date_antibiotic_omitted,
+              date_antibiotic_omitted2: this.postOpForm.value.date_antibiotic_omitted2,
+              if_other_please_specifyomit     :  this.postOpForm.value.if_other_please_specifyomit ,
+              if_other_please_specifyomit2     :  this.postOpForm.value.if_other_please_specifyomit2 ,
+              if_other_please_specify     :  this.postOpForm.value.if_other_please_specify ,
+              if_other_please_specify2     :  this.postOpForm.value.if_other_please_specify2 ,
+              if_other_please_specify3     :  this.postOpForm.value.if_other_please_specify3 ,
+              name_of_antibiotic_omm     :  this.postOpForm.value.name_of_antibiotic_omm ,
+              name_of_antibiotic_omm2     :  this.postOpForm.value.name_of_antibiotic_omm2 ,
+              name_of_antibiotic     :  this.postOpForm.value.name_of_antibiotic ,
+              name2_of_antibiotic     :  this.postOpForm.value.name2_of_antibiotic ,     
+              name3_of_antibiotic     :  this.postOpForm.value.name3_of_antibiotic ,                    
+
+
+
+              timeStamp: new Date().getTime()
+
+
+            }
+      
+            let filteredIndex;
+      
+            this.patient.postOp.forEach((element, index) => {
+      
+              if (element.postOpId == this.postOp.postOpId) {
+                filteredIndex = index;
+                // console.log('save called for edit obs', element)
+                // element = observation;
+                // console.log('save called for edit obs')
+      
+                // console.log('save called for edit obs', element)
+              }
+      
+            });
+            console.log('save called for edit postOp', filteredIndex)
+            // this.patient.oservations = editedObs;
+            this.patient.postOp[filteredIndex] = postOp1;
+            this.patient.timeStamp = new Date().getTime();
+            this.data.updatePatient(this.patient, '-newPostOp1-')
+            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOp1-', this.patient.patientId);
+          }
         }
   
 
@@ -1789,6 +1907,7 @@ export class ModalContentPage9 { // observation list
     modal.present();
   }
 }
+
 
 @Component({
   templateUrl: 'qollist.html',

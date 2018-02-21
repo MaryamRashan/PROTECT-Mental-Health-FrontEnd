@@ -208,8 +208,8 @@ export class DataProvider {
       case '-newThrombolysis-':
             this.addThrombolysis(data);
             break;
-      case '-newPostOpDay1-':
-            this.addPostOpDay1(data);
+      case '-newPostOp1-':
+            this.addPostOp(data);
             break;
       case '-newPostOpDay3-':
             this.addPostOpDay3(data);
@@ -232,8 +232,8 @@ export class DataProvider {
       case '-updateThrombolysis-':
             this.updateThrombolysis(data);
             break;
-      case '-updatePostOpDay1-':
-            this.updatePostOpDay1(data);
+      case '-updatePostOp1-':
+            this.updatePostOp(data);
             break;
       case '-updatePostOpDay3-':
             this.updatePostOpDay3(data);
@@ -529,87 +529,124 @@ export class DataProvider {
 
   }
 
-  async addPostOpDay1(data){
+  async addPostOp(data){
 
-    if(data.postopday1){
-        console.log('hit')
+    if(data.postOp){
         let unitId = await this.getUnitId();
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.admission.patientId){
-            patient.postopday1 = data.postopday1;
+            patient.postOp = data.postOp;
             patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
-        patientFromDb.postopday1 = data.postopday1;
+        patientFromDb.postOp = data.postOp;
         patientFromDb.timeStamp = data.timeStamp;
-        console.log('data.postopday1', data.postopday1)
+        // console.log('data.admission', data.admission)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
     } else {
-        let unitId = await this.getUnitId();
+      let unitId = await this.getUnitId();
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.patientId){
-            patient.postopday1 = data.data;
+            
+
+            if(patient.postOp){
+              patient.postOp.push(data.data);
+            } else {
+              patient.postOp = [data.data];
+            }
             // patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-        patientFromDb.postopday1 = data.data;
+        
+        if(patientFromDb.postOp){
+          patientFromDb.postOp.push(data.data);
+        } else {
+          patientFromDb.postOp = [data.data];
+        }
         // patientFromDb.timeStamp = data.timeStamp;
-        // console.log('data.postopday1', data.postopday1)
+        // console.log('data.admission', data.admission)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
     }
   }
 
-  async updatePostOpDay1(data) {
+  async updatePostOp(data){
+    console.log('##########################')
+    let unitId = await this.getUnitId();
+    let key = '-patient-' + unitId + '-' + data.patientId;
+    this.patientsArray.forEach(patient =>{
+      if(patient.admission.patientId == data.patientId){
+        console.log('patient.postOp', patient.postOp)
+        if(patient.postOp){
 
-    
-      let unitId = await this.getUnitId();
-      let key = '-patient-' + unitId + '-' + data.patientId;
-      console.log(key);
-      this.patientsArray.forEach(patient => {
-        if (patient.admission.patientId == data.patientId) {
-          patient.postopday1 = data.data;
-          // patient.timeStamp = data.timeStamp;
-
+          let _postOps = patient.postOp.map(item=>{
+            if(item.postOpId == data.data.postOpId){
+              // console.log('##########################')
+              // console.log('pre ', ob)
+              item = data.data;
+              // console.log('OB has changed!')
+              // console.log('##########################')
+              // console.log('post ', ob)
+            }
+            return item
+          })
+          
+          patient.postOp = _postOps;
         }
+        
+        // patient.timeStamp = data.timeStamp;
+        
+      }
+    })
+    let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
+    if(patientFromDb.postOp){
+      let _postOps = patientFromDb.postOp.map(item=>{
+        if(item.postOpId == data.data.postOpId){
+          // console.log('##########################')
+          // console.log('pre ', ob)
+          item = data.data;
+          // console.log('OB has changed!')
+          // console.log('##########################')
+          // console.log('post ', ob)
+        }
+        return item
       })
-      let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-      patientFromDb.postopday1 = data.data;
-      // patientFromDb.timeStamp = data.timeStamp;
-      console.log('data.postopday1', data.data)
-      console.log('patientFromDb.postopday1', patientFromDb.postopday1)
-      console.log('key', key)
-      this.storage.set(key, patientFromDb)
+      patientFromDb.postOp = _postOps;
+    } 
     
-
+    // patientFromDb.timeStamp = data.timeStamp;
+    // console.log('data.admission', data.admission)
+    // console.log('patientFromDb.admission', patientFromDb.admission)
+    // console.log('key', key)
+    this.storage.set(key, patientFromDb)
   }
 
   async addPostOpDay3(data){
 
-    if(data.postopday3){
+    if(data.postOpday3){
         console.log('hit')
         let unitId = await this.getUnitId();
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.admission.patientId){
-            patient.postopday3 = data.postopday3;
+            patient.postOpday3 = data.postOpday3;
             patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
-        patientFromDb.postopday3 = data.postopday3;
+        patientFromDb.postOpday3 = data.postOpday3;
         patientFromDb.timeStamp = data.timeStamp;
-        console.log('data.postopday3', data.postopday3)
+        console.log('data.postOpday3', data.postOpday3)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
@@ -618,15 +655,15 @@ export class DataProvider {
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.patientId){
-            patient.postopday3 = data.data;
+            patient.postOpday3 = data.data;
             // patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-        patientFromDb.postopday3 = data.data;
+        patientFromDb.postOpday3 = data.data;
         // patientFromDb.timeStamp = data.timeStamp;
-        // console.log('data.postopday3', data.postopday3)
+        // console.log('data.postOpday3', data.postOpday3)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
@@ -641,16 +678,16 @@ export class DataProvider {
       console.log(key);
       this.patientsArray.forEach(patient => {
         if (patient.admission.patientId == data.patientId) {
-          patient.postopday3 = data.data;
+          patient.postOpday3 = data.data;
           // patient.timeStamp = data.timeStamp;
 
         }
       })
       let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-      patientFromDb.postopday3 = data.data;
+      patientFromDb.postOpday3 = data.data;
       // patientFromDb.timeStamp = data.timeStamp;
-      console.log('data.postopday3', data.data)
-      console.log('patientFromDb.postopday3', patientFromDb.postopday3)
+      console.log('data.postOpday3', data.data)
+      console.log('patientFromDb.postOpday3', patientFromDb.postOpday3)
       console.log('key', key)
       this.storage.set(key, patientFromDb)
     
@@ -659,21 +696,21 @@ export class DataProvider {
 
   async addPostOpDay7(data){
 
-    if(data.postopday7){
+    if(data.postOpday7){
         console.log('hit')
         let unitId = await this.getUnitId();
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.admission.patientId){
-            patient.postopday7 = data.postopday7;
+            patient.postOpday7 = data.postOpday7;
             patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
-        patientFromDb.postopday7 = data.postopday7;
+        patientFromDb.postOpday7 = data.postOpday7;
         patientFromDb.timeStamp = data.timeStamp;
-        console.log('data.postopday7', data.postopday7)
+        console.log('data.postOpday7', data.postOpday7)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
@@ -682,15 +719,15 @@ export class DataProvider {
         let key = '-patient-' + unitId + '-' + data.patientId;
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.patientId){
-            patient.postopday7 = data.data;
+            patient.postOpday7 = data.data;
             // patient.timeStamp = data.timeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-        patientFromDb.postopday7 = data.data;
+        patientFromDb.postOpday7 = data.data;
         // patientFromDb.timeStamp = data.timeStamp;
-        // console.log('data.postopday7', data.postopday7)
+        // console.log('data.postOpday7', data.postOpday7)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
         this.storage.set(key, patientFromDb)
@@ -705,16 +742,16 @@ export class DataProvider {
       console.log(key);
       this.patientsArray.forEach(patient => {
         if (patient.admission.patientId == data.patientId) {
-          patient.postopday7 = data.data;
+          patient.postOpday7 = data.data;
           // patient.timeStamp = data.timeStamp;
 
         }
       })
       let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
-      patientFromDb.postopday7 = data.data;
+      patientFromDb.postOpday7 = data.data;
       // patientFromDb.timeStamp = data.timeStamp;
-      console.log('data.postopday7', data.data)
-      console.log('patientFromDb.postopday7', patientFromDb.postopday7)
+      console.log('data.postOpday7', data.data)
+      console.log('patientFromDb.postOpday7', patientFromDb.postOpday7)
       console.log('key', key)
       this.storage.set(key, patientFromDb)
     
