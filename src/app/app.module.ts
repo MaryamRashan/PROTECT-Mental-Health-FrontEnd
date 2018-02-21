@@ -59,7 +59,7 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     IonicStorageModule.forRoot({
-      name: '__abdo',
+      name: '__paedabdo',
          driverOrder: ['sqlite', 'indexeddb',  'websql']
     }),
     BrowserModule,

@@ -11,4 +11,20 @@ ion-select {
 
 
 }
+ion-slide.swiper-slide {
+    padding: 10px;
+    align-items: flex-start;
+}
+
+#data {
+    color: rgb(55, 48, 156); 
+    font-size: 15px;
+       
+}
+
+page-list div {
+    text-align: left;
+}
+
+
 $popover-ios-width: 400px;

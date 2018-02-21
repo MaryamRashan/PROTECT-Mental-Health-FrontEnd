@@ -26,31 +26,20 @@
        <ion-row>
          <ion-col>
 
-                        <ion-label stacked>Date of Post-Op Day 1 Report</ion-label>
+                        <ion-label stacked>Date</ion-label>
                         <ion-item>
                           
                           <ion-input type="date" formControlName="postop_day1_report_date"></ion-input>
                         </ion-item>
                
-                        <ion-label stacked>Time of Post-Op Day 1 Report</ion-label>
+                        <ion-label stacked>Time</ion-label>
                         <ion-item>
                           
                           <ion-input type="time" formControlName="postop_day1_report_time"></ion-input>
                         </ion-item>
 
-                    <div radio-group formControlName="icu_admission">
-                                        <ion-label stacked>ICU Admission </ion-label>
-                                    <ion-item >
-                                               <ion-label>Elective</ion-label>
-                                               <ion-radio value="elective" ></ion-radio>
-                                      </ion-item>
-                                      <ion-item >
-                                                <ion-label>Emergency</ion-label>
-                                                <ion-radio value="emergency"></ion-radio>          
-                                          </ion-item>
-                                </div>
             <div formGroupName="poms_score_day1">
-                <ion-label stacked>Post Operative Morbidity</ion-label>
+                <ion-label stacked>Post Operative Complications</ion-label>
 
 
                 <ion-item>
@@ -331,7 +320,7 @@
                              </div></div>
                 <ion-item>
                         <ion-label><h2>Renal</h2>
-                                   <p class="tooLong">Presence of oliguria (&lt; 500ml urine /24 hours), increased serum creatinine (&gt;30% from pre-operative level), urinary catheter in situ</p></ion-label>
+                                   <p class="tooLong">Presence of oliguria (&lt; 0.5ml/kg/hour/24 hours), increased serum creatinine (&gt;30% from pre-operative level), urinary catheter in situ</p></ion-label>
                         <ion-checkbox 
                                 color="secondary" 
                                 formControlName="renal"></ion-checkbox>
@@ -346,11 +335,28 @@
                 </ion-item>
 
                 <ion-item>
+                    <ion-label><h2>Gastrointestinal</h2>
+                            <p class="tooLong">Bowels not opened</p></ion-label>
+                    <ion-checkbox 
+                            color="secondary" 
+                            formControlName="gastrointestinal"></ion-checkbox>
+                </ion-item>
+
+                
+                <ion-item>
                         <ion-label><h2>Cardiovascular</h2>
-                                   <p class="tooLong">Diagnostic tests and /or treatment for any of the following in the past 24 hours: new myocardial infarction or ischaemia, hypertension (requiring fluid therapy >200ml/h or pharmacological therapy), atrial or ventricular arrhythmias, cardiogenic pulmonary oedema, thrombotic event requiring anticoagulation</p></ion-label>
+                                   <p class="tooLong">Diagnostic tests and /or treatment for any of the following in the past 24 hours: new myocardial infarction or ischaemia, hypotension (requiring fluid therapy >20ml/kg/h), atrial or ventricular arrhythmias, cardiogenic pulmonary oedema, thrombotic event requiring anticoagulation</p></ion-label>
                         <ion-checkbox 
                                 color="secondary" 
                                 formControlName="cardiovascular"></ion-checkbox>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><h2>Cardiovascular</h2>
+                               <p class="tooLong">Patient requires vasopressors</p></ion-label>
+                    <ion-checkbox 
+                            color="secondary" 
+                            formControlName="cardiovascular"></ion-checkbox>
                 </ion-item>
 
                 <ion-item>
@@ -370,7 +376,7 @@
                 </ion-item>
 
                 <ion-item>
-                        <ion-label> <h3 class='tooLong'>Redo Laparoscopy/Laparatomy</h3></ion-label>
+                        <ion-label> <h2 class='tooLong'>Redo Laparoscopy/Laparatomy</h2></ion-label>
                         <ion-checkbox 
                                 color="secondary" 
                                 formControlName="redo_laparoscopy_laparotomy"></ion-checkbox>
@@ -386,7 +392,50 @@
 
         </div>
 
+    <div radio-group formControlName="icu_admission">
+      <ion-label stacked>ICU Admission </ion-label>
+      <ion-item >
+        <ion-label>Elective</ion-label>
+        <ion-radio value="elective" ></ion-radio>
+      </ion-item>
+      <ion-item >
+        <ion-label>Emergency</ion-label>
+        <ion-radio value="emergency"></ion-radio>          
+      </ion-item>
+    </div>
 
+    <div radio-group formControlName="cprExperienced">
+      <ion-label stacked>Has patient experienced CPR in the last 24 hours? </ion-label>
+      <ion-item >
+        <ion-label>Yes</ion-label>
+        <ion-radio value="yes" ></ion-radio>
+      </ion-item>
+      <ion-item >
+        <ion-label>No</ion-label>
+        <ion-radio value="no"></ion-radio>          
+      </ion-item>
+    </div>
+
+    <!-- <ion-label stacked>Pre Operative HB</ion-label>
+    <div *ngIf='!postOpDay1Form.value.hb_avl.not_available'>
+    <ion-item>
+    <ion-input type="text" placeholder="g/dL"formControlName="hb_level"></ion-input>
+    </ion-item>
+    </div>
+    <div formGroupName="hb_avl">
+      <ion-item>
+        <ion-label>Not Available</ion-label>
+        <ion-checkbox 
+                color="primary" 
+                formControlName="not_available"></ion-checkbox>
+      </ion-item>            
+    </div> -->
+
+
+        <ion-label stacked>Additional Notes</ion-label>
+        <ion-item>
+        <ion-input type="text" formControlName="notes_pod1"></ion-input>  
+        </ion-item>
 
 
        
