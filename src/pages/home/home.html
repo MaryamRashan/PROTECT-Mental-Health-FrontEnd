@@ -17,8 +17,8 @@
             <!-- <ion-label>{{patient.admission.patientName}}</ion-label> -->
             {{patient.admission.patientName}}
             
-            <div id="item-font-for-content">BHT : {{patient.admission.bht}}</div>
-            <div *ngIf="patient.admission.admittedFor" id="item-font-for-content">Reason : {{patient.admission.admittedFor}}</div>
+            <div id="item-font-for-content">Medical Record Number : {{patient.admission.bht}}</div>
+            <div *ngIf="patient.admission.admittedFor" id="item-font-for-content" style="white-space:pre-wrap">Reason : {{patient.admission.admittedFor}}</div>
             <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
                       <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
           </ion-item>

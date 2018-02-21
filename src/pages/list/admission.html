@@ -25,7 +25,14 @@
     
        <ion-row>
          <ion-col>
-           <ion-list >
+           <ion-list >      
+
+            <ion-label stacked>Admission Date</ion-label>
+            <ion-item>
+            
+                <ion-input type="date" formControlName="admission_date"></ion-input>
+            </ion-item>
+            
                 <ion-label stacked>Name</ion-label>
              <ion-item>
                
@@ -41,14 +48,14 @@
                 <ion-item >
                        
                            <ion-label>Male</ion-label>
-                           <ion-radio value="male" ></ion-radio>
+                           <ion-radio value="Male" ></ion-radio>
    
                   </ion-item>
 
                   <ion-item >
 
                                <ion-label>Female</ion-label>
-                               <ion-radio value="female"></ion-radio>          
+                               <ion-radio value="Female"></ion-radio>          
                          
                       </ion-item>
 
@@ -59,36 +66,13 @@
             
                 <ion-input type="text" formControlName="age"></ion-input>
             </ion-item>
-            
-            <ion-label stacked>NIC Number</ion-label>
-            <ion-item>
-            
-                <ion-input type="text" formControlName="nic"></ion-input>
-            </ion-item>
-            
+                        
             <ion-label stacked>Contact Number</ion-label>
             <ion-item>
             
                 <ion-input type="text" formControlName="contactNumber"></ion-input>
             </ion-item>
-            
-            <ion-label stacked>Admission Date</ion-label>
-            <ion-item>
-            
-                <ion-input type="date" formControlName="admission_date"></ion-input>
-            </ion-item>
 
-            <ion-label stacked>Hospital Arrival Date</ion-label>
-            <ion-item>
-            
-                <ion-input type="date" formControlName="dateOfHospitalArrival"></ion-input>
-            </ion-item>
-            
-            <ion-label stacked>Hospital Arrival Time</ion-label>
-            <ion-item>
-            
-                <ion-input type="time" formControlName="timeOfHospitalArrival"></ion-input>
-            </ion-item>
 
             <ion-label stacked>Medical Record Number (BHT)</ion-label>
             <ion-item>
@@ -99,20 +83,22 @@
             <ion-label stacked>Ward Number</ion-label>
             <ion-item>
             
-                <ion-select formControlName="ward_number" interface="action-sheet">
+                <ion-select formControlName="ward_number" interface="popover">
 
-                        <ion-option>17</ion-option>
-                        <ion-option>18</ion-option>
-                        <ion-option>28</ion-option>
-                        <ion-option>32</ion-option>
-                        <ion-option>40A</ion-option>
-                        <ion-option>05</ion-option>
-                        <ion-option>06A</ion-option>
-                        <ion-option>39</ion-option>
-                        <ion-option>Kalubowila 24</ion-option>
-                        <ion-option>Kalubowila 25</ion-option>
+                        <ion-option>CWA</ion-option>
+                        <ion-option>CWB</ion-option>
+                        <ion-option>CWC</ion-option>
+                        <ion-option>HDU</ion-option>
+                        <ion-option>ITU</ion-option>
+                        <ion-option>Other</ion-option>
                         </ion-select>
             </ion-item>
+
+            <div *ngIf='admissionForm.value.ward_number=="Other"'>
+              <ion-label stacked>If other, please specify</ion-label>
+              <ion-input formControlName="if_other_ward" type="text"></ion-input>
+              <hr>
+            </div>
             
             <div radio-group formControlName="admission_type">
                 <ion-label stacked>Admission Type</ion-label>
@@ -140,520 +126,46 @@
                   <ion-label stacked>Comorbidities</ion-label>
 
 
-                  <ion-item>
-                      <ion-label>Cancer/Immune</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="cancer_immune"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Coagulapathy</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="coagulapathy"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Endocrine</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="endocrine"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Gastrointestinal</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="gastrointestinal"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Liver</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="liver"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Myocardial</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="myocardial"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Neurologic</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="neurologic"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                        <ion-label>Pulmonary</ion-label>
+                <ion-item>
+                        <ion-label>HIV</ion-label>
                         <ion-checkbox 
                                 color="primary" 
-                                formControlName="pulmonary"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                        <ion-label>Renal</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="renal"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                        <ion-label>Vascular</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="vascular"></ion-checkbox>
+                                formControlName="hiv"></ion-checkbox>
                 </ion-item>
 
                 <ion-item>
-                        <ion-label>Dyslipidemia</ion-label>
+                        <ion-label>None</ion-label>
                         <ion-checkbox 
                                 color="primary" 
-                                formControlName="dyslipidemia"></ion-checkbox>
+                                formControlName="none"></ion-checkbox>
                 </ion-item>
 
                 <ion-item>
-                        <ion-label>Psychiatric Disorders</ion-label>
+                        <ion-label>Other</ion-label>
                         <ion-checkbox 
                                 color="primary" 
-                                formControlName="psychiatric_disorders"></ion-checkbox>
-                </ion-item>
-
-                <ion-item>
-                        <ion-label>Non Documented</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="non_documented"></ion-checkbox>
+                                formControlName="other"></ion-checkbox>
                 </ion-item>
           </div>
           </div>
         
             
-            <div *ngIf='admissionForm.value.comorbidities.cancer_immune'>
-                  <div formGroupName="cancer_immune">
-                    <ion-label stacked>Cancer/Immune</ion-label>
-
-
-                    <ion-item>
-                        <ion-label>AIDS</ion-label>
-                        <ion-checkbox 
-                           color="primary" 
-                           formControlName="aids"></ion-checkbox>
-                    </ion-item>
-
-
-
-                    <ion-item>
-                            <ion-label>Leukemia</ion-label>
-                            <ion-checkbox 
-                               color="primary" 
-                               formControlName="leukemia"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Lymphona</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="lymphona"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Tumor</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="tumor"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Metastatic Cancer</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="metastatic_cancer"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Rheumatologic</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="rheumatologic"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>HIV</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="hiv"></ion-checkbox>
-                    </ion-item>
-
-            </div>
-     
-             </div> 
-             <div *ngIf='admissionForm.value.comorbidities.endocrine'>
-                <div formGroupName="endocrine">
-                  <ion-label stacked>Endocrine</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Diabetes</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="diabetes"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Non-Diabetic Endocrine</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="non_diabetic_endocrine"></ion-checkbox>
-                  </ion-item>
-
-               
-
-          </div>
-   
-           </div> 
-           <div *ngIf='admissionForm.value.comorbidities.gastrointestinal'>
-                <div formGroupName="gastrointestinal">
-                  <ion-label stacked>Gastrointestinal</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>GI Bleeding</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="gi_bleeding"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Inflammatory Bowel</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="inflammatory_bowel"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Peptic Ulcer</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="peptic_ulcer"></ion-checkbox>
-                  </ion-item>
-
-
-          </div>
-   
-           </div> 
-           <div *ngIf='admissionForm.value.comorbidities.liver'>
-                <div formGroupName="liver">
-                  <ion-label stacked>Liver</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Mild</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="mild"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Moderate to Severe</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="moderate_to_severe"></ion-checkbox>
-                  </ion-item>
-
-
-
-          </div>
-   
-           </div> 
-           
-           <div *ngIf='admissionForm.value.comorbidities.myocardial'>
-                <div formGroupName="myocardial">
-                  <ion-label stacked>Myocardial</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Angina</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="angina"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Arrhythmia</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="arrhythmia"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Congestive Heart Failure</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="congestive_heart_failure"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Myocardial Infarction</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="myocardial_infarction"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Valvular</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="valvular"></ion-checkbox>
-                  </ion-item>
-
-
-
-          </div>
-   
-           </div> 
-           <div *ngIf='admissionForm.value.comorbidities.neurologic'>
-                <div formGroupName="neurologic">
-                  <ion-label stacked>Neurologic</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Dementia</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="dementia"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Depression</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="depression"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Hemiplegia (Paraplegia)</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="hemiplegia"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Other Neurologic</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="other_neurologic"></ion-checkbox>
-                  </ion-item>
-
-
-          </div>
-   
-           </div> 
-           <div *ngIf='admissionForm.value.comorbidities.pulmonary'>
-                <div formGroupName="pulmonary">
-                  <ion-label stacked>Pulmonary</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Mild</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="mild"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Moderate to Severe</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="moderate_to_severe"></ion-checkbox>
-                  </ion-item>
-          </div>
-   
-           </div> 
-           <div *ngIf='admissionForm.value.comorbidities.renal'>
-                <div formGroupName="renal">
-                  <ion-label stacked>Renal</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Mild Insufficiency</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="mild_insufficiency"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Moderate to Severe</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="moderate_to_severe"></ion-checkbox>
-                  </ion-item>
-
-              
-          </div>
-   
-           </div> 
-
-           <div *ngIf='admissionForm.value.comorbidities.vascular'>
-                <div formGroupName="vascular">
-                  <ion-label stacked>Vascular</ion-label>
-
-
-                  <ion-item>
-                      <ion-label>Cerebrovascular</ion-label>
-                      <ion-checkbox 
-                         color="primary" 
-                         formControlName="cerebrovascular"></ion-checkbox>
-                  </ion-item>
-
-
-
-                  <ion-item>
-                          <ion-label>Hypertension</ion-label>
-                          <ion-checkbox 
-                             color="primary" 
-                             formControlName="hypertension"></ion-checkbox>
-                  </ion-item>
-
-                  <ion-item>
-                          <ion-label>Peripheral Vascular</ion-label>
-                          <ion-checkbox 
-                                  color="primary" 
-                                  formControlName="peripheral_vascular"></ion-checkbox>
-                  </ion-item>
-
-
-
-          </div>
-   
-           </div> 
-
-            <ion-label stacked>Mode of Transportaion</ion-label>
+            <div *ngIf='admissionForm.value.comorbidities.other'>
+            <ion-label stacked>If other, please specify comorbidity</ion-label>
             <ion-item>
-            
-
-                <ion-select formControlName="modeOfTransportation" interface="action-sheet">
-
-                        <ion-option>Emergency ambulance</ion-option>
-                        <ion-option>Own vehicle</ion-option>
-                        <ion-option>Hired vehicle</ion-option>
-                        <ion-option>Public transport</ion-option>
-                        </ion-select>
+            <ion-input type="text" formControlName="if_other_please_specify_comorbi"></ion-input>
             </ion-item>
+            </div>
 
-            <ion-label stacked>Transferred From </ion-label>
+            <div *ngIf='admissionForm.value.comorbidities.hiv'>
+            <ion-label stacked>CD4 count</ion-label>
             <ion-item>
-            
-                <ion-select formControlName="transferredFrom" interface="action-sheet">
-
-                        <ion-option>Another hospital</ion-option>
-                        <ion-option>Home</ion-option>
-                        <ion-option>Working place</ion-option>
-                        <ion-option>Public place</ion-option>
-                        </ion-select>
+            <ion-input type="text" formControlName="cd4"></ion-input>
             </ion-item>
-
-            <div radio-group formControlName="pciOrThrombolysis">
-                    <ion-label stacked>Recent intervention?</ion-label>
-
-
-
-                <ion-item >
-                       
-                           <ion-label>PCI</ion-label>
-                           <ion-radio value="pci" ></ion-radio>
-   
-                  </ion-item>
-
-                  <ion-item >
-
-                               <ion-label>Thrombolysis</ion-label>
-                               <ion-radio value="thrombolysis"></ion-radio>          
-                         
-                      </ion-item>
-
             </div>
 
-            <div formGroupName="cprGiven">
-                    <ion-label stacked>Events on admission</ion-label>
-
-
-                    <ion-item>
-                        <ion-label>CPR</ion-label>
-                        <ion-checkbox 
-                           color="primary" 
-                           formControlName="cpr"></ion-checkbox>
-                    </ion-item>
-
-
-
-                    <ion-item>
-                            <ion-label>Defibrillation</ion-label>
-                            <ion-checkbox 
-                               color="primary" 
-                               formControlName="defibrillation"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Thrombolysis</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="thrombolysis"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Vasoactive drugs</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="vasoactiveDrugs"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Furosemide</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="furosemide"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>Ventilation</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="ventilation"></ion-checkbox>
-                    </ion-item>
-
-                    <ion-item>
-                            <ion-label>None</ion-label>
-                            <ion-checkbox 
-                                    color="primary" 
-                                    formControlName="none"></ion-checkbox>
-                    </ion-item>
-
-            </div>
-
-            <div radio-group formControlName="raisedJvp">
-                    <ion-label stacked>Raised JVP on admission</ion-label>
+            <div radio-group formControlName="feverad">
+                    <ion-label stacked>Fever in last 24 hours</ion-label>
 
 
 
@@ -673,128 +185,35 @@
 
             </div>
 
-            <ion-label stacked>Number of vasoactive drugs on admission</ion-label>
-            <ion-item>
-            
-                <ion-select formControlName="numberOfVasoDrugs" interface="action-sheet">
 
-                        <ion-option>None</ion-option>
-                        <ion-option>1</ion-option>
-                        <ion-option>2</ion-option>
-                        <ion-option>More than 2</ion-option>
-                </ion-select>
-            </ion-item>
-
-            <ion-label stacked>ECG referral for</ion-label>
-            <ion-item>
-            
-                <!-- <ion-input type="text" formControlName="ecgReferral"></ion-input> -->
-                <ion-select formControlName="ecgReferral" interface="action-sheet">
-
-                        <ion-option>STEMI</ion-option>
-                        <ion-option>NSTEMI</ion-option>
-                        </ion-select>
-            </ion-item>
-
-            <ion-label stacked>Date of First ECG</ion-label>
-            <ion-item>
-            
-                <ion-input type="date" formControlName="dateOfFirstEcg"></ion-input>
-            </ion-item>
-            
-            <ion-label stacked>Time of First ECG</ion-label>
-            <ion-item>
-            
-                <ion-input type="time" formControlName="timeOfFirstEcg"></ion-input>
-            </ion-item>
-
-            <div radio-group formControlName="analgesiaGiven">
-                    <ion-label stacked>Analgesia given</ion-label>
-
-
-
-                <ion-item >
-                       
-                           <ion-label>Yes</ion-label>
-                           <ion-radio value="yes" ></ion-radio>
-   
-                  </ion-item>
-
-                  <ion-item >
-
-                               <ion-label>No</ion-label>
-                               <ion-radio value="no"></ion-radio>          
-                         
-                      </ion-item>
-
-            </div>
-
-            <ion-label stacked>Admitted for</ion-label>
-            <ion-item>
-            
-              
-                <ion-select formControlName="admittedFor" interface="action-sheet">
-
-                        <ion-option>Primary PCI</ion-option>
-                        <ion-option>Bypass</ion-option>
-                        <ion-option>Acute VR</ion-option>
-                        <ion-option>Pacemaker</ion-option>
-                        <ion-option>HF management with vasoactive</ion-option>
-                        <ion-option>Observation</ion-option>
-                        <ion-option>Thrombolysis SK</ion-option>
-                        <ion-option>Rescue PCI</ion-option>
-                        <ion-option>Thrombolysis Tenecteplase</ion-option>
-                        <ion-option>Angiogram</ion-option>
-                        <ion-option>Reinfarction</ion-option>
-                        </ion-select>
-        
-            </ion-item>
-
-            
-    
-                
-
-
-
-
-
-            <ion-label stacked>Weight</ion-label>
+            <ion-label stacked>Weight (kg)</ion-label>
             <ion-item>
               
-              <ion-input type="text" formControlName="weight"></ion-input>
+              <ion-input type="number" formControlName="weight"></ion-input>
             </ion-item>
     
-            <ion-label stacked>Height</ion-label>
+            <ion-label stacked>Height (cm)</ion-label>
             <ion-item>
               
-              <ion-input type="text" formControlName="height"></ion-input>
+              <ion-input type="number" formControlName="height"></ion-input>
             </ion-item>
+ 
 
-            <ion-label stacked>Date of Admission Report </ion-label>
-            <ion-item>
-            
-                <ion-input type="date" formControlName="admission_report_date"></ion-input>
-            </ion-item>
-
-            <div radio-group formControlName="pre_operative_hb_avl">
-                <ion-label stacked>Pre Operative HB availability</ion-label>
-            <ion-item >
-                       <ion-label>Available</ion-label>
-                       <ion-radio value="available" ></ion-radio>
-              </ion-item>
-              <ion-item >
-                           <ion-label>Not Available</ion-label>
-                           <ion-radio value="not_available"></ion-radio>          
-                  </ion-item>
-        </div>
-        <div *ngIf='admissionForm.value.pre_operative_hb_avl=="available"'>
             <ion-label stacked>Pre Operative HB</ion-label>
+            <div *ngIf='!admissionForm.value.pre_operative_hb_avl.not_available'>
             <ion-item>
-            
-                <ion-input type="text" placeholder="g/dL"formControlName="pre_operative_hb"></ion-input>
+            <ion-input type="text" placeholder="g/dL"formControlName="pre_operative_hb"></ion-input>
             </ion-item>
-        </div>
-    
+            </div>
+            <div formGroupName="pre_operative_hb_avl">
+              <ion-item>
+                <ion-label>Not Available</ion-label>
+                <ion-checkbox 
+                        color="primary" 
+                        formControlName="not_available"></ion-checkbox>
+              </ion-item>            
+            </div>
+
            </ion-list>
          </ion-col>
        </ion-row>

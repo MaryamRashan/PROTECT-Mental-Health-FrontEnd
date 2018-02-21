@@ -26,23 +26,35 @@
      <ion-row>
        <ion-col>
          <ion-list >
-              <ion-label stacked>Date</ion-label>
+
+           <ion-label stacked>Date of Surgery</ion-label>
            <ion-item>
-             
-             <ion-input type="date" formControlName="intraOpDate"></ion-input>
+           <ion-input type="date" formControlName="date_of_surgery"></ion-input>
            </ion-item>
 
            <ion-label stacked>Time</ion-label>
            <ion-item>
-             
-             <ion-input type="time" formControlName="intraOpTime"></ion-input>
+           <ion-input type="time" formControlName="intraOpTime"></ion-input>
            </ion-item> 
+          <div radio-group formControlName="location_of_surgery">
+              <ion-label stacked>Location of the surgery</ion-label>
+    
+          <ion-item >
+                 
+                     <ion-label>Theater</ion-label>
+                     <ion-radio value="theater" ></ion-radio>
+    
+          </ion-item>
+    
+          <ion-item >
+    
+                         <ion-label>Ward</ion-label>
+                         <ion-radio value="ward"></ion-radio>          
+                   
+          </ion-item>
+    
+      </div>
 
-           <ion-label stacked>Date of Surgery</ion-label>
-           <ion-item>
-             
-             <ion-input type="date" formControlName="date_of_surgery"></ion-input>
-           </ion-item>
 
            <ion-label stacked>Surgical Details</ion-label>
            <ion-item>
@@ -211,23 +223,22 @@
           <ion-item> 
             <ion-input type="text" formControlName="operative_duration">Hours</ion-input>
           </ion-item>
-          
-      <div>
-              <ion-label stacked>Designation of most senior surgeon present</ion-label>
-              <ion-item>
-              
-                  <ion-select class="width100" formControlName="desig_of_mst_sr_surg" interface="action-sheet">
-    
-                          <ion-option>Consultant</ion-option>
-                          <ion-option>SR</ion-option>
-                          <ion-option>Registrar</ion-option>
-                          <ion-option>SHO</ion-option>
-                          <ion-option>MO</ion-option>
-                          <ion-option>Other</ion-option>
-                          </ion-select>
-            
-                        </ion-item>
-      </div>
+
+          <ion-label stacked>Name of the consultant</ion-label>
+          <ion-item> 
+            <ion-input type="text" formControlName="name_of_consultant"></ion-input>
+          </ion-item>
+
+          <ion-label stacked>Name of the registrar</ion-label>
+          <ion-item> 
+            <ion-input type="text" formControlName="name_of_registrar"></ion-input>
+          </ion-item>
+
+          <ion-label stacked>Name of the junior doctor</ion-label>
+          <ion-item> 
+            <ion-input type="text" formControlName="name_of_junior_doctor"></ion-input>
+          </ion-item>
+
 
       <div radio-group formControlName="gen_ana">
           <ion-label stacked>General anaesthesia</ion-label>
@@ -248,22 +259,6 @@
 
   </div>
   
-  <div>
-      <ion-label stacked>Designation of most senior anaesthetist present</ion-label>
-      <ion-item>
-      
-          <ion-select class="width100" formControlName="desig_of_mst_sr_ana" interface="action-sheet">
-
-                  <ion-option>Consultant</ion-option>
-                  <ion-option>SR</ion-option>
-                  <ion-option>Registrar</ion-option>
-                  <ion-option>SHO</ion-option>
-                  <ion-option>MO</ion-option>
-                  <ion-option>Other</ion-option>
-                  </ion-select>
-    
-                </ion-item>
-</div>
 
 <div radio-group formControlName="blood_prod_transf">
     <ion-label stacked>Blood products were transfused</ion-label>
@@ -508,7 +503,11 @@
 
      </div>
            
-
+     <ion-label stacked>Additional notes</ion-label>
+     <ion-item>
+       
+       <ion-input type="text" formControlName="notes_intop"></ion-input>
+     </ion-item>
 
 
 

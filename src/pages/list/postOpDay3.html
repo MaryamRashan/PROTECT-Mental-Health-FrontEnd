@@ -38,19 +38,65 @@
                           <ion-input type="time" formControlName="postop_day3_report_time"></ion-input>
                         </ion-item>
 
-                    <div radio-group formControlName="icu_admission">
-                                        <ion-label stacked>ICU Admission </ion-label>
-                                    <ion-item >
-                                               <ion-label>Elective</ion-label>
-                                               <ion-radio value="elective" ></ion-radio>
-                                      </ion-item>
-                                      <ion-item >
-                                                <ion-label>Emergency</ion-label>
-                                                <ion-radio value="emergency"></ion-radio>          
-                                          </ion-item>
-            
-            
-                                </div>
+      <div radio-group formControlName="icu_admission">
+      <ion-label stacked>ICU Admission </ion-label>
+      <ion-item >
+      <ion-label>Elective</ion-label>
+        <ion-radio value="elective" ></ion-radio>
+      </ion-item>
+      <ion-item >
+      <ion-label>Emergency</ion-label>
+        <ion-radio value="emergency"></ion-radio>          
+      </ion-item>            
+      </div>
+
+      <div radio-group formControlName="fever">
+        <ion-label stacked>Fever in last 24 hours </ion-label>
+        <ion-item >
+          <ion-label>Yes</ion-label>
+          <ion-radio value="yes" ></ion-radio>
+        </ion-item>
+        <ion-item >
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>          
+        </ion-item>
+      </div>
+  
+      <div radio-group formControlName="wound_infection">
+        <ion-label stacked>Wound Infection</ion-label>
+        <ion-item >
+          <ion-label>Yes</ion-label>
+          <ion-radio value="yes" ></ion-radio>
+        </ion-item>
+        <ion-item >
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>          
+        </ion-item>
+      </div>
+  
+      <div radio-group formControlName="feeding">
+        <ion-label stacked>Feeding</ion-label>
+        <ion-item >
+          <ion-label>Yes</ion-label>
+          <ion-radio value="yes" ></ion-radio>
+        </ion-item>
+        <ion-item >
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>          
+        </ion-item>
+      </div>
+  
+      <div radio-group formControlName="bowels">
+        <ion-label stacked>Bowels opened</ion-label>
+        <ion-item >
+          <ion-label>Yes</ion-label>
+          <ion-radio value="yes" ></ion-radio>
+        </ion-item>
+        <ion-item >
+          <ion-label>No</ion-label>
+          <ion-radio value="no"></ion-radio>          
+        </ion-item>
+      </div>
             
 
                      <div radio-group formControlName="hb_avl_day3">
@@ -392,7 +438,7 @@
                 </ion-item>
 
                 <ion-item>
-                        <ion-label> <h3 class='tooLong'>Redo Laparoscopy/Laparotomy</h3></ion-label>
+                        <ion-label> <h2 class='tooLong'>Redo Laparoscopy/Laparotomy</h2></ion-label>
                         <ion-checkbox 
                                 color="secondary" 
                                 formControlName="redo_laparoscopy_laparotomy"></ion-checkbox>
