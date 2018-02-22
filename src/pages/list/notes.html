@@ -1,0 +1,160 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios">Ok</span>
+          <span ion-text color="primary" showWhen="android, windows">Ok</span>
+          
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="preAdmissionForm" >
+    
+       <ion-row>
+         <ion-col>
+           
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+                <ion-label style="white-space:pre-wrap; width:75vh" stacked>Mobility (EQ-1)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="mobilityEq1"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Self care (EQ-2)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="selfCareEq2"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Usual Activities (e.g. work, study, housework, family or leisure activities) (EQ-3)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="usualActivities"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Pain/Discomfort (EQ-4)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="painDiscomfortEq4"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Anxiety/Depression (EQ-5)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="anxietyDepressionEq5"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>How about your health today?</ion-label>
+             
+
+             <ion-range formControlName="howAboutYourHealthToday">
+                
+              </ion-range>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Dressing yourself</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="dressingYourself"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Walking indoors on level ground</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="walkingIndoorsOnLevelGround"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Showering</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="showering"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Climbing a hill or a flight of stairs without stopping</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="climbingAHillOrAFligh"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Gardening, vacuuming, or carrying groceries</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="gardeningVacuumingOrCar"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Walking more than a block at a brisk pace</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="walkingMoreThanABlock"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Running or jogging</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="runningOrJogging"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Lifting or moving heavy objects</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="liftingOrMovingHeavyOb"></ion-input>
+             </ion-item>
+
+             <ion-label style="white-space:pre-wrap; width:75vh" stacked>Participating in strenuous sports (e.g. swimming, running, cricket)</ion-label>
+             <ion-item>
+               
+               <ion-input type="text" formControlName="participatingInStrenuous"></ion-input>
+             </ion-item>
+
+            
+    
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+      
+      </form>
+     </div>
+  </ion-content> -->
+
+
+  <ion-content>
+    <div padding  id="cloud-layer">
+        <form [formGroup]="notesForm" >
+    
+       <ion-row>
+         <ion-col>
+           <!-- <img  src="assets/images/joshuamorony.png" /> -->
+         </ion-col>
+       </ion-row>
+    
+       <ion-row>
+         <ion-col>
+           <ion-list >
+           <ion-label stacked>Notes</ion-label>
+           <ion-item>
+           <ion-input type="text" formControlName="fill_notes"></ion-input>
+           </ion-item>
+           </ion-list>
+         </ion-col>
+       </ion-row>
+    
+       <!-- <ion-row>
+         <ion-col>
+           <button ion-button class="login-button" (click)="submit()" >Login</button>
+         </ion-col>
+       </ion-row> -->
+      </form>
+     </div>
+  </ion-content> 

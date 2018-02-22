@@ -26,10 +26,55 @@
        <ion-row>
          <ion-col>
            <ion-list >
+
+              <ion-label stacked>Ward Number</ion-label>
+              <ion-item>
+              
+                  <ion-select formControlName="ward_number" interface="popover">
+  
+                          <ion-option>CWA</ion-option>
+                          <ion-option>CWB</ion-option>
+                          <ion-option>CWC</ion-option>
+                          <ion-option>HDU</ion-option>
+                          <ion-option>ITU</ion-option>
+                          <ion-option>Other</ion-option>
+                          </ion-select>
+              </ion-item>
+  
+              <div *ngIf='admissionForm.value.ward_number=="Other"'>
+                <ion-label stacked>If other, please specify</ion-label>
+                <ion-input formControlName="if_other_ward" type="text"></ion-input>
+                <hr>
+              </div>
+
+              <ion-label stacked>Admission Date</ion-label>
+              <ion-item>
+              
+                  <ion-input type="date" formControlName="admission_date"></ion-input>
+              </ion-item>
+
                 <ion-label stacked>Name</ion-label>
              <ion-item>
                
                <ion-input type="text" formControlName="patientName"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Medical Record Number (BHT)</ion-label>
+             <ion-item>
+             
+                 <ion-input type="text" formControlName="bht"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Contact Number</ion-label>
+             <ion-item>
+             
+                 <ion-input type="text" formControlName="contactNumber"></ion-input>
+             </ion-item>
+
+             <ion-label stacked>Age</ion-label>
+             <ion-item>
+             
+                 <ion-input type="text" formControlName="age" placeholder="Years, Months`"></ion-input>
              </ion-item>
 
 
@@ -54,49 +99,7 @@
 
             </div>
              
-            <ion-label stacked>Age</ion-label>
-            <ion-item>
-            
-                <ion-input type="text" formControlName="age"></ion-input>
-            </ion-item>
-                        
-            <ion-label stacked>Contact Number</ion-label>
-            <ion-item>
-            
-                <ion-input type="text" formControlName="contactNumber"></ion-input>
-            </ion-item>
-            
-            <ion-label stacked>Admission Date</ion-label>
-            <ion-item>
-            
-                <ion-input type="date" formControlName="admission_date"></ion-input>
-            </ion-item>
-
-            <ion-label stacked>Medical Record Number (BHT)</ion-label>
-            <ion-item>
-            
-                <ion-input type="text" formControlName="bht"></ion-input>
-            </ion-item>
-            
-            <ion-label stacked>Ward Number</ion-label>
-            <ion-item>
-            
-                <ion-select formControlName="ward_number" interface="popover">
-
-                        <ion-option>CWA</ion-option>
-                        <ion-option>CWB</ion-option>
-                        <ion-option>CWC</ion-option>
-                        <ion-option>HDU</ion-option>
-                        <ion-option>ITU</ion-option>
-                        <ion-option>Other</ion-option>
-                        </ion-select>
-            </ion-item>
-
-            <div *ngIf='admissionForm.value.ward_number=="Other"'>
-              <ion-label stacked>If other, please specify</ion-label>
-              <ion-input formControlName="if_other_ward" type="text"></ion-input>
-              <hr>
-            </div>
+                      
             
             <div radio-group formControlName="admission_type">
                 <ion-label stacked>Admission Type</ion-label>

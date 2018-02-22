@@ -34,7 +34,11 @@
     <p>Contact Number: {{passedPatient.admission.contactNumber}}<br></p>
     </div>
     </div>
-    <h5 *ngIf="passedPatient.postopday1">Post-Operative &nbsp; &nbsp; {{passedPatient.postopday1.postop_day1_report_date}}</h5>
+     <div *ngIf="passedPatient.postOp">
+    <div *ngFor="let postOp of passedPatient.postOps">
+    <h5>Post-Operative &nbsp; &nbsp; {{postOp.postop_report_date}}</h5>  
+    </div>  
+    </div> 
     
 
     <h5></h5>
@@ -66,12 +70,12 @@
       Post-Operative
     </ion-card-header>
   </ion-card>  
-  <!-- <ion-card (click)="openModal9()">
+  <ion-card (click)="openModal9()">
     <ion-card-header>
-      Post-Op Day 3
+      Notes
     </ion-card-header>
   </ion-card>
-  <ion-card (click)="openModal10()">
+  <!-- <ion-card (click)="openModal10()">
     <ion-card-header>
       Post-Op Day 7
     </ion-card-header>

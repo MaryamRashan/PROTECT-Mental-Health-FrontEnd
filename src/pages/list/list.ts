@@ -102,31 +102,12 @@ export class ListPage {
     modal.present();
   }
 
-   openModal9() { // postopday3
-     let postopday3;
-     if (this.passedPatient.postopday3) {
-       postopday3 = this.passedPatient.postopday3
-     } else {
-       postopday3 = null;
-     }
-     let characterNum = { patient: this.passedPatient, postopday3: postopday3 };
+  openModal9() { // Notes list
+    let characterNum = { patient: this.passedPatient };
+    let modal = this.modalCtrl.create(ModalContentPage17, characterNum);
+    modal.present();
+  }
 
-     let modal = this.modalCtrl.create(ModalContentPage13, characterNum);
-     modal.present();
-} 
-
-   openModal10() { // postopday7
-     let postopday7;
-     if (this.passedPatient.postopday7) {
-       postopday7 = this.passedPatient.postopday7
-     } else {
-       postopday7 = null;
-     }
-     let characterNum = { patient: this.passedPatient, postopday7: postopday7 };
-
-     let modal = this.modalCtrl.create(ModalContentPage14, characterNum);
-     modal.present();
-} 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
   }
@@ -330,6 +311,7 @@ export class ModalContentPage2 { // Single IntraOp
         surgical_details: [this.intraOp.surgical_details],
         notes_intop: [this.intraOp.notes_intop],
         indication_for_surgery: [this.intraOp.indication_for_surgery],
+        gen_ana: [this.intraOp.gen_ana],
         operative_findings: [this.intraOp.operative_findings],
         specify_findings: [this.intraOp.specify_findings],
         operative_approach: [this.intraOp.operative_approach],
@@ -404,7 +386,7 @@ export class ModalContentPage2 { // Single IntraOp
         name_of_registrar: this.intraOpForm.value.name_of_registrar,
         name_of_junior_doctor: this.intraOpForm.value.name_of_junior_doctor,
         location_of_surgery: this.intraOpForm.value.location_of_surgery,
-        gen_ana: this.intraOpForm.value.operative_duration,
+        gen_ana: this.intraOpForm.value.gen_ana,
         blood_prod_transf: this.intraOpForm.value.blood_prod_transf,
         type_blood_product: this.intraOpForm.value.type_blood_product,
         units_transfused: this.intraOpForm.value.units_transfused,
@@ -736,6 +718,122 @@ export class ModalContentPage3 { //  single QOL
       this.patient.timeStamp = new Date().getTime();
       this.data.updatePatient(this.patient, '-newQualityOfLife-')
       this.sync.invokeSendDataThroughSocket(qualityOfLife, '-updateQualityOfLife-', this.patient.patientId);
+    }
+
+  }
+
+}
+
+@Component({
+  templateUrl: 'notes.html',
+})
+export class ModalContentPage18 { //  single QOL
+
+  private notesForm: FormGroup;
+  public patient;
+  public notes;
+
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
+
+    this.patient = navParams.get("patient");
+    this.notes = navParams.get("notes");
+
+
+
+    if (this.notes === null) {
+      this.notesForm = this.formBuilder.group({
+        fill_notes: [''],
+
+      });
+    } else {
+      this.notesForm = this.formBuilder.group({
+        fill_notes: [this.notes.fill_notes],
+
+      });
+    }
+
+  }
+
+  dismiss() {
+    // this.saveNotes().then(()=>{
+    //   this.viewCtrl.dismiss();
+    // })
+
+    if (this.notesForm.dirty) {
+      this.saveNotes().then(() => {
+        this.viewCtrl.dismiss();
+      })
+    } else {
+      this.viewCtrl.dismiss();
+    }
+
+  }
+
+  async saveNotes() {
+
+    if (!this.patient.notes && this.notes === null) {
+      console.log('adding first notes')
+      let notesVar = {
+        notesId: UUID(),
+
+        fill_notes: this.notesForm.value.fill_notes,
+
+        timeStamp: new Date().getTime()
+      }
+
+      console.log(notesVar);
+      let notesArray = [];
+      notesArray.push(notesVar);
+      this.patient.notes = notesArray;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newNotesVar-');
+      this.sync.invokeSendDataThroughSocket(notesVar, '-newNotesVar-', this.patient.patientId);
+    }
+
+    else if (this.patient.notes.length > 0 && this.notes === null) {
+      console.log('adding another notes')
+      let notesVar = {
+        notesId: UUID(),
+        fill_notes: this.notesForm.value.fill_notes,
+        timeStamp: new Date().getTime()
+      }
+
+      this.patient.notes.push(notesVar);
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newNotesVar-');
+      this.sync.invokeSendDataThroughSocket(notesVar, '-newNotesVar-', this.patient.patientId);
+    }
+    else {
+
+      console.log('editing notes')
+
+      let notesVar = {
+        notesId: this.notes.notesId,
+        fill_notes: this.notesForm.value.fill_notes,
+
+        timeStamp: new Date().getTime()
+      }
+
+      let filteredIndex;
+
+      this.patient.notes.forEach((element, index) => {
+
+        if (element.notesId == this.notes.notesId) {
+          filteredIndex = index;
+          // console.log('save called for edit obs', element)
+          // element = observation;
+          // console.log('save called for edit obs')
+
+          // console.log('save called for edit obs', element)
+        }
+
+      });
+      console.log('save called for edit notes', filteredIndex)
+      // this.patient.oservations = editedObs;
+      this.patient.notes[filteredIndex] = notesVar;
+      this.patient.timeStamp = new Date().getTime();
+      this.data.updatePatient(this.patient, '-newNotesVar-')
+      this.sync.invokeSendDataThroughSocket(notesVar, '-updateNotesVar-', this.patient.patientId);
     }
 
   }
@@ -1627,6 +1725,7 @@ export class ModalContentPage8 { // single observation
         urineOutput: [''],
         urineOutputDuration: [''],
         fluidInput: [''],
+        fluidInputDuration: [''],
         eye: [''],
         verbal: [''],
         motor: [''],
@@ -1653,6 +1752,7 @@ export class ModalContentPage8 { // single observation
         urineOutput: [this.ob.urineOutput],
         urineOutputDuration: [this.ob.urineOutputDuration],
         fluidInput: [this.ob.fluidInput],
+        fluidInputDuration: [this.ob.fluidInputDuration],
         eye: [this.ob.eye],
         verbal: [this.ob.verbal],
         motor: [this.ob.motor],
@@ -1709,6 +1809,7 @@ export class ModalContentPage8 { // single observation
         saturation: this.observationForm.value.saturation,
         urineOutput: this.observationForm.value.urineOutput,
         fluidInput: this.observationForm.value.fluidInput,
+        fluidInputDuration: this.observationForm.value.fluidInputDuration,
         urineOutputDuration: this.observationForm.value.urineOutputDuration,
         eye: this.observationForm.value.eye,
         verbal: this.observationForm.value.verbal,
@@ -1748,6 +1849,7 @@ export class ModalContentPage8 { // single observation
         saturation: this.observationForm.value.saturation,
         urineOutput: this.observationForm.value.urineOutput,
         fluidInput: this.observationForm.value.fluidInput,
+        fluidInputDuration: this.observationForm.value.fluidInputDuration,
         urineOutputDuration: this.observationForm.value.urineOutputDuration,
         eye: this.observationForm.value.eye,
         verbal: this.observationForm.value.verbal,
@@ -1787,6 +1889,7 @@ export class ModalContentPage8 { // single observation
         saturation: this.observationForm.value.saturation,
         urineOutput: this.observationForm.value.urineOutput,
         fluidInput: this.observationForm.value.fluidInput,
+        fluidInputDuration: this.observationForm.value.fluidInputDuration,
         urineOutputDuration: this.observationForm.value.urineOutputDuration,
         eye: this.observationForm.value.eye,
         verbal: this.observationForm.value.verbal,
@@ -1956,6 +2059,57 @@ export class ModalContentPage10 { // QOL list
   editQol(qol) {
     let data = { patient: this.patient, qol: qol };
     let modal = this.modalCtrl.create(ModalContentPage3, data);
+    modal.present();
+  }
+}
+
+@Component({
+  templateUrl: 'noteslist.html',
+})
+export class ModalContentPage17 { // NOTES list
+
+
+  public patient;
+
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
+    this.patient = navParams.get("patient");
+    console.log('patient inside the notes list modal ', this.patient)
+
+
+
+  }
+
+  ionViewDidLoad() {
+    this.sortNotes();
+  }
+
+  sortNotes() {
+    if (this.patient.notes) {
+      this.patient.notes.sort((a: any, b: any) => {
+        if (a.notesTimeStamp < b.notesTimeStamp) {
+          return -1;
+        } else if (a.notesTimeStamp > b.notesTimeStamp) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  addNotes() {
+    let notes = { patient: this.patient, notes: null };
+    let modal = this.modalCtrl.create(ModalContentPage18, notes);
+    modal.present();
+  }
+
+  editNotes(notes) {
+    let data = { patient: this.patient, notes: notes };
+    let modal = this.modalCtrl.create(ModalContentPage18, data);
     modal.present();
   }
 }
