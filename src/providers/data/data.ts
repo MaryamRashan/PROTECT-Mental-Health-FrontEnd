@@ -208,7 +208,7 @@ export class DataProvider {
       case '-newThrombolysis-':
             this.addThrombolysis(data);
             break;
-      case '-newPostOp1-':
+      case '-newPostOp-':
             this.addPostOp(data);
             break;
       case '-newPostOpDay3-':
@@ -235,7 +235,7 @@ export class DataProvider {
       case '-updateThrombolysis-':
             this.updateThrombolysis(data);
             break;
-      case '-updatePostOp1-':
+      case '-updatePostOpp':
             this.updatePostOp(data);
             break;
       case '-updatePostOpDay3-':
