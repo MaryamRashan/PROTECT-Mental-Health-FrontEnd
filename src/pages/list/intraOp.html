@@ -56,154 +56,13 @@
       </div>
 
 
-           <ion-label stacked>Surgical Details</ion-label>
+           <ion-label stacked>Surgical Procedure</ion-label>
            <ion-item>
              
              <ion-input type="text" formControlName="surgical_details"></ion-input>
            </ion-item>
 
-           <div>
-           <ion-label stacked>Indication for Surgery</ion-label>
-           <ion-item>
-           
-               <ion-select class="width100" formControlName="indication_for_surgery" interface="popover">
- 
-                       <ion-option>Abdominal abscess</ion-option>
-                       <ion-option>Abdominal compartment syndrome</ion-option>
-                       <ion-option>Abdominal wound dehiscence</ion-option>
-                       <ion-option>Anastomotic leak</ion-option>
-                       <ion-option>Colitis</ion-option>
-                       <ion-option>Haemorrhage</ion-option>
-                       <ion-option>Intestinal fistula</ion-option>
-                       <ion-option>Intestinal obstruction</ion-option>
-                       <ion-option>Ischaemia</ion-option>
-                       <ion-option>Perforation</ion-option>
-                       <ion-option>Peritonitis</ion-option>
-                       <ion-option>Planned relook</ion-option>
-                       <ion-option>Sepsis (other)</ion-option>
-                       <ion-option>Other (Please give details)</ion-option>
-                       </ion-select>
-           </ion-item>
-           </div>
-           <div *ngIf='intraOpForm.value.indication_for_surgery=="Other (Please give details)"'>
-            <ion-label stacked>If other, Please give details</ion-label>
-            <ion-item>
-              
-              <ion-input type="text" formControlName="if_other_details"></ion-input>
-            </ion-item>
-  
-           </div>
-          
-          <div>
-           <ion-label stacked>Operative Findings</ion-label>
-         <ion-item>
-         
-             <ion-select class="width100" formControlName="operative_findings" interface="popover">
 
-                     <ion-option>Normal intra-abdominal findings</ion-option>
-                     <ion-option>Abdominal compartment syndrome</ion-option>
-                     <ion-option>Abscess</ion-option>
-                     <ion-option>Adhesions</ion-option>
-                     <ion-option>Anastomotic leak</ion-option>
-                     <ion-option>Colitis</ion-option>
-                     <ion-option>Crohn's disease</ion-option>
-                     <ion-option>Diverticulitis</ion-option>
-                     <ion-option>Haemorrhage - intestinal</ion-option>
-                     <ion-option>Haemorrhage - peptic ulcer</ion-option>
-                     <ion-option>Haemorrhage - postoperative</ion-option>
-                     <ion-option>Perforation - small bowel/colonic</ion-option>
-                     <ion-option>Volvulus</ion-option>
-                     <ion-option>Benign neoplasm of unspecified ovary</ion-option>
-                     <ion-option>Cholecystitis, unspecified</ion-option>
-                     <ion-option>Ectopic pregnancy, unspecified</ion-option>
-                     <ion-option>Endometriosis of ovary</ion-option>
-                     <ion-option>Endometriosis of uterus</ion-option>
-                     <ion-option>Endometriosis, unspecified</ion-option>
-                     <ion-option>Female pelvic peritoneal adhesions (postinfective)</ion-option>
-                     <ion-option>Hypertrophy of uterus</ion-option>
-                     <ion-option>Leiomyoma of uterus, unspecified</ion-option>
-                     <ion-option>Neoplasm of unspecified behavior of digestive system</ion-option>
-                     <ion-option>Other intra-abdominal and pelvic swelling, mass and lump</ion-option>
-                     <ion-option>Other specified diseases of liver</ion-option>
-                     <ion-option>Polycystic ovarian syndrome</ion-option>
-                     <ion-option>Unspecified ovarian cysts</ion-option>
-                     <ion-option>Abscess of appendix</ion-option>
-                     <ion-option>Acute gangrenous appendicitis</ion-option>
-                     <ion-option>Ascites</ion-option>
-                     <ion-option>Benign teratoma of ovary</ion-option>
-                     <ion-option>Cholecystitis</ion-option>
-                     <ion-option>Chronic cholecystitis</ion-option>
-                     <ion-option>Cirrhosis of liver</ion-option>
-                     <ion-option>Cyst of gallbladder</ion-option>
-                     <ion-option>Dilatation of intestine</ion-option>
-                     <ion-option>Disorder of uterus</ion-option>
-                     <ion-option>Duodenal perforation</ion-option>
-                     <ion-option>Endometrial cyst of ovary</ion-option>
-                     <ion-option>Foreign body in intestine</ion-option>
-                     <ion-option>Gallstone</ion-option>
-                     <ion-option>Gastrointestinal stromal tumor</ion-option>
-                     <ion-option>Gastro-omental lymphadenopathy</ion-option>
-                     <ion-option>Hydrosalpinx</ion-option>
-                     <ion-option>Hypoplasia of uterus and cervix</ion-option>
-                     <ion-option>Gastrointestinal stromal tumor</ion-option>
-                     <ion-option>Gastro-omental lymphadenopathy</ion-option>
-                     <ion-option>Hydrosalpinx</ion-option>
-                     <ion-option>Hypoplasia of uterus and cervix</ion-option>
-                     <ion-option>Iliac fossa abdominal mass</ion-option>
-                     <ion-option>Intestinal lymphadenopathy</ion-option>
-                     <ion-option>Intrahepatic gallbladder</ion-option>
-                     <ion-option>Intussusception of intestine</ion-option>
-                     <ion-option>Lesser sac abscess</ion-option>
-                     <ion-option>Lymphadenopathy</ion-option>
-                     <ion-option>Mass of pancreas</ion-option>
-                     <ion-option>Neoplasm of pancreas</ion-option>
-                     <ion-option>Neoplasm of sigmoid colon</ion-option>
-                     <ion-option>Nodular hyperplasia of liver</ion-option>
-                     <ion-option>Perforation of colon</ion-option>
-                     <ion-option>Perforation of rectum</ion-option>
-                     <ion-option>Perforation of small intestine</ion-option>
-                     <ion-option>Polycystic ovaries</ion-option>
-                     <ion-option>Pyloric obstruction</ion-option>
-                     <ion-option>Rupture of appendix</ion-option>
-                     <ion-option>Sigmoid volvulus</ion-option>
-                     <ion-option>Small intestinal gangrene</ion-option>
-                     <ion-option>Steatosis of liver</ion-option>
-                     <ion-option>Stricture of bile duct</ion-option>
-                     <ion-option>Unspecified appendicitis</ion-option>
-                     <ion-option>Other (please specify)</ion-option>
-
-
-
-
-                     </ion-select>
-         </ion-item>
-        </div>
-        <div *ngIf='intraOpForm.value.operative_findings=="Other (please specify)"'>
-            <ion-label stacked>If other, Please specify</ion-label>
-            <ion-item>
-              
-              <ion-input type="text" formControlName="specify_findings"></ion-input>
-            </ion-item>
-  
-        </div>
-        <div>
-              <ion-label stacked>The peritoneal contamination</ion-label>
-              <ion-item>
-              
-                  <ion-select class="width100" formControlName="the_perit_contam" interface="popover">
-    
-                          <ion-option>None or reactive serous fluid only</ion-option>
-                          <ion-option>Bile</ion-option>
-                          <ion-option>Blood/haematoma</ion-option>
-                          <ion-option>Faeces</ion-option>
-                          <ion-option>Faeculent fluid</ion-option>
-                          <ion-option>Free gas from perforation +/- minimal contamination</ion-option>
-                          <ion-option>Gastro-duodenal contents</ion-option>
-                          <ion-option>Pus</ion-option>
-                          <ion-option>Small bowel contents</ion-option>
-                          </ion-select>
-              </ion-item>
-          </div>
           <div>
                   <ion-label stacked>Operative Approach</ion-label>
                   <ion-item>
@@ -215,7 +74,7 @@
                               <ion-option>Laparoscopic assisted</ion-option>
                               <ion-option>Laparoscopic converted to open</ion-option>
                               </ion-select>
-                
+                `
                             </ion-item>
           </div>
 

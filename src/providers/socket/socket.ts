@@ -252,27 +252,25 @@ export class SocketProvider {
           if (patient.postOp[0]){
             newPatient.postOp = patient.postOp;
           }
-           if(patient.postopday3[0]){
-             newPatient.postopday3s = patient.postopday3[0];
-           }
-           if(patient.postopday7[0]){
-             newPatient.postopday7s = patient.postopday7[0];
-           }
           // if (patient.interventionpci[0]){
           //   newPatient.interventionpci = patient.interventionpci[0];
           // }
           // if (patient.thrombolysis[0]){
           //   newPatient.thrombolysis = patient.thrombolysis[0];
           // }
-          // if (patient.intraOp[0]){
-          //   newPatient.intraOps = patient.intraOp;
-          // }
+          if (patient.intraOp[0]){
+            newPatient.intraOps = patient.intraOp;
+          }
           if (patient.observation[0]){
             newPatient.observations = patient.observation;
           }
           if (patient.qol[0]){
             newPatient.qol = patient.qol;
           }
+          if (patient.notes[0]){
+            newPatient.notes = patient.notes;
+          }
+
           this.data.saveNewPatientFromSync(newPatient)
 
         });

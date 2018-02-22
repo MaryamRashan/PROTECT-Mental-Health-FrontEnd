@@ -220,6 +220,9 @@ export class DataProvider {
       case '-newQualityOfLife-':
             this.addQol(data);
             break;
+      case '-newNotesVar-':
+            this.addNotes(data);
+            break;            
       case '-newIntOp-':
             this.addIntraOp(data);
             break;
@@ -247,6 +250,9 @@ export class DataProvider {
       case '-updateQualityOfLife-':
             this.updateQol(data);
             break;
+      case '-updateNotesVar-':
+            this.updateNotes(data);
+            break;            
       default:
           
   }
@@ -859,7 +865,106 @@ export class DataProvider {
     this.storage.set(key, patientFromDb)
   }
 
-  
+  async addNotes(data){
+
+    if(data.notes){
+        let unitId = await this.getUnitId();
+        let key = '-patient-' + unitId + '-' + data.patientId;
+        this.patientsArray.forEach(patient =>{
+          if(patient.admission.patientId == data.admission.patientId){
+            patient.notes = data.notes;
+            patient.timeStamp = data.timeStamp;
+            
+          }
+        })
+        let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
+        patientFromDb.notes = data.notes;
+        patientFromDb.timeStamp = data.timeStamp;
+        // console.log('data.admission', data.admission)
+        // console.log('patientFromDb.admission', patientFromDb.admission)
+        // console.log('key', key)
+        this.storage.set(key, patientFromDb)
+    } else {
+      let unitId = await this.getUnitId();
+        let key = '-patient-' + unitId + '-' + data.patientId;
+        this.patientsArray.forEach(patient =>{
+          if(patient.admission.patientId == data.patientId){
+            
+
+            if(patient.notes){
+              patient.notes.push(data.data);
+            } else {
+              patient.notes = [data.data];
+            }
+            // patient.timeStamp = data.timeStamp;
+            
+          }
+        })
+        let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
+        
+        if(patientFromDb.notes){
+          patientFromDb.notes.push(data.data);
+        } else {
+          patientFromDb.notes = [data.data];
+        }
+        // patientFromDb.timeStamp = data.timeStamp;
+        // console.log('data.admission', data.admission)
+        // console.log('patientFromDb.admission', patientFromDb.admission)
+        // console.log('key', key)
+        this.storage.set(key, patientFromDb)
+    }
+  }
+
+  async updateNotes(data){
+    console.log('##########################')
+    let unitId = await this.getUnitId();
+    let key = '-patient-' + unitId + '-' + data.patientId;
+    this.patientsArray.forEach(patient =>{
+      if(patient.admission.patientId == data.patientId){
+        console.log('patient.notes', patient.notes)
+        if(patient.notes){
+
+          let _notess = patient.notes.map(item=>{
+            if(item.notesId == data.data.notesId){
+              // console.log('##########################')
+              // console.log('pre ', ob)
+              item = data.data;
+              // console.log('OB has changed!')
+              // console.log('##########################')
+              // console.log('post ', ob)
+            }
+            return item
+          })
+          
+          patient.notes = _notess;
+        }
+        
+        // patient.timeStamp = data.timeStamp;
+        
+      }
+    })
+    let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
+    if(patientFromDb.notes){
+      let _notess = patientFromDb.notes.map(item=>{
+        if(item.notesId == data.data.notesId){
+          // console.log('##########################')
+          // console.log('pre ', ob)
+          item = data.data;
+          // console.log('OB has changed!')
+          // console.log('##########################')
+          // console.log('post ', ob)
+        }
+        return item
+      })
+      patientFromDb.notes = _notess;
+    } 
+    
+    // patientFromDb.timeStamp = data.timeStamp;
+    // console.log('data.admission', data.admission)
+    // console.log('patientFromDb.admission', patientFromDb.admission)
+    // console.log('key', key)
+    this.storage.set(key, patientFromDb)
+  }  
 
   async addIntraOp(data){
 

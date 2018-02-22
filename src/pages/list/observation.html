@@ -89,11 +89,10 @@
                    <ion-input type="text" formControlName="urineOutput"></ion-input>
                  </ion-item>
     
-                 <ion-label stacked>Urine output duration</ion-label>
+                 <ion-label stacked>Urine output duration (Hours)</ion-label>
                  <ion-item>
                    
-                   <!-- <ion-input type="text" formControlName="urineOutputDuration"></ion-input> -->
-                   <ion-select formControlName="eye" interface="popover">
+                   <ion-select formControlName="urineOutputDuration" interface="popover">
                                         
                       <ion-option >1</ion-option>                                  
                       <ion-option >2</ion-option>
@@ -129,7 +128,40 @@
                    <ion-input type="text" formControlName="fluidInput"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>Eye</ion-label>
+                 <ion-label stacked>Fluid input duration (Hours)</ion-label>
+                 <ion-item>
+                   
+                   <ion-select formControlName="fluidInputDuration" interface="popover">
+                                        
+                      <ion-option >1</ion-option>                                  
+                      <ion-option >2</ion-option>
+                      <ion-option >3</ion-option>
+                      <ion-option >4</ion-option>
+                      <ion-option >5</ion-option> 
+                      <ion-option >6</ion-option> 
+                      <ion-option >7</ion-option> 
+                      <ion-option >8</ion-option> 
+                      <ion-option >9</ion-option> 
+                      <ion-option >10</ion-option> 
+                      <ion-option >11</ion-option> 
+                      <ion-option >12</ion-option> 
+                      <ion-option >13</ion-option> 
+                      <ion-option >14</ion-option> 
+                      <ion-option >15</ion-option> 
+                      <ion-option >16</ion-option> 
+                      <ion-option >17</ion-option> 
+                      <ion-option >18</ion-option> 
+                      <ion-option >19</ion-option> 
+                      <ion-option >20</ion-option> 
+                      <ion-option >21</ion-option> 
+                      <ion-option >22</ion-option> 
+                      <ion-option >23</ion-option> 
+                      <ion-option >24</ion-option> 
+
+                  </ion-select>
+                 </ion-item>
+
+                 <ion-label stacked>GCS Eye</ion-label>
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="eye"></ion-input> -->
@@ -143,7 +175,7 @@
                     </ion-select>
                  </ion-item>
 
-                 <ion-label stacked>Verbal</ion-label>
+                 <ion-label stacked>GCS Verbal</ion-label>
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="verbal"></ion-input> -->
@@ -158,7 +190,7 @@
                   </ion-select>
                  </ion-item>
 
-                 <ion-label stacked>Motor</ion-label>
+                 <ion-label stacked>GCS Motor</ion-label>
                  <ion-item>
                    
                    <!-- <ion-input type="text" formControlName="motor"></ion-input> -->
@@ -201,7 +233,7 @@
                    <ion-input type="text" formControlName="pcv"></ion-input>
                  </ion-item>
 
-                 <ion-label stacked>CRFT</ion-label>
+                 <ion-label stacked>CRFT &lt; seconds</ion-label>
                  <ion-item>
                    
                    <ion-input type="text" formControlName="crft"></ion-input>

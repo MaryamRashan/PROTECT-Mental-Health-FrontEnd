@@ -22,6 +22,8 @@ import { ModalContentPage11 } from '../pages/list/list';
 import { ModalContentPage13 } from '../pages/list/list';
 import { ModalContentPage14 } from '../pages/list/list';
 import { ModalContentPage16 } from '../pages/list/list';
+import { ModalContentPage17 } from '../pages/list/list';
+import { ModalContentPage18 } from '../pages/list/list';
 
 
 import { AddAdmissionModal } from '../pages/home/home';
@@ -57,6 +59,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage13,
     ModalContentPage14,
     ModalContentPage16,
+    ModalContentPage17,
+    ModalContentPage18,
     AddAdmissionModal
   ],
   imports: [
@@ -88,6 +92,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage13,
     ModalContentPage14,
     ModalContentPage16,
+    ModalContentPage17,
+    ModalContentPage18,
     AddAdmissionModal
   ],
   providers: [
