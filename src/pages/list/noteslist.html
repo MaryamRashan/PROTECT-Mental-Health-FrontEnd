@@ -15,11 +15,11 @@
 
   <ion-content>
       <ion-list *ngIf="patient && patient.notes && patient.notes.length > 0">
-          <ion-item-sliding *ngFor="let notes of passedPatient.notess" >
+          <ion-item-sliding *ngFor="let notes of patient.notes" >
             <ion-item (click)="editNotes(notes)" >
-              <ion-icon name="person"></ion-icon>
-              {{notes.timeStamp | date:' y MMM dd hh:mm a'}}
-              <!-- <div *ngIf="passedPatient.notess.fill_notes" style="white-space:pre-wrap">{{notes.fill_notes}}</div> -->
+              <!-- <ion-icon name="person"></ion-icon> -->
+              <p id='notesDate'>{{notes.timeStamp | date:' dd MMM y hh:mm a'}}</p>
+              <div style="white-space:pre-wrap">{{notes.fill_notes}}</div>
 
               <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
               <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
