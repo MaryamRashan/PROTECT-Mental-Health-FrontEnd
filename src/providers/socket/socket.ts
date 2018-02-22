@@ -177,9 +177,9 @@ export class SocketProvider {
                   } else if(convData.type == '-updateThrombolysis-'){
                     console.log('-updateThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateThrombolysis-')
-                  } else if(convData.type == '-updatePostOp1-'){
-                    console.log('-updatePostOp1- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updatePostOp1-')
+                  } else if(convData.type == '-updatePostOp-'){
+                    console.log('-updatePostOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOp-')
                   } else if(convData.type == '-updatePostOpDay3-'){
                     console.log('-updatePostOpDay3- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updatePostOpDay3-')
