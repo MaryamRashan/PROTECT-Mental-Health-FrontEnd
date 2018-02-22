@@ -150,9 +150,9 @@ export class SocketProvider {
                   } else if(convData.type == '-newThrombolysis-'){
                     console.log('-newThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newThrombolysis-')
-                  } else if(convData.type == '-newPostOp1-'){
-                    console.log('-newPostOp1- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newPostOp1-')
+                  } else if(convData.type == '-newPostOp-'){
+                    console.log('-newPostOp- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOp-')
                   } else if(convData.type == '-newPostOpDay3-'){
                     console.log('-newPostOpDay3- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newPostOpDay3-')
