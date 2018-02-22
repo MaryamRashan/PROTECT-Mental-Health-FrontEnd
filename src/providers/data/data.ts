@@ -543,13 +543,13 @@ export class DataProvider {
         this.patientsArray.forEach(patient =>{
           if(patient.admission.patientId == data.admission.patientId){
             patient.postOp = data.postOp;
-            patient.timeStamp = data.timeStamp;
+            patient.postOpTimeStamp = data.postOpTimeStamp;
             
           }
         })
         let patientFromDb = await this.getPatientByIdFromDb(data.admission.patientId);
         patientFromDb.postOp = data.postOp;
-        patientFromDb.timeStamp = data.timeStamp;
+        patientFromDb.postOpTimeStamp = data.postOpTimeStamp;
         // console.log('data.admission', data.admission)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
@@ -566,7 +566,7 @@ export class DataProvider {
             } else {
               patient.postOp = [data.data];
             }
-            // patient.timeStamp = data.timeStamp;
+            // patient.postOpTimeStamp = data.postOpTimeStamp;
             
           }
         })
@@ -577,7 +577,7 @@ export class DataProvider {
         } else {
           patientFromDb.postOp = [data.data];
         }
-        // patientFromDb.timeStamp = data.timeStamp;
+        // patientFromDb.postOpTimeStamp = data.postOpTimeStamp;
         // console.log('data.admission', data.admission)
         // console.log('patientFromDb.admission', patientFromDb.admission)
         // console.log('key', key)
@@ -609,7 +609,7 @@ export class DataProvider {
           patient.postOp = _postOps;
         }
         
-        // patient.timeStamp = data.timeStamp;
+        // patient.postOpTimeStamp = data.postOpTimeStamp;
         
       }
     })
@@ -629,7 +629,7 @@ export class DataProvider {
       patientFromDb.postOp = _postOps;
     } 
     
-    // patientFromDb.timeStamp = data.timeStamp;
+    // patientFromDb.postOpTimeStamp = data.postOpTimeStamp;
     // console.log('data.admission', data.admission)
     // console.log('patientFromDb.admission', patientFromDb.admission)
     // console.log('key', key)
