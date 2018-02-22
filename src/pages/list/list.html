@@ -18,7 +18,7 @@
   <ion-slides>
   <ion-slide id="data">
     <div>
-    <h5>Admission   &nbsp; &nbsp;   {{passedPatient.admission.admission_date}}</h5>
+    <h5>Admission   &nbsp; &nbsp;   {{passedPatient.admission.admission_date | date:'dd MMM yyyy'}}</h5>
     <p>Age: {{passedPatient.admission.age}}    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Gender: {{passedPatient.admission.gender}}   <br></p>
     <p>Contact Number: {{passedPatient.admission.contactNumber}}<br></p>
     <p>Ward Number: {{passedPatient.admission.ward_number}}<br></p>
@@ -27,7 +27,7 @@
 
     <div  *ngIf="passedPatient.intraOps">
     <div *ngFor="let intraOp of passedPatient.intraOps">
-    <h5>Intra-Operative &nbsp; &nbsp; {{intraOp.date_of_surgery}}</h5>
+    <h5>Intra-Operative &nbsp; {{intraOp.intraOpTimeStamp | date:' dd MMM yyyy'}}</h5>
     <p>Surgical Procedure: {{intraOp.surgical_details}}<br></p>
     <p>General Anasthaesia: {{intraOp.gen_ana}}<br></p>
     <p>Type of blood products: {{intraOp.type_blood_product}} &nbsp; &nbsp; &nbsp; Units transfused: {{intraOp.units_transfused}}</p>
