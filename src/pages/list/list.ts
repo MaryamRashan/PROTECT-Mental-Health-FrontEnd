@@ -531,7 +531,7 @@ export class ModalContentPage2 { // Single IntraOp
           this.patient.intraOps[filteredIndex] = intOp;
           this.patient.timeStamp = new Date().getTime();
           this.data.updatePatient(this.patient, '-newIntOp-')
-          this.sync.invokeSendDataThroughSocket(intOp, '-updateintOp-', this.patient.patientId);
+          this.sync.invokeSendDataThroughSocket(intOp, '-IntOp-', this.patient.patientId);
         }
     
   }
