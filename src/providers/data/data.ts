@@ -235,7 +235,7 @@ export class DataProvider {
       case '-updateThrombolysis-':
             this.updateThrombolysis(data);
             break;
-      case '-updatePostOpp':
+      case '-updatePostOp':
             this.updatePostOp(data);
             break;
       case '-updatePostOpDay3-':
