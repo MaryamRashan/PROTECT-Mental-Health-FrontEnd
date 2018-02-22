@@ -1207,8 +1207,8 @@ export class ModalContentPage4 { // cormobidities and risks
             // this.patient.oservations = editedObs;
             this.patient.postOp[filteredIndex] = postOp1;
             this.patient.timeStamp = new Date().getTime();
-            this.data.updatePatient(this.patient, '-newPostOp1-')
-            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOp1-', this.patient.patientId);
+            this.data.updatePatient(this.patient, '-newPostOp-')
+            this.sync.invokeSendDataThroughSocket(postOp1, '-updatePostOp-', this.patient.patientId);
           }
         }
   
