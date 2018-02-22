@@ -594,7 +594,7 @@ export class DataProvider {
         console.log('patient.postOp', patient.postOp)
         if(patient.postOp){
 
-          let _postOps = patient.postOp.map(item=>{
+          let _postOp = patient.postOp.map(item=>{
             if(item.postOpId == data.data.postOpId){
               // console.log('##########################')
               // console.log('pre ', ob)
@@ -606,7 +606,7 @@ export class DataProvider {
             return item
           })
           
-          patient.postOp = _postOps;
+          patient.postOp = _postOp;
         }
         
         // patient.postOpTimeStamp = data.postOpTimeStamp;
@@ -615,7 +615,7 @@ export class DataProvider {
     })
     let patientFromDb = await this.getPatientByIdFromDb(data.patientId);
     if(patientFromDb.postOp){
-      let _postOps = patientFromDb.postOp.map(item=>{
+      let _postOp = patientFromDb.postOp.map(item=>{
         if(item.postOpId == data.data.postOpId){
           // console.log('##########################')
           // console.log('pre ', ob)
@@ -626,7 +626,7 @@ export class DataProvider {
         }
         return item
       })
-      patientFromDb.postOp = _postOps;
+      patientFromDb.postOp = _postOp;
     } 
     
     // patientFromDb.postOpTimeStamp = data.postOpTimeStamp;
