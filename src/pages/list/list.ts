@@ -1028,6 +1028,8 @@ export class ModalContentPage4 { // cormobidities and risks
   async savePostOp(){
     if(!this.patient.postOp && this.postOp === null){
 
+      let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
+    
               let postOp1 = {
                 postOpID: UUID(),
                 postop_report_date: this.postOpForm.value.postop_report_date,
@@ -1087,6 +1089,7 @@ export class ModalContentPage4 { // cormobidities and risks
           }     else if (this.patient.postOp.length > 0 && this.postOp === null) {
             console.log('adding another postOp')
 
+            let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
             let postOp1 = {
               postOpID: UUID(),
               postop_report_date: this.postOpForm.value.postop_report_date,
@@ -1142,7 +1145,8 @@ export class ModalContentPage4 { // cormobidities and risks
           else {
 
             console.log('editing postOp')
-      
+
+            let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
             let postOp1 = {
               postOpID: this.postOp.postOpID,
               postop_report_date: this.postOpForm.value.postop_report_date,

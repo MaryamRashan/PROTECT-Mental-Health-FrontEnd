@@ -18,7 +18,7 @@
           <ion-item-sliding *ngFor="let postOp of patient.postOp" >
             <ion-item (click)="editPostOp(postOp)" >
               <!-- <ion-icon name="person"></ion-icon> -->
-              {{postOp.timeStamp | date:' y MMM dd hh:mm a'}}
+              {{postOp.postOpTimeStamp | date:' dd MMM yy hh:mm a'}}
               <!-- <ion-icon name="document" *ngIf="patient.newParams"></ion-icon>
               <ion-icon name="chatboxes" *ngIf="patient.newChat"></ion-icon> -->
             </ion-item>
