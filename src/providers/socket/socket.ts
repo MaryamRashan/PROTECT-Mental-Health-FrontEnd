@@ -150,9 +150,9 @@ export class SocketProvider {
                   } else if(convData.type == '-newThrombolysis-'){
                     console.log('-newThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newThrombolysis-')
-                  } else if(convData.type == '-newPostOp-'){
-                    console.log('-newPostOp- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-newPostOp-')
+                  } else if(convData.type == '-newPostOp1-'){
+                    console.log('-newPostOp1- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newPostOp1-')
                   } else if(convData.type == '-newPostOpDay3-'){
                     console.log('-newPostOpDay3- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newPostOpDay3-')
@@ -165,6 +165,9 @@ export class SocketProvider {
                   } else if(convData.type == '-newQualityOfLife-'){
                     console.log('-newQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-newQualityOfLife-')
+                  } else if(convData.type == '-newNotesVar-'){
+                    console.log('-newNotesVar- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-newNotesVar-')
                   } else if(convData.type == '-updateObservation-'){
                     console.log('-updateObservation- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateObservation-')
@@ -174,9 +177,9 @@ export class SocketProvider {
                   } else if(convData.type == '-updateThrombolysis-'){
                     console.log('-updateThrombolysis- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateThrombolysis-')
-                  } else if(convData.type == '-updatePostOp-'){
-                    console.log('-updatePostOp- DATA>>>>', convData)
-                    this.data.updatePatient(convData, '-updatePostOp-')
+                  } else if(convData.type == '-updatePostOp1-'){
+                    console.log('-updatePostOp1- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updatePostOp1-')
                   } else if(convData.type == '-updatePostOpDay3-'){
                     console.log('-updatePostOpDay3- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updatePostOpDay3-')
@@ -186,6 +189,9 @@ export class SocketProvider {
                   } else if(convData.type == '-updateQualityOfLife-'){
                     console.log('-updateQualityOfLife- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateQualityOfLife-')
+                  } else if(convData.type == '-updateNotesVar-'){
+                    console.log('-updateNotesVar- DATA>>>>', convData)
+                    this.data.updatePatient(convData, '-updateNotesVar-')
                   } else if(convData.type == '-updateIntOp-'){
                     console.log('-updateIntOp- DATA>>>>', convData)
                     this.data.updatePatient(convData, '-updateIntOp-')
