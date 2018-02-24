@@ -10,6 +10,8 @@ import { HomePage } from '../../pages/home/home';
 
 import * as UUID from 'uuid/v1';
 
+import * as HighCharts from 'highcharts';
+
 /**
  * Generated class for the ListPage page.
  *
@@ -1037,7 +1039,7 @@ export class ModalContentPage4 { // cormobidities and risks
       let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
     
               let postOp1 = {
-                postOpID: UUID(),
+                postOpId: UUID(),
                 postop_report_date: this.postOpForm.value.postop_report_date,
                 postop_report_time: this.postOpForm.value.postop_report_time,
                 icu_admission: this.postOpForm.value.icu_admission,
@@ -1099,7 +1101,7 @@ export class ModalContentPage4 { // cormobidities and risks
 
             let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
             let postOp1 = {
-              postOpID: UUID(),
+              postOpId: UUID(),
               postop_report_date: this.postOpForm.value.postop_report_date,
               postop_report_time: this.postOpForm.value.postop_report_time,
               icu_admission     :  this.postOpForm.value.icu_admission ,
@@ -1159,7 +1161,7 @@ export class ModalContentPage4 { // cormobidities and risks
 
             let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
             let postOp1 = {
-              postOpID: this.postOp.postOpID,
+              postOpId: this.postOp.postOpId,
               postop_report_date: this.postOpForm.value.postop_report_date,
               postop_report_time: this.postOpForm.value.postop_report_time,
               icu_admission     :  this.postOpForm.value.icu_admission ,
@@ -1962,40 +1964,137 @@ export class ModalContentPage9 { // observation list
   private observationForm: FormGroup;
   public patient;
 
+  public obs;
+  public hrData;
+  public rrData;
+  public timeZoneAdjustment;
+  public myChart;
+
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
     this.patient = navParams.get("patient");
-    console.log('patient inside the observation list modal ', this.patient)
+    console.log('patient inside the observation list modal ', this.patient);
 
-    // this.observationForm = this.formBuilder.group({
-    //   dischargeDate: [''],
-    //   dischargeTime: [''],
-    //   dischargeStatus: [''],
-    //   dischargeDestination: [''],
-    //   otherHospitalName: [''],
-    //   patientExperience: [''],
-    //   vasopressorsGiven: [''],
-    //   lastReportedTropanin: [''],
-    //   drugsOnDischarge: formBuilder.group({
-    //     aspirin     : [ false ],
-    //     clopidogrel        : [ false ],
-    //     prasugrel     : [ false ],
-    //     ticagrelor     : [ false ],
-    //     unfractionatedHeparin       : [ false ],
-    //     lowMolecularWeightHeparin      : [ false ],
-    //     glycoproteinIIbInhibitors     : [ false ],
-    //     glycoproteinIIIbInhibitors      : [ false ],
-    //     bivalirudin      : [ false ],
-    //     fondaparinux      : [ false ],
-    //     warfarin      : [ false ],
-    //     none      : [ false ]
-    //  })
+    this.obs = this.patient.observations;
 
-    // });
-
+    const offset = new Date().getTimezoneOffset()/60;
+    console.log(offset);
+    if (Math.sign(offset) == 1){
+      console.log('Positive');
+      this.timeZoneAdjustment = -Math.abs(offset) * 60*60*1000;
+    } else {
+      console.log('Negative')
+      this.timeZoneAdjustment = Math.abs(offset) * 60*60*1000;
+      console.log('timeZoneAdjustment', this.timeZoneAdjustment);
+    }
   }
 
   ionViewDidLoad() {
     this.sortObservations();
+    if(this.obs){
+      this.hrData = this.getHrDataSet();
+      this.rrData = this.getRrDataSet();
+      this.renderChart();
+    }
+    
+  }
+
+  renderChart(){
+    this.myChart = HighCharts.chart('container', {
+      chart: {
+          
+          zoomType: 'x',
+          type: 'spline'
+      },
+      title: {
+          text: null
+      },
+      credits: {
+        enabled: false
+      },
+      
+      xAxis: {
+          type: 'datetime',
+          // dateTimeLabelFormats: { // don't display the dummy year
+          //     month: '%e. %b',
+          //     year: '%b'
+          // },
+          title: {
+              text: 'Date and Time'
+          },
+          tickInterval: null
+      },
+      yAxis: {
+          title: {
+              text: 'Value'
+          },
+          min: 0
+      },
+      tooltip: {
+          headerFormat: '<b>{series.name}</b><br>',
+          pointFormat: '{point.x:%e. %b}: {point.y:.2f}'
+      },
+  
+      plotOptions: {
+          spline: {
+              marker: {
+                  enabled: true
+              }
+          }
+          ,series: {
+            
+            pointIntervalUnit: 'date'
+        }
+      },
+  
+      series: [{
+          name: 'HR',
+          // Define the data points. All series have a dummy year
+          // of 1970/71 in order to be compared on the same x axis. Note
+          // that in JavaScript, months start at 0 for January, 1 for February etc.
+          data: this.hrData,
+          color: '#820101'
+            
+      },{
+        name: 'RR',
+        // Define the data points. All series have a dummy year
+        // of 1970/71 in order to be compared on the same x axis. Note
+        // that in JavaScript, months start at 0 for January, 1 for February etc.
+        data: this.rrData,
+        color: '#000000'
+        
+          
+    }]
+    });
+  }
+
+  getHrDataSet(){
+    let sortedObs = this.obs.sort((a, b)=>{
+      return a.obsTimeStamp - b.obsTimeStamp;
+    })
+    let filterdRrObs = sortedObs.filter(ob=>{
+      
+      return ob.heartRate
+    });
+    // let dataArray = [];
+    // this.obs
+    return filterdRrObs.map(ob =>{
+      return [ob.obsTimeStamp + this.timeZoneAdjustment, +ob.heartRate]
+    })
+  }
+
+  getRrDataSet(){
+    // let dataArray = [];
+    // this.obs
+    let filterdRrObs = this.obs.filter(ob=>{
+      
+      return ob.respiratoryRate
+    });
+    // console.log('filterdRrObs',filterdRrObs )
+    return filterdRrObs.map(ob =>{
+      return [ob.obsTimeStamp + this.timeZoneAdjustment, +ob.respiratoryRate]
+    })
+
+    
   }
 
   sortObservations() {
@@ -2027,6 +2126,8 @@ export class ModalContentPage9 { // observation list
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
     modal.present();
   }
+
+
 }
 
 

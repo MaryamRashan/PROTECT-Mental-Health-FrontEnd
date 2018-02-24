@@ -11,6 +11,11 @@ ion-select {
 
 
 }
+ion-slide {
+    overflow-y: auto;
+    display: block;
+}
+
 ion-slide.swiper-slide {
     padding: 20px;
     align-items: flex-start;
