@@ -1961,6 +1961,7 @@ export class ModalContentPage8 { // single observation
 })
 export class ModalContentPage9 { // observation list
 
+  
   private observationForm: FormGroup;
   public patient;
 
@@ -1987,6 +1988,8 @@ export class ModalContentPage9 { // observation list
       console.log('timeZoneAdjustment', this.timeZoneAdjustment);
     }
   }
+
+  
 
   ionViewDidLoad() {
     this.sortObservations();
@@ -2118,6 +2121,13 @@ export class ModalContentPage9 { // observation list
   addObservation() {
     let obs = { patient: this.patient, ob: null };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
+    modal.onDidDismiss(data=>{
+      if(this.obs){
+        this.hrData = this.getHrDataSet();
+        this.rrData = this.getRrDataSet();
+        this.renderChart();
+      }
+    })
     modal.present();
   }
 
