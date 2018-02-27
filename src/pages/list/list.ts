@@ -1957,6 +1957,41 @@ export class ModalContentPage8 { // single observation
 }
 
 @Component({
+  templateUrl: "obstable.html",
+})
+export class ModalObsTableOnObs { // obs model on obs list
+
+  private observationForm: FormGroup;
+  public patient;
+  public obs;
+
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
+
+    this.patient = navParams.get("patient");
+    this.obs = navParams.get("obs");
+    console.log('patient inside the observation modal ', this.patient)
+    console.log('ob inside the observation modal ', this.obs)
+
+
+
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+
+  }
+
+
+
+  // openModal8(characterNum) {
+
+  //   let modal = this.modalCtrl.create(ModalContentPage9, characterNum);
+  //   modal.present();
+  // }
+
+}
+
+@Component({
   templateUrl: 'observationlist.html',
 })
 export class ModalContentPage9 { // observation list
@@ -2134,6 +2169,12 @@ export class ModalContentPage9 { // observation list
   editObservation(observation) {
     let obs = { patient: this.patient, ob: observation };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
+    modal.present();
+  }
+
+  openObsTable() {
+    let obs = { patient: this.patient, obs: this.obs };
+    let modal = this.modalCtrl.create(ModalObsTableOnObs, obs);
     modal.present();
   }
 
