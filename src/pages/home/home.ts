@@ -185,7 +185,7 @@ export class HomePage {
 export class AddAdmissionModal {
   
   private admissionForm : FormGroup;
-
+  public freeTextDiagVisibility = false;
   public codeData = [];
   public selectedCodeData;
   public selectedCode = '';
@@ -284,7 +284,21 @@ export class AddAdmissionModal {
     
   }
 
+  changeFreeTextVisibility(e) {
+    console.log('changeFreeTextVisibility')
+    this.admissionForm.controls.freeTextDiag.setValue('');
+    if(this.admissionForm.value.code.apacheDiag == 'Other'){
+      this.freeTextDiagVisibility = true;
+    }
+
+    else {
+      this.freeTextDiagVisibility = false;
+    }
+  }
+
   generateCodes (e){
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
     console.log(e)
     let tempCodeData = 
     [
@@ -1095,6 +1109,8 @@ export class AddAdmissionModal {
   }
 
   makeCodeandSystemEmpty(e) {
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
 
     this.systems = [];
     this.selectedCodeData = []

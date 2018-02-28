@@ -122,6 +122,7 @@ export class ListPage {
 export class ModalContentPage1 implements OnInit {
 
   private admissionForm: FormGroup;
+  public freeTextDiagVisibility = false;
   private patient;
   public codeData = [];
   public selectedCodeData;
@@ -205,10 +206,27 @@ export class ModalContentPage1 implements OnInit {
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemCodes^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemCodes)
     
     this.admissionForm.controls.code.setValue(testItemCodes[0]);
-    // this.admissionForm.controls.freeTextDiag.setValue(this.diag.freeTextDiag);
+    this.admissionForm.controls.freeTextDiag.setValue(this.patient.admission.freeTextDiag);
+    if(this.admissionForm.value.code.apacheDiag == 'Other'){
+      this.freeTextDiagVisibility = true;
+    }
+  }
+
+  changeFreeTextVisibility(e) {
+    console.log('changeFreeTextVisibility')
+    this.admissionForm.controls.freeTextDiag.setValue('');
+    if(this.admissionForm.value.code.apacheDiag == 'Other'){
+      this.freeTextDiagVisibility = true;
+    }
+
+    else {
+      this.freeTextDiagVisibility = false;
+    }
   }
 
   generateCodes (e){
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
     console.log(e)
     let tempCodeData = 
       [
@@ -1022,6 +1040,9 @@ export class ModalContentPage1 implements OnInit {
   }
 
   makeCodeandSystemEmpty(e) {
+
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
 
 
     this.systems = []

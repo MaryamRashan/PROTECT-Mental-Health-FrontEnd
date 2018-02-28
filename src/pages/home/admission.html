@@ -162,7 +162,7 @@
             <ion-label stacked>Diagnosis</ion-label>
             <ion-item>
             
-                <ion-select class="width100" formControlName="code" interface="popover" >
+                <ion-select class="width100" formControlName="code" interface="popover" (ionChange)="changeFreeTextVisibility($event)" >
 
                         <ion-option *ngFor="let val of selectedCodeData" [value]="val" >{{val.apacheDiag}}</ion-option>
                         
@@ -171,7 +171,7 @@
             </ion-item>
           </div>
 
-          <div *ngIf="admissionForm.value.code.apacheDiag == 'Other'">
+          <div *ngIf="freeTextDiagVisibility">
               <ion-label stacked>Type Diagnosis</ion-label>
               <ion-item>
               
