@@ -122,6 +122,67 @@
 
         </div>
 
+        <div radio-group formControlName="opOrnonOp" (ionChange)="makeCodeandSystemEmpty($event)">
+            <ion-label stacked>Operative or Non Operative</ion-label>
+          
+          
+          
+            <ion-item>
+          
+              <ion-label>Operative</ion-label>
+              <ion-radio value="op"></ion-radio>
+          
+            </ion-item>
+          
+            <ion-item>
+          
+              <ion-label>Non Operative</ion-label>
+              <ion-radio value="non-op"></ion-radio>
+          
+            </ion-item>
+          
+          </div>
+
+          <div *ngIf="!admissionForm.value.opOrnonOp == ''">
+            <ion-label stacked>System</ion-label>
+            <ion-item>
+
+              
+                  <ion-select class="width100" formControlName="system" interface="popover" (ionChange)="generateCodes($event)">
+                
+                      <ion-option *ngFor="let val of systems" [value]="val">{{val.value}}</ion-option>
+                    
+                    </ion-select>
+
+                              
+            </ion-item>
+          </div>
+
+          <div *ngIf="!admissionForm.value.opOrnonOp == '' && !admissionForm.value.system == ''">
+            <ion-label stacked>Diagnosis</ion-label>
+            <ion-item>
+            
+                <ion-select class="width100" formControlName="code" interface="popover" >
+
+                        <ion-option *ngFor="let val of selectedCodeData" [value]="val" >{{val.apacheDiag}}</ion-option>
+                        
+                        
+                        </ion-select>
+            </ion-item>
+          </div>
+
+          <div *ngIf="admissionForm.value.code.apacheDiag == 'Other'">
+              <ion-label stacked>Type Diagnosis</ion-label>
+              <ion-item>
+              
+                  <ion-input formControlName="freeTextDiag" interface="popover" >
+
+                          
+                          
+                  </ion-input>
+              </ion-item>
+          </div>
+
         <div>
                 <div formGroupName="comorbidities">
                   <ion-label stacked>Comorbidities</ion-label>
