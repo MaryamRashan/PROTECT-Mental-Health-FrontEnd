@@ -1014,6 +1014,10 @@ export class ModalContentPage1 implements OnInit {
     
     let opOrnonOp = this.admissionForm.value.opOrnonOp;
     let system = (!(this.patient.admission.system == '') )? this.patient.admission.system : this.admissionForm.value.system;
+    
+    if (!(e=='')){
+      system = e;
+    }
     console.log('opOrnonOp ', opOrnonOp , 'system' , system)
     const tempArr = tempCodeData.filter((code)=>{
         return code.type == opOrnonOp && code.apacheGroup == system.value
