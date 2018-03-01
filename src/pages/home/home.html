@@ -9,8 +9,13 @@
 
 <ion-content padding>
 
+    <ion-searchbar *ngIf="patients && patients.length > 0"  color="primary"
+        [(ngModel)]="searchName"
+        placeholder="Search Name">
+</ion-searchbar>
+
     <ion-list *ngIf="patients && patients.length > 0">
-        <ion-item-sliding *ngFor="let patient of patients"  >
+        <ion-item-sliding *ngFor="let patient of patients | namefilter : searchName"  >
           
           <ion-item (click)="gotoIndividual(patient)">
             <ion-icon name="person"></ion-icon>

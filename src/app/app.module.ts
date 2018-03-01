@@ -8,6 +8,8 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 import { ModalContentPage1 } from '../pages/list/list';
 import { ModalContentPage2 } from '../pages/list/list';
 import { ModalContentPage3 } from '../pages/list/list';
@@ -77,6 +79,7 @@ import { IonicStorageModule } from '@ionic/storage';
     }),
     BrowserModule,
     HttpModule,
+    PipesModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
