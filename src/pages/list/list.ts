@@ -207,7 +207,7 @@ export class ModalContentPage1 implements OnInit {
     
     this.admissionForm.controls.code.setValue(testItemCodes[0]);
     this.admissionForm.controls.freeTextDiag.setValue(this.patient.admission.freeTextDiag);
-    if(this.admissionForm.value.code.apacheDiag == 'Other'){
+    if(this.admissionForm.value.code && this.admissionForm.value.code.apacheDiag == 'Other'){
       this.freeTextDiagVisibility = true;
     }
   }
@@ -1013,7 +1013,7 @@ export class ModalContentPage1 implements OnInit {
     console.log(this.selectedCodeData)
     
     let opOrnonOp = this.admissionForm.value.opOrnonOp;
-    let system = this.patient.admission.system;
+    let system = (!(this.patient.admission.system == '') )? this.patient.admission.system : this.admissionForm.value.system;
     console.log('opOrnonOp ', opOrnonOp , 'system' , system)
     const tempArr = tempCodeData.filter((code)=>{
         return code.type == opOrnonOp && code.apacheGroup == system.value
