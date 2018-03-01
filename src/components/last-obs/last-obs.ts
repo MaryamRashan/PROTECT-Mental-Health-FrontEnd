@@ -45,7 +45,7 @@ export class LastObsComponent implements OnChanges {
   }
 
   ngOnChanges(){
-    console.log(this.obs)
+    console.log( 'child ngOnchange',this.obs)
       // if(this.admission){
               // if(this.obs.length > 0){
               //   this.logAdmission()
@@ -67,6 +67,8 @@ export class LastObsComponent implements OnChanges {
 
 
   arrangeData(){
+
+    console.log('###########################################################')
     // this.obs = this.admission.obs;
 
         if (this.obs.length > 0){

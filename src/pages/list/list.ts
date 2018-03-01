@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef,  ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, ViewController, Events } from 'ionic-angular';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -7,6 +7,8 @@ import { SocketProvider } from '../../providers/socket/socket';
 import { SyncProvider } from '../../providers/sync/sync';
 
 import { HomePage } from '../../pages/home/home';
+
+import { LastObsComponent } from '../../components/last-obs/last-obs'
 
 import * as UUID from 'uuid/v1';
 
@@ -3753,7 +3755,8 @@ export class ModalObsTableOnObs { // obs model on obs list
 })
 export class ModalContentPage9 { // observation list
 
-  
+  @ViewChild(LastObsComponent)
+  private lastobs: LastObsComponent;
   private observationForm: FormGroup;
   public patient;
 
@@ -3763,7 +3766,7 @@ export class ModalContentPage9 { // observation list
   public timeZoneAdjustment;
   public myChart;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, private cd: ChangeDetectorRef) {
     this.patient = navParams.get("patient");
     console.log('patient inside the observation list modal ', this.patient);
 
@@ -3794,6 +3797,7 @@ export class ModalContentPage9 { // observation list
   }
 
   renderChart(){
+    console.log('@@@@@@@@@@@@@renderChart()@@@@@@@@@@@@@@@@')
     this.myChart = HighCharts.chart('container', {
       chart: {
           
@@ -3863,7 +3867,7 @@ export class ModalContentPage9 { // observation list
   }
 
   getHrDataSet(){
-    let sortedObs = this.obs.sort((a, b)=>{
+    let sortedObs = this.patient.observations.sort((a, b)=>{
       return a.obsTimeStamp - b.obsTimeStamp;
     })
     let filterdRrObs = sortedObs.filter(ob=>{
@@ -3880,7 +3884,7 @@ export class ModalContentPage9 { // observation list
   getRrDataSet(){
     // let dataArray = [];
     // this.obs
-    let filterdRrObs = this.obs.filter(ob=>{
+    let filterdRrObs = this.patient.observations.filter(ob=>{
       
       return ob.respiratoryRate
     });
@@ -3914,10 +3918,15 @@ export class ModalContentPage9 { // observation list
     let obs = { patient: this.patient, ob: null };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
     modal.onDidDismiss(data=>{
-      if(this.obs){
+      if(this.patient.observations){
+        this.obs = this.patient.observations;
         this.hrData = this.getHrDataSet();
         this.rrData = this.getRrDataSet();
         this.renderChart();
+        this.lastobs.arrangeData();
+        this.cd.detectChanges();
+        console.log('after close obs',this.obs)
+        console.log('after close patient.obs',this.patient.observations)
       }
     })
     modal.present();
@@ -3930,7 +3939,8 @@ export class ModalContentPage9 { // observation list
   }
 
   openObsTable() {
-    let obs = { patient: this.patient, obs: this.obs };
+    console.log('openObsTable()', this.obs)
+    let obs = { patient: this.patient, obs: this.patient.observations };
     let modal = this.modalCtrl.create(ModalObsTableOnObs, obs);
     modal.present();
   }
