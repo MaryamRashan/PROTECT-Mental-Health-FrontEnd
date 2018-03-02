@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef,  ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, ViewController, Events } from 'ionic-angular';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
@@ -7,6 +7,8 @@ import { SocketProvider } from '../../providers/socket/socket';
 import { SyncProvider } from '../../providers/sync/sync';
 
 import { HomePage } from '../../pages/home/home';
+
+import { LastObsComponent } from '../../components/last-obs/last-obs'
 
 import * as UUID from 'uuid/v1';
 
@@ -119,10 +121,16 @@ export class ListPage {
 @Component({
   templateUrl: 'admission.html',
 })
-export class ModalContentPage1 {
+export class ModalContentPage1 implements OnInit {
 
   private admissionForm: FormGroup;
+  public freeTextDiagVisibility = false;
   private patient;
+  public codeData = [];
+  public selectedCodeData;
+  public systems = [];
+
+  public wardsList = [] ;
 
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public socket: SocketProvider, public sync: SyncProvider) {
     this.patient = navParams.get("patient");
@@ -133,47 +141,1009 @@ export class ModalContentPage1 {
       gender: [this.patient.admission.gender],
       admission_type: [this.patient.admission.admission_type],
       age: [this.patient.admission.age],
+      age_unit: [this.patient.admission.age_unit],
       pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
       admission_date: [this.patient.admission.admission_date],
       admission_report_date: [this.patient.admission.admission_report_date],
       bht: [this.patient.admission.bht],
-      ward_number: [this.patient.admission.ward_number],
+      ward_number: [''],
       if_other_ward: [this.patient.admission.if_other_ward],
       transferredFrom: [this.patient.admission.transferredFrom],
-      pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
-      cprGiven: formBuilder.group({
-        cpr: [this.patient.admission.cprGiven.cpr],
-        defibrillation: [this.patient.admission.cprGiven.defibrillation],
-        thrombolysis: [this.patient.admission.cprGiven.thrombolysis],
-        vasoactiveDrugs: [this.patient.admission.cprGiven.vasoactiveDrugs],
-        furosemide: [this.patient.admission.cprGiven.furosemide],
-        ventilation: [this.patient.admission.cprGiven.ventilation],
-        none: [this.patient.admission.cprGiven.none]
-      }),
+      // pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
+      // cprGiven: formBuilder.group({
+      //   cpr: [this.patient.admission.cprGiven.cpr],
+      //   defibrillation: [this.patient.admission.cprGiven.defibrillation],
+      //   thrombolysis: [this.patient.admission.cprGiven.thrombolysis],
+      //   vasoactiveDrugs: [this.patient.admission.cprGiven.vasoactiveDrugs],
+      //   furosemide: [this.patient.admission.cprGiven.furosemide],
+      //   ventilation: [this.patient.admission.cprGiven.ventilation],
+      //   none: [this.patient.admission.cprGiven.none]
+      // }),
       comorbidities: formBuilder.group({
         hiv: [this.patient.admission.comorbidities.hiv],
         none: [this.patient.admission.comorbidities.none],
         other: [this.patient.admission.comorbidities.other]
       }),  
       pre_operative_hb_avl: formBuilder.group({
-        not_available: [this.patient.admission.comorbidities.not_available],
+        not_available: [this.patient.admission.pre_operative_hb_avl]
       }),  
       if_other_please_specify_comorbi: [this.patient.admission.if_other_please_specify_comorbi], 
       cd4: [this.patient.admission.cd4],
       feverad: [this.patient.admission.feverad],
-      raisedJvp: [this.patient.admission.raisedJvp],
-      numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
-      ecgReferral: [this.patient.admission.ecgReferral],
-      dateOfFirstEcg: [this.patient.admission.dateOfFirstEcg],
-      timeOfFirstEcg: [this.patient.admission.timeOfFirstEcg],
-      analgesiaGiven: [this.patient.admission.analgesiaGiven],
-      admittedFor: [this.patient.admission.admittedFor],
+      // raisedJvp: [this.patient.admission.raisedJvp],
+      // numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
+      // ecgReferral: [this.patient.admission.ecgReferral],
+      // dateOfFirstEcg: [this.patient.admission.dateOfFirstEcg],
+      // timeOfFirstEcg: [this.patient.admission.timeOfFirstEcg],
+      // analgesiaGiven: [this.patient.admission.analgesiaGiven],
+      // admittedFor: [this.patient.admission.admittedFor],
       // reinfarction: [this.patient.admission.reinfarction],
       weight: [this.patient.admission.weight],
-      height: [this.patient.admission.height]
+      height: [this.patient.admission.height],
+      opOrnonOp: [this.patient.admission.opOrnonOp],
+      system: [''],
+      code: [''],
+      freeTextDiag: [this.patient.admission.freeTextDiag],
     });
 
+    
+
+  }
+
+  generateWardList(){
+    this.wardsList = [
+      {id:'1',name:'CWA'},
+      {id:'2',name:'CWB'},
+      {id:'3',name:'CWC'},
+      {id:'4',name:'HDU'},
+      {id:'5',name:'ITU'},
+      {id:'6',name:'Other'}
+    ].map(_item=>{
+        let item: any = _item;
+        item._id = Math.random() * 100;
+        return item;
+    })
+  }
+
+  ngOnInit(): void {
+    console.log(this.patient.admission.ward_number)
+    this.admissionForm.controls.ward_number.setValue(this.patient.admission.ward_number)
+
+
+    this.generateWardList();
+    let testItemWards= this.wardsList.filter(test=>{
+      console.log('test', test.value)
+      return test.name == this.patient.admission.ward_number.name
+    })
+    // this.admissionForm.controls.system.setValue({id: '12', value :this.diag.apacheGroup});
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemWards^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemWards)
+    this.admissionForm.controls.ward_number.setValue(testItemWards[0]);
+
+    console.log(this.admissionForm)
+    this.makeCodeandSystemEmpty('')
+    console.log(this.systems);
+    let testItemSystem = this.systems.filter(test=>{
+      console.log('test', test.value)
+      return test.value == this.patient.admission.code.apacheGroup
+    })
+    // this.admissionForm.controls.system.setValue({id: '12', value :this.diag.apacheGroup});
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemSystem^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemSystem)
+    this.admissionForm.controls.system.setValue(testItemSystem[0]);
+    this.generateCodes('');
+    let testItemCodes = this.selectedCodeData.filter(test=>{
+      console.log('test', test)
+      return test.apacheDiag == this.patient.admission.code.apacheDiag
+    })
+
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemCodes^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemCodes)
+    
+    this.admissionForm.controls.code.setValue(testItemCodes[0]);
+    this.admissionForm.controls.freeTextDiag.setValue(this.patient.admission.freeTextDiag);
+    if(this.admissionForm.value.code && this.admissionForm.value.code.apacheDiag == 'Other'){
+      this.freeTextDiagVisibility = true;
+    }
+  }
+
+  changeFreeTextVisibility(e) {
+    console.log('changeFreeTextVisibility')
+    this.admissionForm.controls.freeTextDiag.setValue('');
+    if(this.admissionForm.value.code.apacheDiag == 'Other'){
+      this.freeTextDiagVisibility = true;
+    }
+
+    else {
+      this.freeTextDiagVisibility = false;
+    }
+  }
+
+  generateCodes (e){
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
+    console.log(e)
+    let tempCodeData = 
+      [
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Herniorrhaphy',
+          snomed: 'Hernia repair',
+          snomedCode: '50465008'
+        },
+        {
+          type: 'non-op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI Abscess/cyst',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '284181007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Simple excision of inguinal hernial sac',
+          snomedCode: '177854007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Complications of previous GI surgery; surgery for (anastomotic leak, bleeding, abscess, infection, dehiscence, etc.)',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Fistula/abscess, surgery for (not inflammatory bowel disease)',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI Abscess/cyst-primary, surgery for',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Renal infection/abscess',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Abscess, neurologic',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Abscess/infection-cranial, surgery for',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Infection/abscess, other surgery for',
+          snomed: 'Incision and drainage of abscess',
+          snomedCode: '50465008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Herniorrhaphy',
+          snomed: 'Repair of umbilical hernia',
+          snomedCode: '44946007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Grafting, skin (all)',
+          snomed: 'Skin graft operation',
+          snomedCode: '304040003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Burn',
+          snomed: 'Skin graft operation',
+          snomedCode: '304040003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Skin surgery, other',
+          snomed: 'Excision',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Skin surgery, other',
+          snomed: 'Excision',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Skin surgery, other',
+          snomed: 'Excision',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Amputation (non-traumatic)',
+          snomed: 'Amputation',
+          snomedCode: '81723002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Biopsy of rectum',
+          snomedCode: '54686006'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Fitting stoma bag',
+          snomedCode: '225176002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: ' Removing stoma bag',
+          snomedCode: '225185002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: ' Lateral sphincterotomy',
+          snomedCode: '174385004'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Repair of anus',
+          snomedCode: '47118000'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Fitting stoma bag',
+          snomedCode: '225176002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Removing stoma bag',
+          snomedCode: '225185002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: ' Posterior sagittal anorectoplasty',
+          snomedCode: '235374000'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Small intestinal strictureplasty',
+          snomedCode: '302354002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Laparotomy',
+          snomedCode: '86481000'
+        },
+
+        {
+
+
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Appendectomy',
+          snomed: 'Appendectomy',
+          snomedCode: '80146002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+          snomed: 'Open reduction of intussusception of intestine',
+          snomedCode: '713046002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Reconstruction of abdominal wall',
+          snomedCode: '238212008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Repair of omphalocele',
+          snomedCode: '30502000'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Abdomen/extremity trauma, surgery for',
+          snomed: 'Repair of liver laceration',
+          snomedCode: '397239004'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Abdomen only trauma, surgery for',
+          snomed: 'Splenectomy',
+          snomedCode: '234319005'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Abdomen/face trauma, surgery for',
+          snomed: ' Packing of liver laceration',
+          snomedCode: '174440001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Abdomen/multiple trauma, surgery for',
+          snomed: 'Repair of perforated colon',
+          snomedCode: '307709007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+          snomed: 'Duodenostomy',
+          snomedCode: '30582003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+          snomed: 'Pyloromyotomy',
+          snomedCode: '173788005'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Laparotomy and division of peritoneal adhesions',
+          snomedCode: '287853009'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Fitting stoma bag',
+          snomedCode: '225176002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Removing stoma bag',
+          snomedCode: '225185002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Excision',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Lysis of adhesions',
+          snomedCode: '39270003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Gastrostomy',
+          snomedCode: '54956002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Endoscopy',
+          snomedCode: '423827005'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Pancreatectomy',
+          snomedCode: '33149006'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'GI surgery, other',
+          snomed: 'Pyloroplasty',
+          snomedCode: '363742001'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Nephrectomy for neoplasm',
+          snomed: ' Total nephrectomy',
+          snomedCode: '175905003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Orthopedic surgery, other',
+          snomed: 'Excision of lesion of bone',
+          snomedCode: '68471001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Orthopedic surgery, other',
+          snomed: 'Excision ',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Hematology',
+          apacheDiag: 'Hematologic surgery, other',
+          snomed: 'Biopsy of lymph node ',
+          snomedCode: '21911005'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Neurologic surgery, other',
+          snomed: 'Excision ',
+          snomedCode: '65801008'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Oophorectomy with/without salpingectomy with/without lymph node dissection',
+          snomed: 'Oophorectomy',
+          snomedCode: '83152002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+          snomed: 'Total orchidectomy',
+          snomedCode: '236334001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Splenectomy',
+          snomed: 'Splenectomy',
+          snomedCode: '234319005'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Genitourinary surgery, other',
+          snomed: ' Ligation',
+          snomedCode: '70751009'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Genitourinary surgery, other',
+          snomed: 'Orchidopexy',
+          snomedCode: '85419002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+          snomed: 'Total orchidectomy',
+          snomedCode: '236334001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+          snomed: 'Hook ablation of posterior urethral valve',
+          snomedCode: '176374004'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+          snomed: 'Procedure involving suprapubic catheter',
+          snomedCode: '429516009'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+          snomed: 'Insertion of temporary peritoneal dialysis catheter',
+          snomedCode: '180277007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Genitourinary surgery, other',
+          snomed: ' Ureterosigmoidostomy',
+          snomedCode: ' Ureterosigmoidostomy'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+          snomed: ' Nephrostomy',
+          snomedCode: '39834009'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Genitourinary surgery, other',
+          snomed: ' Hypospadias repair',
+          snomedCode: '274040007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Tracheostomy',
+          snomed: 'Incision of trachea',
+          snomedCode: '48387007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: 'Removal of foreign body from mouth',
+          snomedCode: '300231003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Thoracotomy for pleural disease',
+          snomed: 'Insertion of pleural tube drain',
+          snomedCode: '264957007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: 'Primary repair of esophageal atresia',
+          snomedCode: '235173003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: 'Secondary repair for esophageal atresia ',
+          snomedCode: '235174009'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: 'Esophageal atresia, stenosis and fistula',
+          snomedCode: '268201001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: 'Esophageal atresia with tracheoesophageal fistula',
+          snomedCode: '204659003'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Respiratory surgery, other',
+          snomed: ' Repair of diaphragmatic hernia ',
+          snomedCode: '112977000'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Cardiovascular',
+          apacheDiag: 'Congenital Defect Repair (Other)',
+          snomed: 'Ligation of ductus arteriosus',
+          snomedCode: '175212004'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Spinal cord sugery, other',
+          snomed: 'Repair of spina bifida',
+          snomedCode: '19054000'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Shunts and revisions',
+          snomed: 'Ventriculoperitoneal shunt',
+          snomedCode: '47020004'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Shunts and revisions',
+          snomed: 'Removal of ventriculoperitoneal shunt',
+          snomedCode: '230878007'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Shunts and revisions',
+          snomed: 'Revision of ventriculoperitoneal shunt',
+          snomedCode: '442432004'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Shunts and revisions',
+          snomed: 'Repair of encephalocele',
+          snomedCode: '230835002'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Neurologic surgery, other',
+          snomed: 'Repair of encephalocele',
+          snomedCode: '230835002'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Hemorrhage/hematoma-intracranial, surgery for',
+          snomed: 'Craniotomy',
+          snomedCode: '25353009'
+        },
+
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Burr hole placement',
+          snomed: 'Trephination of cranium',
+          snomedCode: '67864003'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Hematology',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'non-op',
+          apacheGroup: 'Cardiovascular',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Neurological',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Gastrointestinal',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Genitourinary',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Respiratory',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Musculoskeletal/Skin',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Trauma',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Hematology',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+        {
+          type: 'op',
+          apacheGroup: 'Cardiovascular',
+          apacheDiag: 'Other',
+          snomed: 'Other',
+          snomedCode: '001'
+        },
+
+      ]
+    this.admissionForm.value.code = '';
+    this.selectedCodeData = [];
+    console.log(this.selectedCodeData)
+    
+    let opOrnonOp = this.admissionForm.value.opOrnonOp;
+    let system = (!(this.patient.admission.system == '') )? this.patient.admission.system : this.admissionForm.value.system;
+    
+    if (!(e=='')){
+      system = e;
+    }
+    console.log('opOrnonOp ', opOrnonOp , 'system' , system)
+    const tempArr = tempCodeData.filter((code)=>{
+        return code.type == opOrnonOp && code.apacheGroup == system.value
+    }).map(_item=>{
+      let item: any = _item;
+      item.id = Math.random() * 100;
+      return item;
+    })
+    
+    let apacheCollection = [];
+    tempArr.forEach(item=>{
+
+      if((apacheCollection.indexOf(item.apacheDiag)== -1)){
+        console.log('not there');
+        apacheCollection.push(item.apacheDiag)
+        this.selectedCodeData.push(item)
+      }
+    })
+    // this.selectedCodeData = tempArr;
+    console.log(this.selectedCodeData)
+
+ 
+    // this.admissionForm.value.code = '';
+  }
+
+  makeCodeandSystemEmpty(e) {
+
+    this.freeTextDiagVisibility = false;
+    this.admissionForm.controls.freeTextDiag.setValue('');
+
+
+    this.systems = []
+    this.selectedCodeData = []
+    
+    // this.admissionForm.value.system = '';
+    if (this.admissionForm.value.opOrnonOp == 'op') {
+      
+      this.systems = [
+        {id: '11', value :'Gastrointestinal'},
+        {id: '12', value :'Genitourinary'},
+        {id: '13', value :'Neurological'},
+        {id: '14', value :'Respiratory'},
+        {id: '15', value :'Musculoskeletal/Skin'},
+        {id: '16', value :'Trauma'},
+        {id: '17', value :'Hematology'},
+        {id: '20', value :'Cardiovascular'},
+       ].map(_item=>{
+        let item: any = _item;
+        item.id = Math.random() * 100;
+        return item;
+      })
+      // this.systemsVisibility = 'op';
+    } else if (this.admissionForm.value.opOrnonOp == 'non-op'){
+      // this.systemsOps = [];
+      this.systems = [
+        {id: '11', value :'Gastrointestinal'},
+        {id: '12', value :'Genitourinary'},
+        {id: '13', value :'Neurological'},
+        {id: '14', value :'Respiratory'},
+        {id: '15', value :'Musculoskeletal/Skin'},
+        {id: '16', value :'Trauma'},
+        {id: '17', value :'Hematology'},
+        {id: '20', value :'Cardiovascular'},
+       ].map(_item=>{
+        let item: any = _item;
+        item.id = Math.random() * 100;
+        return item;
+      })
+      
+    }
+    this.selectedCodeData = [];
+    console.log(this.selectedCodeData)
+    
+
+    // let opOrnonOp = this.admissionForm.value.opOrnonOp;
+    // let system = this.admissionForm.value.system;
+    // this.selectedCodeData = this.codeData.filter((code)=>{
+    //     return code.type == opOrnonOp && code.apacheGroup == system
+    // })
+    this.admissionForm.value.code = '';
+    this.admissionForm.value.system = '';
+    
+    console.log(this.admissionForm.value.code);
+    console.log(this.admissionForm.value.system)
+
+    
+    
+  }
+
+  isSelected(d){
+    console.log('d', d)
+    console.log(d.value == this.patient.admission.apacheGroup)
+    return d.value == this.patient.admission.apacheGroup;
   }
 
   dismiss() {
@@ -190,18 +1160,16 @@ export class ModalContentPage1 {
     let admission = {
       patientId: this.patient.patientId,
       patientName: this.admissionForm.value.patientName,
-      cprGiven: {
-        cpr: this.admissionForm.value.cprGiven.cpr,
-        defibrillation: this.admissionForm.value.cprGiven.defibrillation,
-        thrombolysis: this.admissionForm.value.cprGiven.thrombolysis,
-        vasoactiveDrugs: this.admissionForm.value.cprGiven.vasoactiveDrugs,
-        furosemide: this.admissionForm.value.cprGiven.furosemide,
-        ventilation: this.admissionForm.value.cprGiven.ventilation,
-        none: this.admissionForm.value.cprGiven.none,
-      },
-      pre_operative_hb_avl: {
-        not_available: this.admissionForm.value.comorbidities.not_available,
-      },
+      // cprGiven: {
+      //   cpr: this.admissionForm.value.cprGiven.cpr,
+      //   defibrillation: this.admissionForm.value.cprGiven.defibrillation,
+      //   thrombolysis: this.admissionForm.value.cprGiven.thrombolysis,
+      //   vasoactiveDrugs: this.admissionForm.value.cprGiven.vasoactiveDrugs,
+      //   furosemide: this.admissionForm.value.cprGiven.furosemide,
+      //   ventilation: this.admissionForm.value.cprGiven.ventilation,
+      //   none: this.admissionForm.value.cprGiven.none,
+      // },
+      pre_operative_hb_avl: this.admissionForm.value.pre_operative_hb_avl.not_available,
       comorbidities: {
         hiv: this.admissionForm.value.comorbidities.hiv,
         none: this.admissionForm.value.comorbidities.none,
@@ -212,30 +1180,34 @@ export class ModalContentPage1 {
       feverad: this.admissionForm.value.feverad,
       gender: this.admissionForm.value.gender,
       age: this.admissionForm.value.age,
-      nic: this.admissionForm.value.nic,
+      age_unit: this.admissionForm.value.age_unit,
       pre_operative_hb: this.admissionForm.value.pre_operative_hb,
       admission_type: this.admissionForm.value.admission_type,
       contactNumber: this.admissionForm.value.contactNumber,
       admission_date: this.admissionForm.value.admission_date,
       admission_report_date: this.admissionForm.value.admission_report_date,
-      dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
-      timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
+      // dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
+      // timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
       bht: this.admissionForm.value.bht,
-      modeOfTransportation: this.admissionForm.value.modeOfTransportation,
+      // modeOfTransportation: this.admissionForm.value.modeOfTransportation,
       ward_number: this.admissionForm.value.ward_number,
       if_other_ward: this.admissionForm.value.if_other_ward ,
-      transferredFrom: this.admissionForm.value.transferredFrom,
-      pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
-      raisedJvp: this.admissionForm.value.raisedJvp,
-      numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
-      ecgReferral: this.admissionForm.value.ecgReferral,
-      dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
-      timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
-      admittedFor: this.admissionForm.value.admittedFor,
+      // transferredFrom: this.admissionForm.value.transferredFrom,
+      // pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
+      // raisedJvp: this.admissionForm.value.raisedJvp,
+      // numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
+      // ecgReferral: this.admissionForm.value.ecgReferral,
+      // dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
+      // timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
+      // admittedFor: this.admissionForm.value.admittedFor,
       // reinfarction: this.admissionForm.value.reinfarction,
-      analgesiaGiven: this.admissionForm.value.analgesiaGiven,
+      // analgesiaGiven: this.admissionForm.value.analgesiaGiven,
       weight: this.admissionForm.value.weight,
       height: this.admissionForm.value.height,
+      opOrnonOp : this.admissionForm.value.opOrnonOp,
+      system : this.admissionForm.value.system,
+      code : this.admissionForm.value.code,
+      freeTextDiag : this.admissionForm.value.freeTextDiag,
       timeStamp: new Date().getTime()
 
     }
@@ -255,10 +1227,797 @@ export class ModalContentPage1 {
 @Component({
   templateUrl: 'intraOp.html',
 })
-export class ModalContentPage2 { // Single IntraOp
+export class ModalContentPage2 implements OnInit { // Single IntraOp
+  
   private intraOpForm : FormGroup;
   public patient;
   public intraOp;
+
+  public tempCodeData = 
+    [
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Herniorrhaphy',
+        snomed: 'Hernia repair',
+        snomedCode: '50465008'
+      },
+      {
+        type: 'non-op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI Abscess/cyst',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '284181007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Simple excision of inguinal hernial sac',
+        snomedCode: '177854007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Complications of previous GI surgery; surgery for (anastomotic leak, bleeding, abscess, infection, dehiscence, etc.)',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Fistula/abscess, surgery for (not inflammatory bowel disease)',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI Abscess/cyst-primary, surgery for',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Renal infection/abscess',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Abscess, neurologic',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Abscess/infection-cranial, surgery for',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Infection/abscess, other surgery for',
+        snomed: 'Incision and drainage of abscess',
+        snomedCode: '50465008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Herniorrhaphy',
+        snomed: 'Repair of umbilical hernia',
+        snomedCode: '44946007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Grafting, skin (all)',
+        snomed: 'Skin graft operation',
+        snomedCode: '304040003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Burn',
+        snomed: 'Skin graft operation',
+        snomedCode: '304040003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Skin surgery, other',
+        snomed: 'Excision',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Skin surgery, other',
+        snomed: 'Excision',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Skin surgery, other',
+        snomed: 'Excision',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Amputation (non-traumatic)',
+        snomed: 'Amputation',
+        snomedCode: '81723002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Biopsy of rectum',
+        snomedCode: '54686006'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Fitting stoma bag',
+        snomedCode: '225176002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: ' Removing stoma bag',
+        snomedCode: '225185002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: ' Lateral sphincterotomy',
+        snomedCode: '174385004'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Repair of anus',
+        snomedCode: '47118000'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Fitting stoma bag',
+        snomedCode: '225176002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Removing stoma bag',
+        snomedCode: '225185002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: ' Posterior sagittal anorectoplasty',
+        snomedCode: '235374000'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Small intestinal strictureplasty',
+        snomedCode: '302354002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Laparotomy',
+        snomedCode: '86481000'
+      },
+
+      {
+
+
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Appendectomy',
+        snomed: 'Appendectomy',
+        snomedCode: '80146002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+        snomed: 'Open reduction of intussusception of intestine',
+        snomedCode: '713046002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Reconstruction of abdominal wall',
+        snomedCode: '238212008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Repair of omphalocele',
+        snomedCode: '30502000'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Abdomen/extremity trauma, surgery for',
+        snomed: 'Repair of liver laceration',
+        snomedCode: '397239004'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Abdomen only trauma, surgery for',
+        snomed: 'Splenectomy',
+        snomedCode: '234319005'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Abdomen/face trauma, surgery for',
+        snomed: ' Packing of liver laceration',
+        snomedCode: '174440001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Abdomen/multiple trauma, surgery for',
+        snomed: 'Repair of perforated colon',
+        snomedCode: '307709007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+        snomed: 'Duodenostomy',
+        snomedCode: '30582003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI Obstruction, surgery for (including lysis of adhesions)',
+        snomed: 'Pyloromyotomy',
+        snomedCode: '173788005'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Laparotomy and division of peritoneal adhesions',
+        snomedCode: '287853009'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Fitting stoma bag',
+        snomedCode: '225176002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Removing stoma bag',
+        snomedCode: '225185002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Excision',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Lysis of adhesions',
+        snomedCode: '39270003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Gastrostomy',
+        snomedCode: '54956002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Endoscopy',
+        snomedCode: '423827005'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Pancreatectomy',
+        snomedCode: '33149006'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'GI surgery, other',
+        snomed: 'Pyloroplasty',
+        snomedCode: '363742001'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Nephrectomy for neoplasm',
+        snomed: ' Total nephrectomy',
+        snomedCode: '175905003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Orthopedic surgery, other',
+        snomed: 'Excision of lesion of bone',
+        snomedCode: '68471001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Orthopedic surgery, other',
+        snomed: 'Excision ',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Hematology',
+        apacheDiag: 'Hematologic surgery, other',
+        snomed: 'Biopsy of lymph node ',
+        snomedCode: '21911005'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Neurologic surgery, other',
+        snomed: 'Excision ',
+        snomedCode: '65801008'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Oophorectomy with/without salpingectomy with/without lymph node dissection',
+        snomed: 'Oophorectomy',
+        snomedCode: '83152002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+        snomed: 'Total orchidectomy',
+        snomedCode: '236334001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Splenectomy',
+        snomed: 'Splenectomy',
+        snomedCode: '234319005'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Genitourinary surgery, other',
+        snomed: ' Ligation',
+        snomedCode: '70751009'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Genitourinary surgery, other',
+        snomed: 'Orchidopexy',
+        snomedCode: '85419002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+        snomed: 'Total orchidectomy',
+        snomedCode: '236334001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+        snomed: 'Hook ablation of posterior urethral valve',
+        snomedCode: '176374004'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+        snomed: 'Procedure involving suprapubic catheter',
+        snomedCode: '429516009'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+        snomed: 'Insertion of temporary peritoneal dialysis catheter',
+        snomedCode: '180277007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Genitourinary surgery, other',
+        snomed: ' Ureterosigmoidostomy',
+        snomedCode: ' Ureterosigmoidostomy'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Obstruction/other, surgery for (with or without ileal-conduit)',
+        snomed: ' Nephrostomy',
+        snomedCode: '39834009'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Genitourinary surgery, other',
+        snomed: ' Hypospadias repair',
+        snomedCode: '274040007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Tracheostomy',
+        snomed: 'Incision of trachea',
+        snomedCode: '48387007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: 'Removal of foreign body from mouth',
+        snomedCode: '300231003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Thoracotomy for pleural disease',
+        snomed: 'Insertion of pleural tube drain',
+        snomedCode: '264957007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: 'Primary repair of esophageal atresia',
+        snomedCode: '235173003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: 'Secondary repair for esophageal atresia ',
+        snomedCode: '235174009'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: 'Esophageal atresia, stenosis and fistula',
+        snomedCode: '268201001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: 'Esophageal atresia with tracheoesophageal fistula',
+        snomedCode: '204659003'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Respiratory surgery, other',
+        snomed: ' Repair of diaphragmatic hernia ',
+        snomedCode: '112977000'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Cardiovascular',
+        apacheDiag: 'Congenital Defect Repair (Other)',
+        snomed: 'Ligation of ductus arteriosus',
+        snomedCode: '175212004'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Spinal cord sugery, other',
+        snomed: 'Repair of spina bifida',
+        snomedCode: '19054000'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Shunts and revisions',
+        snomed: 'Ventriculoperitoneal shunt',
+        snomedCode: '47020004'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Shunts and revisions',
+        snomed: 'Removal of ventriculoperitoneal shunt',
+        snomedCode: '230878007'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Shunts and revisions',
+        snomed: 'Revision of ventriculoperitoneal shunt',
+        snomedCode: '442432004'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Shunts and revisions',
+        snomed: 'Repair of encephalocele',
+        snomedCode: '230835002'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Neurologic surgery, other',
+        snomed: 'Repair of encephalocele',
+        snomedCode: '230835002'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Hemorrhage/hematoma-intracranial, surgery for',
+        snomed: 'Craniotomy',
+        snomedCode: '25353009'
+      },
+
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Burr hole placement',
+        snomed: 'Trephination of cranium',
+        snomedCode: '67864003'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Hematology',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'non-op',
+        apacheGroup: 'Cardiovascular',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Neurological',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Gastrointestinal',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Genitourinary',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Respiratory',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Musculoskeletal/Skin',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Trauma',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Hematology',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+      {
+        type: 'op',
+        apacheGroup: 'Cardiovascular',
+        apacheDiag: 'Other',
+        snomed: 'Other',
+        snomedCode: '001'
+      },
+
+    ]
+
+  public selectedCodeData = [];
+  public apacheDiag;
+  public apacheGroup;
+  public surgical_details_free_text_visibility = false;
 
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
 
@@ -273,6 +2032,7 @@ export class ModalContentPage2 { // Single IntraOp
         intraOpTime: [''],
         date_of_surgery: [''],
         surgical_details: [''],
+        surgical_details_free_text: [''],
         indication_for_surgery: [''],
         operative_findings: [''],
         the_perit_contam: [''],
@@ -290,7 +2050,7 @@ export class ModalContentPage2 { // Single IntraOp
         type_blood_product: [''],
         units_transfused: [''],
         lowest_perioperative_hb: [''],
-        complications_intraop: [''],
+        // complications_intraop: [''],
         intraOp_antibiotic_use: [''],
         name_intraOp_antibiotic: [''],
         if_other_please_specify: [''],
@@ -313,6 +2073,7 @@ export class ModalContentPage2 { // Single IntraOp
         intraOpTime: [this.intraOp.intraOpTime],
         date_of_surgery: [this.intraOp.date_of_surgery],
         surgical_details: [this.intraOp.surgical_details],
+        surgical_details_free_text: [this.intraOp.surgical_details_free_text],
         notes_intop: [this.intraOp.notes_intop],
         indication_for_surgery: [this.intraOp.indication_for_surgery],
         gen_ana: [this.intraOp.gen_ana],
@@ -330,7 +2091,7 @@ export class ModalContentPage2 { // Single IntraOp
         type_blood_product: [this.intraOp.type_blood_product],
         units_transfused: [this.intraOp.units_transfused],
         lowest_perioperative_hb: [this.intraOp.lowest_perioperative_hb],
-        complications_intraop: [this.intraOp.complications_intraop],
+        // complications_intraop: [this.intraOp.complications_intraop],
         intraOp_antibiotic_use: [this.intraOp.intraOp_antibiotic_use],
         name_intraOp_antibiotic: [this.intraOp.name_intraOp_antibiotic],
         if_other_please_specify: [this.intraOp.if_other_please_specify],
@@ -349,6 +2110,32 @@ export class ModalContentPage2 { // Single IntraOp
       });
     }
 
+  }
+
+  ngOnInit(): void {
+    console.log(this.patient)
+    this.apacheDiag = this.patient.admission.code.apacheDiag;
+    this.apacheGroup = this.patient.admission.code.apacheGroup;
+    console.log(this.apacheDiag);
+    if (this.apacheDiag == 'Other') {
+      this.surgical_details_free_text_visibility = true;
+    }
+    this.generateSnomedProcedures();
+    console.log(this.selectedCodeData);
+
+   if (this.intraOp){
+     console.log('intra op set', this.intraOp.surgical_details)
+     this.intraOpForm.controls.surgical_details.setValue(this.intraOp.surgical_details)
+   }
+
+  }
+
+  generateSnomedProcedures(){
+    this.selectedCodeData = this.tempCodeData.filter(item=>{
+      return item.apacheDiag == this.apacheDiag && item.apacheGroup == this.apacheGroup && item.type == 'op';
+    }).map(code=>{
+      return code.snomed
+    })
   }
 
   dismiss(){
@@ -377,6 +2164,7 @@ export class ModalContentPage2 { // Single IntraOp
         intraOpTime: this.intraOpForm.value.intraOpTime,
         date_of_surgery: this.intraOpForm.value.date_of_surgery,
         surgical_details: this.intraOpForm.value.surgical_details,
+        surgical_details_free_text: this.intraOpForm.value.surgical_details_free_text,
         notes_intop: this.intraOpForm.value.notes_intop,
         indication_for_surgery: this.intraOpForm.value.indication_for_surgery,
         if_other_details: this.intraOpForm.value.if_other_details,
@@ -395,7 +2183,7 @@ export class ModalContentPage2 { // Single IntraOp
         type_blood_product: this.intraOpForm.value.type_blood_product,
         units_transfused: this.intraOpForm.value.units_transfused,
         lowest_perioperative_hb: this.intraOpForm.value.lowest_perioperative_hb,
-        complications_intraop: this.intraOpForm.value.complications_intraop,
+        // complications_intraop: this.intraOpForm.value.complications_intraop,
         intraOp_antibiotic_use: this.intraOpForm.value.intraOp_antibiotic_use,
         name_intraOp_antibiotic: this.intraOpForm.value.name_intraOp_antibiotic,
         if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
@@ -447,7 +2235,7 @@ export class ModalContentPage2 { // Single IntraOp
         type_blood_product: this.intraOpForm.value.type_blood_product,
         units_transfused: this.intraOpForm.value.units_transfused,
         lowest_perioperative_hb: this.intraOpForm.value.lowest_perioperative_hb,
-        complications_intraop: this.intraOpForm.value.complications_intraop,
+        // complications_intraop: this.intraOpForm.value.complications_intraop,
         intraOp_antibiotic_use: this.intraOpForm.value.intraOp_antibiotic_use,
         name_intraOp_antibiotic: this.intraOpForm.value.name_intraOp_antibiotic,
         if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
@@ -1584,10 +3372,10 @@ export class ModalContentPage7 { // Discharge
       otherDestinationName: [''],
       clavien_dindo: [''],
       clavien_dindo_disab: [''],
-      wound_infection: [''],
+      // wound_infection: [''],
       // patientExperience: [''],
       // vasopressorsGiven: [''],
-      lastReportedTropanin: [''],
+      // lastReportedTropanin: [''],
       change_antibiotics_discharge: formBuilder.group({
         added     : [ false ],
         omitted        : [ false ],
@@ -1612,28 +3400,28 @@ export class ModalContentPage7 { // Discharge
         laparoscopy_laparotomy_same_admission     : [ false ],
         ct_scan_abdomen     : [ false ],
       }),
-      drugsOnDischarge: formBuilder.group({
-        aspirin: [false],
-        clopidogrel: [false],
-        prasugrel: [false],
-        ticagrelor: [false],
-        unfractionatedHeparin: [false],
-        lowMolecularWeightHeparin: [false],
-        glycoproteinIIbInhibitors: [false],
-        glycoproteinIIIbInhibitors: [false],
-        bivalirudin: [false],
-        fondaparinux: [false],
-        warfarin: [false],
-        none: [false]
-      }),
-      patientExperience: formBuilder.group({
-        cpr: [false],
-        defibrillation: [false],
-        stentThrombosis: [false],
-        unplannedCriticalCareAdmission: [false],
-        vasopressors: [false],
-        none: [false]
-      })
+      // drugsOnDischarge: formBuilder.group({
+      //   aspirin: [false],
+      //   clopidogrel: [false],
+      //   prasugrel: [false],
+      //   ticagrelor: [false],
+      //   unfractionatedHeparin: [false],
+      //   lowMolecularWeightHeparin: [false],
+      //   glycoproteinIIbInhibitors: [false],
+      //   glycoproteinIIIbInhibitors: [false],
+      //   bivalirudin: [false],
+      //   fondaparinux: [false],
+      //   warfarin: [false],
+      //   none: [false]
+      // }),
+      // patientExperience: formBuilder.group({
+      //   cpr: [false],
+      //   defibrillation: [false],
+      //   stentThrombosis: [false],
+      //   unplannedCriticalCareAdmission: [false],
+      //   vasopressors: [false],
+      //   none: [false]
+      // })
 
     });
 
@@ -1668,7 +3456,7 @@ export class ModalContentPage7 { // Discharge
       otherDestinationName: this.dischargeForm.value.otherDestinationName,
       clavien_dindo: this.dischargeForm.value.clavien_dindo,
       clavien_dindo_disab: this.dischargeForm.value.clavien_dindo_disab,
-      wound_infection: this.dischargeForm.value.wound_infection,
+      // wound_infection: this.dischargeForm.value.wound_infection,
       added     :  this.dischargeForm.value.change_antibiotics_discharge.added ,
       omitted        :  this.dischargeForm.value.change_antibiotics_discharge.omitted ,
       no_change     :  this.dischargeForm.value.change_antibiotics_discharge.no_change ,
@@ -1689,25 +3477,25 @@ export class ModalContentPage7 { // Discharge
       confirmed_infections_antibiotic_use        :  this.dischargeForm.value.complications_discharge.confirmed_infections_antibiotic_use ,
       laparoscopy_laparotomy_same_admission     :  this.dischargeForm.value.complications_discharge.laparoscopy_laparotomy_same_admission ,
       ct_scan_abdomen     :  this.dischargeForm.value.complications_discharge.ct_scan_abdomen ,
-      lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
-      aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
-      clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
-      prasugrel: this.dischargeForm.value.drugsOnDischarge.prasugrel,
-      ticagrelor: this.dischargeForm.value.drugsOnDischarge.ticagrelor,
-      unfractionatedHeparin: this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
-      lowMolecularWeightHeparin: this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
-      glycoproteinIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
-      glycoproteinIIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
-      bivalirudin: this.dischargeForm.value.drugsOnDischarge.bivalirudin,
-      fondaparinux: this.dischargeForm.value.drugsOnDischarge.fondaparinux,
-      warfarin: this.dischargeForm.value.drugsOnDischarge.warfarin,
-      none1: this.dischargeForm.value.drugsOnDischarge.none,
-      cpr: this.dischargeForm.value.patientExperience.cpr,
-      defibrillation: this.dischargeForm.value.patientExperience.defibrillation,
-      stentThrombosis: this.dischargeForm.value.patientExperience.stentThrombosis,
-      unplannedCriticalCareAdmission: this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
-      vasopressors: this.dischargeForm.value.patientExperience.vasopressors,
-      none2: this.dischargeForm.value.patientExperience.none,
+      // lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
+      // aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
+      // clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
+      // prasugrel: this.dischargeForm.value.drugsOnDischarge.prasugrel,
+      // ticagrelor: this.dischargeForm.value.drugsOnDischarge.ticagrelor,
+      // unfractionatedHeparin: this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
+      // lowMolecularWeightHeparin: this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
+      // glycoproteinIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
+      // glycoproteinIIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
+      // bivalirudin: this.dischargeForm.value.drugsOnDischarge.bivalirudin,
+      // fondaparinux: this.dischargeForm.value.drugsOnDischarge.fondaparinux,
+      // warfarin: this.dischargeForm.value.drugsOnDischarge.warfarin,
+      // none1: this.dischargeForm.value.drugsOnDischarge.none,
+      // cpr: this.dischargeForm.value.patientExperience.cpr,
+      // defibrillation: this.dischargeForm.value.patientExperience.defibrillation,
+      // stentThrombosis: this.dischargeForm.value.patientExperience.stentThrombosis,
+      // unplannedCriticalCareAdmission: this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
+      // vasopressors: this.dischargeForm.value.patientExperience.vasopressors,
+      // none2: this.dischargeForm.value.patientExperience.none,
 
 
       timeStamp: new Date().getTime()
@@ -1957,11 +3745,47 @@ export class ModalContentPage8 { // single observation
 }
 
 @Component({
+  templateUrl: "obstable.html",
+})
+export class ModalObsTableOnObs { // obs model on obs list
+
+  private observationForm: FormGroup;
+  public patient;
+  public obs;
+
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public sync: SyncProvider) {
+
+    this.patient = navParams.get("patient");
+    this.obs = navParams.get("obs");
+    console.log('patient inside the observation modal ', this.patient)
+    console.log('ob inside the observation modal ', this.obs)
+
+
+
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+
+  }
+
+
+
+  // openModal8(characterNum) {
+
+  //   let modal = this.modalCtrl.create(ModalContentPage9, characterNum);
+  //   modal.present();
+  // }
+
+}
+
+@Component({
   templateUrl: 'observationlist.html',
 })
 export class ModalContentPage9 { // observation list
 
-  
+  @ViewChild(LastObsComponent)
+  private lastobs: LastObsComponent;
   private observationForm: FormGroup;
   public patient;
 
@@ -1971,7 +3795,7 @@ export class ModalContentPage9 { // observation list
   public timeZoneAdjustment;
   public myChart;
 
-  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider) {
+  constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, private cd: ChangeDetectorRef) {
     this.patient = navParams.get("patient");
     console.log('patient inside the observation list modal ', this.patient);
 
@@ -2002,6 +3826,7 @@ export class ModalContentPage9 { // observation list
   }
 
   renderChart(){
+    console.log('@@@@@@@@@@@@@renderChart()@@@@@@@@@@@@@@@@')
     this.myChart = HighCharts.chart('container', {
       chart: {
           
@@ -2071,7 +3896,7 @@ export class ModalContentPage9 { // observation list
   }
 
   getHrDataSet(){
-    let sortedObs = this.obs.sort((a, b)=>{
+    let sortedObs = this.patient.observations.sort((a, b)=>{
       return a.obsTimeStamp - b.obsTimeStamp;
     })
     let filterdRrObs = sortedObs.filter(ob=>{
@@ -2088,7 +3913,7 @@ export class ModalContentPage9 { // observation list
   getRrDataSet(){
     // let dataArray = [];
     // this.obs
-    let filterdRrObs = this.obs.filter(ob=>{
+    let filterdRrObs = this.patient.observations.filter(ob=>{
       
       return ob.respiratoryRate
     });
@@ -2122,10 +3947,15 @@ export class ModalContentPage9 { // observation list
     let obs = { patient: this.patient, ob: null };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
     modal.onDidDismiss(data=>{
-      if(this.obs){
+      if(this.patient.observations){
+        this.obs = this.patient.observations;
         this.hrData = this.getHrDataSet();
         this.rrData = this.getRrDataSet();
         this.renderChart();
+        this.lastobs.arrangeData();
+        this.cd.detectChanges();
+        console.log('after close obs',this.obs)
+        console.log('after close patient.obs',this.patient.observations)
       }
     })
     modal.present();
@@ -2134,6 +3964,13 @@ export class ModalContentPage9 { // observation list
   editObservation(observation) {
     let obs = { patient: this.patient, ob: observation };
     let modal = this.modalCtrl.create(ModalContentPage8, obs);
+    modal.present();
+  }
+
+  openObsTable() {
+    console.log('openObsTable()', this.obs)
+    let obs = { patient: this.patient, obs: this.patient.observations };
+    let modal = this.modalCtrl.create(ModalObsTableOnObs, obs);
     modal.present();
   }
 

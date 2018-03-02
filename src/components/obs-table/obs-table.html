@@ -1,0 +1,53 @@
+<div style="overflow-x:auto;">
+    <table class="table ">
+             <thead>
+                 <tr>
+                     <th>Date/Time</th>
+                     <th>HR</th>
+                     <th>RR</th>
+                     <th>Temp</th>
+                     <th>SBP</th>
+                     <th>DBP</th>
+                     <th>PP</th>
+                     <th>Satu</th>
+                     <th>Plat</th>
+                     <th>WBC</th>
+                     <th >FIP</th>
+                     <th >TFIP</th>
+                     <th>UOP</th>
+                     <th>TUOP</th>
+                     <th >Bal</th>
+                     <th *ngIf='isDengue'>PCV</th>
+                     <th *ngIf='isDengue'>CRFT</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr *ngFor='let obs of transformedObs'>
+                     <td>{{obs.obsDate | date: 'dd/MM/yy' }} {{obs.obsTime}}</td>
+                     <td [class.obs-red-table]="obs.heartRate > 104">{{obs.heartRate }}</td>
+                     <td [class.obs-red-table]="obs.respiratoryRate > 30">{{obs.respiratoryRate }}</td>
+                     <td>{{obs.temperature }}</td>
+                     <td>{{obs.sbp }}</td>
+                     <td>{{obs.dbp }}</td>
+                     <td *ngIf='obs.sbp && obs.dbp; else emptyPP'>{{obs.sbp - obs.dbp }}</td>
+                     <ng-template #emptyPP>
+                         <td></td>
+                     </ng-template>
+                     <td>{{obs.saturation }}</td>
+                     <td>{{obs.platelets }}</td>
+                     <td>{{obs.wbc }}</td>
+                     
+                     <td >{{obs.fluidInput }}</td>
+                     <td >{{obs.tfip }}</td>
+                     <td>{{obs.urineOutput }}</td>
+                     <td>{{obs.tuop }}</td>
+                     <td>{{obs.fluidBalance }}</td>
+                     <td *ngIf='isDengue'>{{obs.pcv }}</td>
+                     <td *ngIf='isDengue'>{{obs.crft }}</td>
+                 </tr>
+             </tbody>
+         </table> 
+
+
+
+ </div>

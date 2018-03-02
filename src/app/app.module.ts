@@ -8,6 +8,8 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 import { ModalContentPage1 } from '../pages/list/list';
 import { ModalContentPage2 } from '../pages/list/list';
 import { ModalContentPage3 } from '../pages/list/list';
@@ -24,6 +26,10 @@ import { ModalContentPage14 } from '../pages/list/list';
 import { ModalContentPage16 } from '../pages/list/list';
 import { ModalContentPage17 } from '../pages/list/list';
 import { ModalContentPage18 } from '../pages/list/list';
+import { ModalObsTableOnObs } from '../pages/list/list';
+
+import { ObsTableComponent } from '../components/obs-table/obs-table';
+import { LastObsComponent } from '../components/last-obs/last-obs';
 
 
 import { AddAdmissionModal } from '../pages/home/home';
@@ -61,7 +67,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage16,
     ModalContentPage17,
     ModalContentPage18,
-    AddAdmissionModal
+    AddAdmissionModal,
+    ModalObsTableOnObs,
+    ObsTableComponent,
+    LastObsComponent
   ],
   imports: [
     IonicStorageModule.forRoot({
@@ -70,6 +79,7 @@ import { IonicStorageModule } from '@ionic/storage';
     }),
     BrowserModule,
     HttpModule,
+    PipesModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -94,7 +104,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalContentPage16,
     ModalContentPage17,
     ModalContentPage18,
-    AddAdmissionModal
+    AddAdmissionModal,
+    ModalObsTableOnObs,
+    ObsTableComponent,
+    LastObsComponent
   ],
   providers: [
     StatusBar,

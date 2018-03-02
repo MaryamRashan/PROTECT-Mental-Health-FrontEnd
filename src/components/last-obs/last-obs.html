@@ -1,0 +1,142 @@
+<ion-grid>
+    <ion-row>
+      <ion-col col-6 col-md>
+          <span class="obs-text"> HR : </span>
+          <span class="obs-green" *ngIf='!hrTriggerStatus' >{{heartRate}} </span>
+          <span class="obs-red" *ngIf='hrTriggerStatus' >{{heartRate}} </span>
+      </ion-col>
+      <ion-col col-6 col-md>
+          <span class="obs-text"> RR : </span>
+          <span class="obs-green" *ngIf='!rrTriggerStatus' >{{respiratoryRate}} </span>
+          <span class="obs-red" *ngIf='rrTriggerStatus' >{{respiratoryRate}} </span>
+      </ion-col>
+      <ion-col col-6 col-md>
+          <span class="obs-text"> Temp : </span>
+          <span class="obs-black" >{{temperature}} </span>
+      </ion-col>
+      <ion-col col-6 col-md>
+          <span class="obs-text"> BP : </span>
+          <span class="obs-black" >{{sbp}} </span>
+          <span class="dashforbp" >/</span>
+          <span class="obs-black" >{{dbp}} </span>
+      </ion-col>
+      <ion-col col-6 col-md>
+          <span class="obs-text"> PP : </span>
+          <span class="obs-black" *ngIf='pulsePressure' >{{pulsePressure}} </span>
+        </ion-col>
+        <ion-col col-6 col-md>
+            <span class="obs-text"> WBC : </span>
+            <span class="obs-black"  >{{wbc}} </span>
+        </ion-col>
+        <ion-col col-6 col-md>
+            <span class="obs-text"> Hgb : </span>
+            <span class="obs-black"  >{{hemoglobin}} </span>
+        </ion-col>
+        <ion-col col-6 col-md>
+            <span class="obs-text"> Plt : </span>
+            <span class="obs-black"  >{{platelets}} </span>
+        </ion-col>
+        <ion-col col-6 col-md>
+            <span class="obs-text"> UOP : </span>
+            <span class="obs-black"  >{{uop}} </span>
+          </ion-col>
+          <ion-col col-6 col-md>
+              <span class="obs-text"> FIP : </span>
+              <span class="obs-black"  >{{fip}} </span>
+          </ion-col>
+          <ion-col col-6 col-md>
+              <span class="obs-text"> PCV : </span>
+              <span class="obs-black"  >{{pcv}} </span>
+          </ion-col>
+          <ion-col col-6 col-md>
+              <span class="obs-text"> CRFT : </span>
+              <span class="obs-black"  >{{crft}} </span>
+          </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+<!-- <div *ngIf='lastObsSet'>
+    <div col-md->
+      <span class="obs-text"> HR : </span>
+      <span class="obs-green" *ngIf='!hrTriggerStatus' >{{heartRate}} </span>
+      <span class="obs-red" *ngIf='hrTriggerStatus' >{{heartRate}} </span>
+      
+    </div>
+  
+  
+    <div col-md->
+      <span class="obs-text"> RR : </span>
+      <span class="obs-green" *ngIf='!rrTriggerStatus' >{{respiratoryRate}} </span>
+      <span class="obs-red" *ngIf='rrTriggerStatus' >{{respiratoryRate}} </span>
+      
+    </div>
+  
+    <div col-md->
+      <span class="obs-text"> Temp : </span>
+      <span class="obs-black" >{{temperature}} </span>
+      
+    </div>
+  
+      <div col-md->
+      <span class="obs-text"> BP : </span>
+      <span class="obs-black" >{{sbp}} </span>
+      <span class="dashforbp" >/</span>
+      <span class="obs-black" >{{dbp}} </span>
+      
+    </div>
+  
+    <div col-md->
+      <span class="obs-text"> PP : </span>
+      <span class="obs-black" *ngIf='pulsePressure' >{{pulsePressure}} </span>
+      
+    </div>
+  
+      <div col-md->
+        <span class="obs-text"> WBC : </span>
+        <span class="obs-black"  >{{wbc}} </span>
+      
+      </div>
+  
+      <div col-md->
+        <span class="obs-text"> Hgb : </span>
+        <span class="obs-black"  >{{hemoglobin}} </span>
+      
+      </div>
+  
+      <div col-md->
+        <span class="obs-text"> Plt : </span>
+        <span class="obs-black"  >{{platelets}} </span>
+      
+      </div>
+  
+      <div col-md->
+        <span class="obs-text"> UOP : </span>
+        <span class="obs-black"  >{{uop}} </span>
+      
+      </div>
+  
+      <div *ngIf='isDengue' col-md->
+        <span class="obs-text"> FIP : </span>
+        <span class="obs-black"  >{{fip}} </span>
+      
+      </div>
+  
+      <div *ngIf='isDengue' col-md->
+        <span class="obs-text"> PCV : </span>
+        <span class="obs-black"  >{{pcv}} </span>
+      
+      </div>
+  
+      <div *ngIf='isDengue' col-md->
+        <span class="obs-text"> CRFT : </span>
+        <span class="obs-black"  >{{crft}} </span>
+      
+      </div>
+  
+      
+      
+    
+    
+  
+</div> -->
