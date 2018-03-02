@@ -14,7 +14,8 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content scroll='false' padding>
+<ion-scroll scrollY='true'> 
   <ion-slides>
       <ion-slide id="data">
           <div id="Admission">
@@ -28,7 +29,7 @@
           </div>
           <div *ngIf="passedPatient.intraOps">
             <div *ngFor="let intraOp of passedPatient.intraOps">
-            <h5>Intra-Operative &nbsp; {{intraOp.intraOpTimeStamp}}</h5>
+            <h5>Intra-Operative &nbsp; {{intraOp.intraOpTimeStamp | date:' dd MMM yyyy'}}</h5>
             <p>Surgical Procedure: {{intraOp.surgical_details}}<br></p>
             <p>General Anasthaesia: {{intraOp.gen_ana}}<br></p>
             <div *ngIf="intraOp.blood_prod_transf=='yes'">
@@ -65,7 +66,7 @@
           </div> 
           <h5></h5>
           </div>
-      </ion-slide>
+    </ion-slide>
 
   <ion-slide>
   <ion-card (click)="openModal1()">
@@ -128,4 +129,5 @@
   </ion-card>
   </ion-slide>
   </ion-slides>
+</ion-scroll>
 </ion-content>
