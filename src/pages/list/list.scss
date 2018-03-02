@@ -1,3 +1,7 @@
+page-list {
+    overflow: hidden;
+}
+
 .tooLong {
     font-size:1.25rem; 
     margin-right:0px;
@@ -11,13 +15,15 @@ ion-select {
 
 
 }
-ion-slide {
-    overflow-y: auto;
-    display: block;
+#tiles{
+    overflow: initial;
 }
-
+ion-scroll {
+    width: 110%;
+    height: 100%;
+}
 ion-slide.swiper-slide {
-    padding: 20px;
+    padding: 0px;
     align-items: flex-start;
 }
 
@@ -39,34 +45,3 @@ page-list div {
 
 
 $popover-ios-width: 400px;
-
-//for table
-
-th, td {
-    padding: 15px;
-    text-align: left;
-}
-
-.obs-text{
-    font-size: 15px;
-    color: black;
-}
-
-.obs-green{
-    font-size: 25px;
-    color: green;
-}
-
-.obs-red{
-    font-size: 25px;
-    color: red;
-}
-
-.obs-black{
-    font-size: 25px;
-    color: black;
-}
-
-.dashforbp{
-    font-size: 30px;
-}

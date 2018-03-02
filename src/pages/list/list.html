@@ -17,41 +17,56 @@
 <ion-content padding>
   <ion-slides>
       <ion-slide id="data">
-          <div>
-          <h5>Admission   &nbsp; &nbsp;   {{passedPatient.admission.admission_date | date:'dd MMM yyyy'}}</h5>
-          <p>Age: {{passedPatient.admission.age}} {{passedPatient.admission.age_unit}}    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Gender: {{passedPatient.admission.gender}}   <br></p>
-          <p>Contact Number: {{passedPatient.admission.contactNumber}}<br></p>
-          <p>Ward Number: {{passedPatient.admission.ward_number.name}}<br></p>
-          <p>Pre-operative HB: {{passedPatient.admission.pre_operative_hb}}<br></p>
-          <p>Weight: {{passedPatient.admission.weight}} kg&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Height: {{passedPatient.admission.height}} cm<br></p>
-      
-          <div  *ngIf="passedPatient.intraOps">
-          <div *ngFor="let intraOp of passedPatient.intraOps">
-          <h5>Intra-Operative &nbsp; {{intraOp.intraOpTimeStamp | date:' dd MMM yyyy'}}</h5>
-          <p>Surgical Procedure: {{intraOp.surgical_details}}<br></p>
-          <p>General Anasthaesia: {{intraOp.gen_ana}}<br></p>
-          <div *ngIf="intraOp.blood_prod_transf=='yes'">
-          <p>Type of blood products: {{intraOp.type_blood_product}} &nbsp; &nbsp; &nbsp; <br>Units transfused: {{intraOp.units_transfused}}</p>
+          <div id="Admission">
+          <div>   
+            <h5>Admission &nbsp; &nbsp; {{passedPatient.admission.admission_date | date:'dd MMM yyyy'}}</h5>
+            <p>Age: {{passedPatient.admission.age}} {{passedPatient.admission.age_unit}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Gender: {{passedPatient.admission.gender}} <br></p>
+            <p>Contact Number: {{passedPatient.admission.contactNumber}}<br></p>
+            <p>Ward Number: {{passedPatient.admission.ward_number}}<br></p>
+            <p>Pre-operative HB: {{passedPatient.admission.pre_operative_hb}}<br></p>
+            <p>Weight: {{passedPatient.admission.weight}} kg&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Height: {{passedPatient.admission.height}} cm<br></p>
           </div>
-          <p>Complications: </p>
-          <span *ngIf="intraOp?.conversion_laparotomy_from_laparoscopy" >Conversion laparotomy from laparoscopy</span>
-          <span *ngIf="intraOp?.icu_admission">ICU Admission</span>
-          <span *ngIf="intraOp?.abdominal_drain_insertion">Abdominal drain insertion</span>
-          <span *ngIf="intraOp?.redo_laparoscopy_laparotomy">Redo laparoscopy/laparotomy</span>
-          <span *ngIf="intraOp?.ct_scan_abdomen">CT scan Abdomen</span>
+          <div *ngIf="passedPatient.intraOps">
+            <div *ngFor="let intraOp of passedPatient.intraOps">
+            <h5>Intra-Operative &nbsp; {{intraOp.intraOpTimeStamp}}</h5>
+            <p>Surgical Procedure: {{intraOp.surgical_details}}<br></p>
+            <p>General Anasthaesia: {{intraOp.gen_ana}}<br></p>
+            <div *ngIf="intraOp.blood_prod_transf=='yes'">
+            <p>Type of blood products: {{intraOp.type_blood_product}} &nbsp; &nbsp; &nbsp; <br>Units transfused: {{intraOp.units_transfused}}</p>
+            </div>
+            <p>Complications: </p>
+            <span *ngIf="intraOp?.conversion_laparotomy_from_laparoscopy" >Conversion laparotomy from laparoscopy,</span>
+            <span *ngIf="intraOp?.icu_admission">ICU Admission,</span>
+            <span *ngIf="intraOp?.abdominal_drain_insertion">Abdominal drain insertion,</span>
+            <span *ngIf="intraOp?.redo_laparoscopy_laparotomy">Redo laparoscopy/laparotomy,</span>
+            <span *ngIf="intraOp?.ct_scan_abdomen">CT scan Abdomen</span>
+            <p *ngIf="intraOp?.lowest_perioperative_hb">Lowet perioperative HB {{intraOp.lowest_perioperative_hb}} g/dL</p>
+            <p *ngIf="intraOp?.notes_intop">Additional Notes: {{intraOp.notes_intop}}</p>
+            </div>
           </div>
-          
-          </div>
-           <div *ngIf="passedPatient.postOp">
-          <div *ngFor="let postOp of passedPatient.postOps">
-          <h5>Post-Operative &nbsp; &nbsp; {{postOp.postop_report_date}}</h5>  
-          </div>  
+          <div *ngIf="passedPatient.postOp">
+            <div *ngFor="let postOp of passedPatient.postOp">
+            <h5>Post-Operative &nbsp; &nbsp; {{postOp.postOpTimeStamp | date:' dd MMM yyyy'}}</h5> 
+            <p>Post Operative Complications:</p>
+            <span *ngIf="postOp?.pulmonary" >Pulmonary,</span>
+            <span *ngIf="postOp?.infections" >Infections,</span>
+            <span *ngIf="postOp?.renal" >Renal,</span>
+            <span *ngIf="postOp?.gastrointestinal" >Gastrointestinal,</span>
+            <span *ngIf="postOp?.gastrointestinalBowels" >Gastrointestinal-bowels not opened,</span>
+            <span *ngIf="postOp?.cardiovascular" >Cardiovascular,</span>
+            <span *ngIf="postOp?.cardiovascular" >Cardiovascular-vasopressors required,</span>
+            <span *ngIf="postOp?.neurological" >Neurological,</span>
+            <span *ngIf="postOp?.haematological" >Haematological,</span>
+            <span *ngIf="postOp?.redo_laparoscopy_laparotomy" >Redo Laparoscopy/Laparatomy,</span>
+            <span *ngIf="postOp?.pain" >Pain,</span>
+            <p>ICU Admission: {{postOp.icu_admission}}</p>
+            <p *ngIf="postOp?.notes_pod1">Additional Notes: {{postOp.notes_pod1}}</p>
+            </div> 
           </div> 
-          
-      
           <h5></h5>
           </div>
-        </ion-slide>
+      </ion-slide>
+
   <ion-slide>
   <ion-card (click)="openModal1()">
     <ion-card-header>

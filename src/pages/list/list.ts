@@ -2117,7 +2117,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
     this.apacheDiag = this.patient.admission.code.apacheDiag;
     this.apacheGroup = this.patient.admission.code.apacheGroup;
     console.log(this.apacheDiag);
-    if (this.apacheDiag == 'Other') {
+    if (this.apacheDiag == 'Other' || this.apacheDiag == '') {
       this.surgical_details_free_text_visibility = true;
     }
     this.generateSnomedProcedures();
