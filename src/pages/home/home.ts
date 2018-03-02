@@ -211,6 +211,15 @@ export class AddAdmissionModal {
     {id: '20', value :'Cardiovascular'},
    ];
   public systemsVisibility = '';
+
+  public wardsList = [
+    {id:'1',name:'CWA'},
+    {id:'2',name:'CWB'},
+    {id:'3',name:'CWC'},
+    {id:'4',name:'HDU'},
+    {id:'5',name:'ITU'},
+    {id:'6',name:'Other'},
+  ]
   
 
   constructor(public data: DataProvider ,public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public sync : SyncProvider  ) {
@@ -219,6 +228,7 @@ export class AddAdmissionModal {
       patientName: [''],
       gender: [''],
       age: [''],
+      age_unit: ['Years'],
       nic: [''],
       if_other_ward: [''],
       pre_operative_hb: [''],
@@ -240,7 +250,7 @@ export class AddAdmissionModal {
       if_other_please_specify_comorbi: [''],     
       cd4: [''],     
       feverad: [''],
-      modeOfTransportation: [''],
+      // modeOfTransportation: [''],
       transferredFrom: [''],
       pciOrThrombolysis: [''],
       cprGiven: formBuilder.group({
@@ -257,7 +267,7 @@ export class AddAdmissionModal {
       ecgReferral: [''],
       dateOfFirstEcg: [''],
       timeOfFirstEcg: [''],
-      analgesiaGiven: [''],
+      // analgesiaGiven: [''],
       admittedFor: [''],
     //   reinfarction: formBuilder.group({
     //     thrombosis     : [ false ],
@@ -1171,21 +1181,22 @@ export class AddAdmissionModal {
   }
 
   saveAdmission(){
+
     let admissionData = {
       patientId : UUID(),
       patientName: this.admissionForm.value.patientName,
-      cprGiven: {
-        cpr : this.admissionForm.value.cprGiven.cpr,
-        defibrillation : this.admissionForm.value.cprGiven.defibrillation,
-        thrombolysis : this.admissionForm.value.cprGiven.thrombolysis,
-        vasoactiveDrugs : this.admissionForm.value.cprGiven.vasoactiveDrugs,
-        furosemide : this.admissionForm.value.cprGiven.furosemide,
-        ventilation : this.admissionForm.value.cprGiven.ventilation,
-        none : this.admissionForm.value.cprGiven.none,
-      },
+      // cprGiven: {
+      //   cpr : this.admissionForm.value.cprGiven.cpr,
+      //   defibrillation : this.admissionForm.value.cprGiven.defibrillation,
+      //   thrombolysis : this.admissionForm.value.cprGiven.thrombolysis,
+      //   vasoactiveDrugs : this.admissionForm.value.cprGiven.vasoactiveDrugs,
+      //   furosemide : this.admissionForm.value.cprGiven.furosemide,
+      //   ventilation : this.admissionForm.value.cprGiven.ventilation,
+      //   none : this.admissionForm.value.cprGiven.none,
+      // },
       gender: this.admissionForm.value.gender,
       age: this.admissionForm.value.age,
-      nic: this.admissionForm.value.nic,
+      age_unit: this.admissionForm.value.age_unit,
       if_other_ward: this.admissionForm.value.if_other_ward,
       pre_operative_hb: this.admissionForm.value.pre_operative_hb,
       contactNumber: this.admissionForm.value.contactNumber,
@@ -1195,26 +1206,24 @@ export class AddAdmissionModal {
       bht: this.admissionForm.value.bht,
       ward_number: this.admissionForm.value.ward_number,
       admission_type: this.admissionForm.value.admission_type,
-      pre_operative_hb_avl: {
-        not_available : this.admissionForm.value.comorbidities.not_available,
-      }, 
+      pre_operative_hb_avl:  this.admissionForm.value.pre_operative_hb_avl.not_available, 
       comorbidities: {
         hiv : this.admissionForm.value.comorbidities.hiv,
-        none : this.admissionForm.value.comorbidities.psychiatric_disorder,
+        none : this.admissionForm.value.comorbidities.none,
         other : this.admissionForm.value.comorbidities.other,
       },                   
       if_other_please_specify_comorbi: this.admissionForm.value.if_other_please_specify_comorbi,      
       cd4: this.admissionForm.value.cd4,
       feverad: this.admissionForm.value.feverad,      
-      transferredFrom: this.admissionForm.value.transferredFrom,
-      pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
-      raisedJvp: this.admissionForm.value.raisedJvp,
-      numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
-      ecgReferral: this.admissionForm.value.ecgReferral,
-      dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
-      timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
-      admittedFor: this.admissionForm.value.admittedFor,
-      analgesiaGiven: this.admissionForm.value.analgesiaGiven,
+      // transferredFrom: this.admissionForm.value.transferredFrom,
+      // pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
+      // raisedJvp: this.admissionForm.value.raisedJvp,
+      // numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
+      // ecgReferral: this.admissionForm.value.ecgReferral,
+      // dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
+      // timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
+      // admittedFor: this.admissionForm.value.admittedFor,
+      // analgesiaGiven: this.admissionForm.value.analgesiaGiven,
       weight: this.admissionForm.value.weight,
       height: this.admissionForm.value.height,
       opOrnonOp : this.admissionForm.value.opOrnonOp,
@@ -1225,7 +1234,7 @@ export class AddAdmissionModal {
       timeStamp: new Date().getTime()
 
     }
-    // console.log(admissionData);
+    console.log(admissionData);
     this.data.saveNewPatient(admissionData);
     this.sync.invokeSendDataThroughSocket(admissionData, '-newAdmission-', admissionData.patientId)
   }

@@ -130,6 +130,8 @@ export class ModalContentPage1 implements OnInit {
   public selectedCodeData;
   public systems = [];
 
+  public wardsList = [] ;
+
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams, public data: DataProvider, public socket: SocketProvider, public sync: SyncProvider) {
     this.patient = navParams.get("patient");
     console.log('patient inside the edit admission modal ', this.patient)
@@ -139,42 +141,43 @@ export class ModalContentPage1 implements OnInit {
       gender: [this.patient.admission.gender],
       admission_type: [this.patient.admission.admission_type],
       age: [this.patient.admission.age],
+      age_unit: [this.patient.admission.age_unit],
       pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
       admission_date: [this.patient.admission.admission_date],
       admission_report_date: [this.patient.admission.admission_report_date],
       bht: [this.patient.admission.bht],
-      ward_number: [this.patient.admission.ward_number],
+      ward_number: [''],
       if_other_ward: [this.patient.admission.if_other_ward],
       transferredFrom: [this.patient.admission.transferredFrom],
-      pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
-      cprGiven: formBuilder.group({
-        cpr: [this.patient.admission.cprGiven.cpr],
-        defibrillation: [this.patient.admission.cprGiven.defibrillation],
-        thrombolysis: [this.patient.admission.cprGiven.thrombolysis],
-        vasoactiveDrugs: [this.patient.admission.cprGiven.vasoactiveDrugs],
-        furosemide: [this.patient.admission.cprGiven.furosemide],
-        ventilation: [this.patient.admission.cprGiven.ventilation],
-        none: [this.patient.admission.cprGiven.none]
-      }),
+      // pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
+      // cprGiven: formBuilder.group({
+      //   cpr: [this.patient.admission.cprGiven.cpr],
+      //   defibrillation: [this.patient.admission.cprGiven.defibrillation],
+      //   thrombolysis: [this.patient.admission.cprGiven.thrombolysis],
+      //   vasoactiveDrugs: [this.patient.admission.cprGiven.vasoactiveDrugs],
+      //   furosemide: [this.patient.admission.cprGiven.furosemide],
+      //   ventilation: [this.patient.admission.cprGiven.ventilation],
+      //   none: [this.patient.admission.cprGiven.none]
+      // }),
       comorbidities: formBuilder.group({
         hiv: [this.patient.admission.comorbidities.hiv],
         none: [this.patient.admission.comorbidities.none],
         other: [this.patient.admission.comorbidities.other]
       }),  
       pre_operative_hb_avl: formBuilder.group({
-        not_available: [this.patient.admission.comorbidities.not_available],
+        not_available: [this.patient.admission.pre_operative_hb_avl]
       }),  
       if_other_please_specify_comorbi: [this.patient.admission.if_other_please_specify_comorbi], 
       cd4: [this.patient.admission.cd4],
       feverad: [this.patient.admission.feverad],
-      raisedJvp: [this.patient.admission.raisedJvp],
-      numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
-      ecgReferral: [this.patient.admission.ecgReferral],
-      dateOfFirstEcg: [this.patient.admission.dateOfFirstEcg],
-      timeOfFirstEcg: [this.patient.admission.timeOfFirstEcg],
-      analgesiaGiven: [this.patient.admission.analgesiaGiven],
-      admittedFor: [this.patient.admission.admittedFor],
+      // raisedJvp: [this.patient.admission.raisedJvp],
+      // numberOfVasoDrugs: [this.patient.admission.numberOfVasoDrugs],
+      // ecgReferral: [this.patient.admission.ecgReferral],
+      // dateOfFirstEcg: [this.patient.admission.dateOfFirstEcg],
+      // timeOfFirstEcg: [this.patient.admission.timeOfFirstEcg],
+      // analgesiaGiven: [this.patient.admission.analgesiaGiven],
+      // admittedFor: [this.patient.admission.admittedFor],
       // reinfarction: [this.patient.admission.reinfarction],
       weight: [this.patient.admission.weight],
       height: [this.patient.admission.height],
@@ -188,7 +191,35 @@ export class ModalContentPage1 implements OnInit {
 
   }
 
+  generateWardList(){
+    this.wardsList = [
+      {id:'1',name:'CWA'},
+      {id:'2',name:'CWB'},
+      {id:'3',name:'CWC'},
+      {id:'4',name:'HDU'},
+      {id:'5',name:'ITU'},
+      {id:'6',name:'Other'}
+    ].map(_item=>{
+        let item: any = _item;
+        item._id = Math.random() * 100;
+        return item;
+    })
+  }
+
   ngOnInit(): void {
+    console.log(this.patient.admission.ward_number)
+    this.admissionForm.controls.ward_number.setValue(this.patient.admission.ward_number)
+
+
+    this.generateWardList();
+    let testItemWards= this.wardsList.filter(test=>{
+      console.log('test', test.value)
+      return test.name == this.patient.admission.ward_number.name
+    })
+    // this.admissionForm.controls.system.setValue({id: '12', value :this.diag.apacheGroup});
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemWards^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemWards)
+    this.admissionForm.controls.ward_number.setValue(testItemWards[0]);
+
     console.log(this.admissionForm)
     this.makeCodeandSystemEmpty('')
     console.log(this.systems);
@@ -1129,18 +1160,16 @@ export class ModalContentPage1 implements OnInit {
     let admission = {
       patientId: this.patient.patientId,
       patientName: this.admissionForm.value.patientName,
-      cprGiven: {
-        cpr: this.admissionForm.value.cprGiven.cpr,
-        defibrillation: this.admissionForm.value.cprGiven.defibrillation,
-        thrombolysis: this.admissionForm.value.cprGiven.thrombolysis,
-        vasoactiveDrugs: this.admissionForm.value.cprGiven.vasoactiveDrugs,
-        furosemide: this.admissionForm.value.cprGiven.furosemide,
-        ventilation: this.admissionForm.value.cprGiven.ventilation,
-        none: this.admissionForm.value.cprGiven.none,
-      },
-      pre_operative_hb_avl: {
-        not_available: this.admissionForm.value.comorbidities.not_available,
-      },
+      // cprGiven: {
+      //   cpr: this.admissionForm.value.cprGiven.cpr,
+      //   defibrillation: this.admissionForm.value.cprGiven.defibrillation,
+      //   thrombolysis: this.admissionForm.value.cprGiven.thrombolysis,
+      //   vasoactiveDrugs: this.admissionForm.value.cprGiven.vasoactiveDrugs,
+      //   furosemide: this.admissionForm.value.cprGiven.furosemide,
+      //   ventilation: this.admissionForm.value.cprGiven.ventilation,
+      //   none: this.admissionForm.value.cprGiven.none,
+      // },
+      pre_operative_hb_avl: this.admissionForm.value.pre_operative_hb_avl.not_available,
       comorbidities: {
         hiv: this.admissionForm.value.comorbidities.hiv,
         none: this.admissionForm.value.comorbidities.none,
@@ -1151,28 +1180,28 @@ export class ModalContentPage1 implements OnInit {
       feverad: this.admissionForm.value.feverad,
       gender: this.admissionForm.value.gender,
       age: this.admissionForm.value.age,
-      nic: this.admissionForm.value.nic,
+      age_unit: this.admissionForm.value.age_unit,
       pre_operative_hb: this.admissionForm.value.pre_operative_hb,
       admission_type: this.admissionForm.value.admission_type,
       contactNumber: this.admissionForm.value.contactNumber,
       admission_date: this.admissionForm.value.admission_date,
       admission_report_date: this.admissionForm.value.admission_report_date,
-      dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
-      timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
+      // dateOfHospitalArrival: this.admissionForm.value.dateOfHospitalArrival,
+      // timeOfHospitalArrival: this.admissionForm.value.timeOfHospitalArrival,
       bht: this.admissionForm.value.bht,
-      modeOfTransportation: this.admissionForm.value.modeOfTransportation,
+      // modeOfTransportation: this.admissionForm.value.modeOfTransportation,
       ward_number: this.admissionForm.value.ward_number,
       if_other_ward: this.admissionForm.value.if_other_ward ,
-      transferredFrom: this.admissionForm.value.transferredFrom,
-      pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
-      raisedJvp: this.admissionForm.value.raisedJvp,
-      numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
-      ecgReferral: this.admissionForm.value.ecgReferral,
-      dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
-      timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
-      admittedFor: this.admissionForm.value.admittedFor,
+      // transferredFrom: this.admissionForm.value.transferredFrom,
+      // pciOrThrombolysis: this.admissionForm.value.pciOrThrombolysis,
+      // raisedJvp: this.admissionForm.value.raisedJvp,
+      // numberOfVasoDrugs: this.admissionForm.value.numberOfVasoDrugs,
+      // ecgReferral: this.admissionForm.value.ecgReferral,
+      // dateOfFirstEcg: this.admissionForm.value.dateOfFirstEcg,
+      // timeOfFirstEcg: this.admissionForm.value.timeOfFirstEcg,
+      // admittedFor: this.admissionForm.value.admittedFor,
       // reinfarction: this.admissionForm.value.reinfarction,
-      analgesiaGiven: this.admissionForm.value.analgesiaGiven,
+      // analgesiaGiven: this.admissionForm.value.analgesiaGiven,
       weight: this.admissionForm.value.weight,
       height: this.admissionForm.value.height,
       opOrnonOp : this.admissionForm.value.opOrnonOp,
@@ -2021,7 +2050,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         type_blood_product: [''],
         units_transfused: [''],
         lowest_perioperative_hb: [''],
-        complications_intraop: [''],
+        // complications_intraop: [''],
         intraOp_antibiotic_use: [''],
         name_intraOp_antibiotic: [''],
         if_other_please_specify: [''],
@@ -2062,7 +2091,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         type_blood_product: [this.intraOp.type_blood_product],
         units_transfused: [this.intraOp.units_transfused],
         lowest_perioperative_hb: [this.intraOp.lowest_perioperative_hb],
-        complications_intraop: [this.intraOp.complications_intraop],
+        // complications_intraop: [this.intraOp.complications_intraop],
         intraOp_antibiotic_use: [this.intraOp.intraOp_antibiotic_use],
         name_intraOp_antibiotic: [this.intraOp.name_intraOp_antibiotic],
         if_other_please_specify: [this.intraOp.if_other_please_specify],
@@ -2154,7 +2183,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         type_blood_product: this.intraOpForm.value.type_blood_product,
         units_transfused: this.intraOpForm.value.units_transfused,
         lowest_perioperative_hb: this.intraOpForm.value.lowest_perioperative_hb,
-        complications_intraop: this.intraOpForm.value.complications_intraop,
+        // complications_intraop: this.intraOpForm.value.complications_intraop,
         intraOp_antibiotic_use: this.intraOpForm.value.intraOp_antibiotic_use,
         name_intraOp_antibiotic: this.intraOpForm.value.name_intraOp_antibiotic,
         if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
@@ -2206,7 +2235,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         type_blood_product: this.intraOpForm.value.type_blood_product,
         units_transfused: this.intraOpForm.value.units_transfused,
         lowest_perioperative_hb: this.intraOpForm.value.lowest_perioperative_hb,
-        complications_intraop: this.intraOpForm.value.complications_intraop,
+        // complications_intraop: this.intraOpForm.value.complications_intraop,
         intraOp_antibiotic_use: this.intraOpForm.value.intraOp_antibiotic_use,
         name_intraOp_antibiotic: this.intraOpForm.value.name_intraOp_antibiotic,
         if_other_please_specify: this.intraOpForm.value.if_other_please_specify,
@@ -3343,10 +3372,10 @@ export class ModalContentPage7 { // Discharge
       otherDestinationName: [''],
       clavien_dindo: [''],
       clavien_dindo_disab: [''],
-      wound_infection: [''],
+      // wound_infection: [''],
       // patientExperience: [''],
       // vasopressorsGiven: [''],
-      lastReportedTropanin: [''],
+      // lastReportedTropanin: [''],
       change_antibiotics_discharge: formBuilder.group({
         added     : [ false ],
         omitted        : [ false ],
@@ -3371,28 +3400,28 @@ export class ModalContentPage7 { // Discharge
         laparoscopy_laparotomy_same_admission     : [ false ],
         ct_scan_abdomen     : [ false ],
       }),
-      drugsOnDischarge: formBuilder.group({
-        aspirin: [false],
-        clopidogrel: [false],
-        prasugrel: [false],
-        ticagrelor: [false],
-        unfractionatedHeparin: [false],
-        lowMolecularWeightHeparin: [false],
-        glycoproteinIIbInhibitors: [false],
-        glycoproteinIIIbInhibitors: [false],
-        bivalirudin: [false],
-        fondaparinux: [false],
-        warfarin: [false],
-        none: [false]
-      }),
-      patientExperience: formBuilder.group({
-        cpr: [false],
-        defibrillation: [false],
-        stentThrombosis: [false],
-        unplannedCriticalCareAdmission: [false],
-        vasopressors: [false],
-        none: [false]
-      })
+      // drugsOnDischarge: formBuilder.group({
+      //   aspirin: [false],
+      //   clopidogrel: [false],
+      //   prasugrel: [false],
+      //   ticagrelor: [false],
+      //   unfractionatedHeparin: [false],
+      //   lowMolecularWeightHeparin: [false],
+      //   glycoproteinIIbInhibitors: [false],
+      //   glycoproteinIIIbInhibitors: [false],
+      //   bivalirudin: [false],
+      //   fondaparinux: [false],
+      //   warfarin: [false],
+      //   none: [false]
+      // }),
+      // patientExperience: formBuilder.group({
+      //   cpr: [false],
+      //   defibrillation: [false],
+      //   stentThrombosis: [false],
+      //   unplannedCriticalCareAdmission: [false],
+      //   vasopressors: [false],
+      //   none: [false]
+      // })
 
     });
 
@@ -3427,7 +3456,7 @@ export class ModalContentPage7 { // Discharge
       otherDestinationName: this.dischargeForm.value.otherDestinationName,
       clavien_dindo: this.dischargeForm.value.clavien_dindo,
       clavien_dindo_disab: this.dischargeForm.value.clavien_dindo_disab,
-      wound_infection: this.dischargeForm.value.wound_infection,
+      // wound_infection: this.dischargeForm.value.wound_infection,
       added     :  this.dischargeForm.value.change_antibiotics_discharge.added ,
       omitted        :  this.dischargeForm.value.change_antibiotics_discharge.omitted ,
       no_change     :  this.dischargeForm.value.change_antibiotics_discharge.no_change ,
@@ -3448,25 +3477,25 @@ export class ModalContentPage7 { // Discharge
       confirmed_infections_antibiotic_use        :  this.dischargeForm.value.complications_discharge.confirmed_infections_antibiotic_use ,
       laparoscopy_laparotomy_same_admission     :  this.dischargeForm.value.complications_discharge.laparoscopy_laparotomy_same_admission ,
       ct_scan_abdomen     :  this.dischargeForm.value.complications_discharge.ct_scan_abdomen ,
-      lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
-      aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
-      clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
-      prasugrel: this.dischargeForm.value.drugsOnDischarge.prasugrel,
-      ticagrelor: this.dischargeForm.value.drugsOnDischarge.ticagrelor,
-      unfractionatedHeparin: this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
-      lowMolecularWeightHeparin: this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
-      glycoproteinIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
-      glycoproteinIIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
-      bivalirudin: this.dischargeForm.value.drugsOnDischarge.bivalirudin,
-      fondaparinux: this.dischargeForm.value.drugsOnDischarge.fondaparinux,
-      warfarin: this.dischargeForm.value.drugsOnDischarge.warfarin,
-      none1: this.dischargeForm.value.drugsOnDischarge.none,
-      cpr: this.dischargeForm.value.patientExperience.cpr,
-      defibrillation: this.dischargeForm.value.patientExperience.defibrillation,
-      stentThrombosis: this.dischargeForm.value.patientExperience.stentThrombosis,
-      unplannedCriticalCareAdmission: this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
-      vasopressors: this.dischargeForm.value.patientExperience.vasopressors,
-      none2: this.dischargeForm.value.patientExperience.none,
+      // lastReportedTropanin: this.dischargeForm.value.lastReportedTropanin,
+      // aspirin: this.dischargeForm.value.drugsOnDischarge.aspirin,
+      // clopidogrel: this.dischargeForm.value.drugsOnDischarge.clopidogrel,
+      // prasugrel: this.dischargeForm.value.drugsOnDischarge.prasugrel,
+      // ticagrelor: this.dischargeForm.value.drugsOnDischarge.ticagrelor,
+      // unfractionatedHeparin: this.dischargeForm.value.drugsOnDischarge.unfractionatedHeparin,
+      // lowMolecularWeightHeparin: this.dischargeForm.value.drugsOnDischarge.lowMolecularWeightHeparin,
+      // glycoproteinIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIbInhibitors,
+      // glycoproteinIIIbInhibitors: this.dischargeForm.value.drugsOnDischarge.glycoproteinIIIbInhibitors,
+      // bivalirudin: this.dischargeForm.value.drugsOnDischarge.bivalirudin,
+      // fondaparinux: this.dischargeForm.value.drugsOnDischarge.fondaparinux,
+      // warfarin: this.dischargeForm.value.drugsOnDischarge.warfarin,
+      // none1: this.dischargeForm.value.drugsOnDischarge.none,
+      // cpr: this.dischargeForm.value.patientExperience.cpr,
+      // defibrillation: this.dischargeForm.value.patientExperience.defibrillation,
+      // stentThrombosis: this.dischargeForm.value.patientExperience.stentThrombosis,
+      // unplannedCriticalCareAdmission: this.dischargeForm.value.patientExperience.unplannedCriticalCareAdmission,
+      // vasopressors: this.dischargeForm.value.patientExperience.vasopressors,
+      // none2: this.dischargeForm.value.patientExperience.none,
 
 
       timeStamp: new Date().getTime()

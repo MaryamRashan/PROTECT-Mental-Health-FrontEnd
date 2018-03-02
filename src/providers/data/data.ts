@@ -140,13 +140,13 @@ export class DataProvider {
       }
         
     }).then(()=>{
-      this.patientsArray = this.patientsArray.sort(function(a,b){return a.admission.bht - b.admission.bht})
+      this.patientsArray = this.patientsArray.sort(function(a,b){return a.admission.ward_number.id - b.admission.ward_number.id})
       console.log('SORTED PATIENTS ', this.patientsArray)
     })
   }
 
   sortPatients(){
-    this.patientsArray = this.patientsArray.sort(function(a,b){return a.admission.bht - b.admission.bht})
+    this.patientsArray = this.patientsArray.sort(function(a,b){return a.admission.ward_number.id - b.admission.ward_number.id})
       console.log('SORTED PATIENTS ', this.patientsArray)
   }
 
