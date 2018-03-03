@@ -116,7 +116,9 @@ export class DataProvider {
         
     })
     // console.log(tempArray)
-    return tempArray;
+    return tempArray.sort(function(a,b){
+      return a.data.timeStamp - b.data.timeStamp
+    });
     
   }
 

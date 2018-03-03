@@ -23,7 +23,7 @@
             <h5>Admission &nbsp; &nbsp; {{passedPatient.admission.admission_date | date:'dd MMM yyyy'}}</h5>
             <p>Age: {{passedPatient.admission.age}} {{passedPatient.admission.age_unit}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Gender: {{passedPatient.admission.gender}} <br></p>
             <p>Contact Number: {{passedPatient.admission.contactNumber}}<br></p>
-            <p>Ward Number: {{passedPatient.admission.ward_number}}<br></p>
+            <p>Ward Number: {{passedPatient.admission.ward_number.name}}<br></p>
             <p>Pre-operative HB: {{passedPatient.admission.pre_operative_hb}}<br></p>
             <p>Weight: {{passedPatient.admission.weight}} kg&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Height: {{passedPatient.admission.height}} cm<br></p>
           </div>
