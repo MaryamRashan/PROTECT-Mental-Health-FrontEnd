@@ -45,3 +45,34 @@ page-list div {
 
 
 $popover-ios-width: 400px;
+
+//for table
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+.obs-text{
+    font-size: 15px;
+    color: black;
+}
+
+.obs-green{
+    font-size: 25px;
+    color: green;
+}
+
+.obs-red{
+    font-size: 25px;
+    color: red;
+}
+
+.obs-black{
+    font-size: 25px;
+    color: black;
+}
+
+.dashforbp{
+    font-size: 30px;
+}
