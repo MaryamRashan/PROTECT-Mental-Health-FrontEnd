@@ -62,11 +62,11 @@
              <ion-input type="text" formControlName="surgical_details"></ion-input>
            </ion-item> -->
 
-          <div *ngIf="!surgical_details_free_text_visibility">
+          <div *ngIf="surgical_details_visibility" >
             <ion-label stacked>Surgical Procedure</ion-label>
             <ion-item>
           
-              <ion-select class="width100" multiple="true" formControlName="surgical_details">
+              <ion-select class="width100" multiple="true" formControlName="surgical_details" (ionChange)="makeFreeTxtSurgicalProcedureVisible($event)">
           
                 <ion-option *ngFor="let val of selectedCodeData" [value]="val">{{val}}</ion-option>
           
@@ -77,7 +77,7 @@
 
           <div *ngIf="surgical_details_free_text_visibility">
 
-            <ion-label stacked>Surgical Procedure</ion-label>
+            <ion-label stacked>Type Surgical Procedure</ion-label>
             <ion-item>
             
               <ion-input type="text" formControlName="surgical_details_free_text"></ion-input>

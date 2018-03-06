@@ -312,7 +312,9 @@ export class SocketProvider {
     this.data.saveToTempDb(payLoad);
     this.nspData.emit('add-message', payLoad, (responseData)=>{
       console.log('ACKNOWLEGEMENT : ', responseData)
-      this.data.removeFromTempDb(responseData)
+      if (responseData){
+        this.data.removeFromTempDb(responseData)
+      }
     })
   }
 

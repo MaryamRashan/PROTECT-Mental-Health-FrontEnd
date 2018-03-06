@@ -222,24 +222,33 @@ export class ModalContentPage1 implements OnInit {
 
     console.log(this.admissionForm)
     this.makeCodeandSystemEmpty('')
-    console.log(this.systems);
-    let testItemSystem = this.systems.filter(test=>{
-      console.log('test', test.value)
-      return test.value == this.patient.admission.code.apacheGroup
-    })
-    // this.admissionForm.controls.system.setValue({id: '12', value :this.diag.apacheGroup});
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemSystem^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemSystem)
-    this.admissionForm.controls.system.setValue(testItemSystem[0]);
-    this.generateCodes('');
-    let testItemCodes = this.selectedCodeData.filter(test=>{
-      console.log('test', test)
-      return test.apacheDiag == this.patient.admission.code.apacheDiag
-    })
 
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemCodes^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemCodes)
+    if (this.patient.admission.system && this.patient.admission.code) {
+      
+      console.log(this.systems);
+      let testItemSystem = this.systems.filter(test => {
+        console.log('test', test.value)
+        return test.value == this.patient.admission.code.apacheGroup
+      })
+      // this.admissionForm.controls.system.setValue({id: '12', value :this.diag.apacheGroup});
+      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemSystem^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemSystem)
+      this.admissionForm.controls.system.setValue(testItemSystem[0]);
+      this.generateCodes('');
+      let testItemCodes = this.selectedCodeData.filter(test => {
+        console.log('test', test)
+        return test.apacheDiag == this.patient.admission.code.apacheDiag
+      })
+
+      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^testItemCodes^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', testItemCodes)
+
+      this.admissionForm.controls.code.setValue(testItemCodes[0]);
+      this.admissionForm.controls.freeTextDiag.setValue(this.patient.admission.freeTextDiag);
+
+    }
+
+
     
-    this.admissionForm.controls.code.setValue(testItemCodes[0]);
-    this.admissionForm.controls.freeTextDiag.setValue(this.patient.admission.freeTextDiag);
+    
     if(this.admissionForm.value.code && this.admissionForm.value.code.apacheDiag == 'Other'){
       this.freeTextDiagVisibility = true;
     }
@@ -716,13 +725,13 @@ export class ModalContentPage1 implements OnInit {
           snomedCode: '85419002'
         },
 
-        {
-          type: 'op',
-          apacheGroup: 'Genitourinary',
-          apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
-          snomed: 'Total orchidectomy',
-          snomedCode: '236334001'
-        },
+        // {
+        //   type: 'op',
+        //   apacheGroup: 'Genitourinary',
+        //   apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+        //   snomed: 'Total orchidectomy',
+        //   snomedCode: '236334001'
+        // },
 
         {
           type: 'op',
@@ -1688,13 +1697,13 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         snomedCode: '85419002'
       },
 
-      {
-        type: 'op',
-        apacheGroup: 'Genitourinary',
-        apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
-        snomed: 'Total orchidectomy',
-        snomedCode: '236334001'
-      },
+      // {
+      //   type: 'op',
+      //   apacheGroup: 'Genitourinary',
+      //   apacheDiag: 'Orchiectomy with/without pelvic lymph node dissection',
+      //   snomed: 'Total orchidectomy',
+      //   snomedCode: '236334001'
+      // },
 
       {
         type: 'op',
@@ -2014,10 +2023,11 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
 
     ]
 
-  public selectedCodeData = [];
+  public selectedCodeData : Array<any> = [];
   public apacheDiag;
   public apacheGroup;
   public surgical_details_free_text_visibility = false;
+  public surgical_details_visibility = false;
 
   constructor(public viewCtrl: ViewController, public formBuilder: FormBuilder, public navParams: NavParams, public data: DataProvider, public sync : SyncProvider) {
 
@@ -2114,19 +2124,32 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
 
   ngOnInit(): void {
     console.log(this.patient)
-    this.apacheDiag = this.patient.admission.code.apacheDiag;
-    this.apacheGroup = this.patient.admission.code.apacheGroup;
-    console.log(this.apacheDiag);
-    if (this.apacheDiag == 'Other' || this.apacheDiag == '') {
+
+    if (this.patient.admission.code) {
+      this.surgical_details_visibility = true;
+      this.apacheDiag = this.patient.admission.code.apacheDiag;
+      this.apacheGroup = this.patient.admission.code.apacheGroup;
+      console.log(this.apacheDiag);
+      // if (this.apacheDiag == 'Other' || this.apacheDiag == '') {
+      //   this.surgical_details_free_text_visibility = true;
+      // }
+      this.generateSnomedProcedures();
+      console.log('selectedCodeData',this.selectedCodeData);
+
+      if (this.intraOp) {
+        console.log('intra op set', this.intraOp.surgical_details)
+        this.intraOpForm.controls.surgical_details.setValue(this.intraOp.surgical_details)
+        if (this.intraOp.surgical_details && this.intraOp.surgical_details.includes('Other')){
+          this.surgical_details_free_text_visibility = true;
+        }
+      }
+    } else{
       this.surgical_details_free_text_visibility = true;
     }
-    this.generateSnomedProcedures();
-    console.log(this.selectedCodeData);
 
-   if (this.intraOp){
-     console.log('intra op set', this.intraOp.surgical_details)
-     this.intraOpForm.controls.surgical_details.setValue(this.intraOp.surgical_details)
-   }
+    
+
+
 
   }
 
@@ -2136,6 +2159,22 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
     }).map(code=>{
       return code.snomed
     })
+
+    if (!(this.selectedCodeData && this.selectedCodeData.includes('Other'))){
+      this.selectedCodeData.push('Other')
+    }
+    
+    console.log('selected pushed!!!!!!!!!')
+  }
+
+  makeFreeTxtSurgicalProcedureVisible(e){
+    // console.log('makeFreeTxtSurgicalProcedureVisible', e)
+    if(e.includes('Other')){
+      // console.log('@@@@@@@@@@@@@@@@@@@ Other has @@@@@@@@@@@@@@@@@@')
+      this.surgical_details_free_text_visibility = true;
+    } else {
+      this.surgical_details_free_text_visibility = false;
+    }
   }
 
   dismiss(){
