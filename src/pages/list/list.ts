@@ -147,7 +147,7 @@ export class ModalContentPage1 implements OnInit {
       admission_date: [this.patient.admission.admission_date],
       admission_report_date: [this.patient.admission.admission_report_date],
       bht: [this.patient.admission.bht],
-      ward_number: [''],
+      ward_number: ['', [Validators.required]],
       if_other_ward: [this.patient.admission.if_other_ward],
       transferredFrom: [this.patient.admission.transferredFrom],
       // pciOrThrombolysis: [this.patient.admission.pciOrThrombolysis],
@@ -1155,14 +1155,17 @@ export class ModalContentPage1 implements OnInit {
     return d.value == this.patient.admission.apacheGroup;
   }
 
-  dismiss() {
-    if (this.admissionForm.dirty) {
-      this.viewCtrl.dismiss();
+  dismiss(){
+    if(this.admissionForm.dirty && this.admissionForm.valid){
       this.saveEditAdmission();
+      this.viewCtrl.dismiss();
+    } else if (this.admissionForm.dirty) {
+      this.admissionForm.get('ward_number').markAsTouched()
+      
     } else {
       this.viewCtrl.dismiss();
     }
-
+    
   }
 
   saveEditAdmission() {
@@ -2023,9 +2026,11 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
 
     ]
 
+  public selectedFullCodeData : Array<any> = [];
   public selectedCodeData : Array<any> = [];
   public apacheDiag;
   public apacheGroup;
+  public surgical_details_full_list_visibility = false;
   public surgical_details_free_text_visibility = false;
   public surgical_details_visibility = false;
 
@@ -2033,6 +2038,10 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
 
     this.patient = navParams.get("patient");
     this.intraOp = navParams.get("intraOp");
+
+    let _fullList = this.tempCodeData.map(item=> item.snomed);
+    this.selectedFullCodeData = Array.from(new Set (_fullList))
+    console.log('selectedFullCodeData', this.selectedFullCodeData)
 
     
 
@@ -2042,6 +2051,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         intraOpTime: [''],
         date_of_surgery: [''],
         surgical_details: [''],
+        surgical_details_full_list: [''],
         surgical_details_free_text: [''],
         indication_for_surgery: [''],
         operative_findings: [''],
@@ -2084,6 +2094,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         date_of_surgery: [this.intraOp.date_of_surgery],
         surgical_details: [this.intraOp.surgical_details],
         surgical_details_free_text: [this.intraOp.surgical_details_free_text],
+        surgical_details_full_list: [this.intraOp.surgical_details_full_list],
         notes_intop: [this.intraOp.notes_intop],
         indication_for_surgery: [this.intraOp.indication_for_surgery],
         gen_ana: [this.intraOp.gen_ana],
@@ -2118,6 +2129,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
           no_complications     : [ this.intraOp.no_complications ],
         }),  
       });
+      
     }
 
   }
@@ -2140,10 +2152,20 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         console.log('intra op set', this.intraOp.surgical_details)
         this.intraOpForm.controls.surgical_details.setValue(this.intraOp.surgical_details)
         if (this.intraOp.surgical_details && this.intraOp.surgical_details.includes('Other')){
-          this.surgical_details_free_text_visibility = true;
+          this.surgical_details_full_list_visibility = true;
         }
+
+        
       }
     } else{
+      this.surgical_details_full_list_visibility = true;
+    }
+
+
+    if(this.intraOp && this.intraOp.surgical_details_full_list){
+      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+      this.surgical_details_full_list_visibility = true;
+      this.intraOpForm.controls.surgical_details_full_list.setValue(this.intraOp.surgical_details_full_list);
       this.surgical_details_free_text_visibility = true;
     }
 
@@ -2203,6 +2225,7 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         intraOpTime: this.intraOpForm.value.intraOpTime,
         date_of_surgery: this.intraOpForm.value.date_of_surgery,
         surgical_details: this.intraOpForm.value.surgical_details,
+        surgical_details_full_list: this.intraOpForm.value.surgical_details_full_list,
         surgical_details_free_text: this.intraOpForm.value.surgical_details_free_text,
         notes_intop: this.intraOpForm.value.notes_intop,
         indication_for_surgery: this.intraOpForm.value.indication_for_surgery,
@@ -2256,6 +2279,8 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         intraOpTime: this.intraOpForm.value.intraOpTime,
         date_of_surgery: this.intraOpForm.value.date_of_surgery,
         surgical_details: this.intraOpForm.value.surgical_details,
+        surgical_details_full_list: this.intraOpForm.value.surgical_details_full_list,
+        surgical_details_free_text: this.intraOpForm.value.surgical_details_free_text,
         notes_intop: this.intraOpForm.value.notes_intop,
         indication_for_surgery: this.intraOpForm.value.indication_for_surgery,
         if_other_details: this.intraOpForm.value.if_other_details,
@@ -2309,6 +2334,8 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
         intraOpTime: this.intraOpForm.value.intraOpTime,
         date_of_surgery: this.intraOpForm.value.date_of_surgery,
         surgical_details: this.intraOpForm.value.surgical_details,
+        surgical_details_full_list: this.intraOpForm.value.surgical_details_full_list,
+        surgical_details_free_text: this.intraOpForm.value.surgical_details_free_text,
         notes_intop: this.intraOpForm.value.notes_intop,
         indication_for_surgery: this.intraOpForm.value.indication_for_surgery,
         if_other_details: this.intraOpForm.value.if_other_details,

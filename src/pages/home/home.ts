@@ -237,7 +237,7 @@ export class AddAdmissionModal {
       dateOfHospitalArrival: [''],
       timeOfHospitalArrival: [''],
       bht: [''],
-      ward_number: [''],
+      ward_number: ['', [Validators.required]],
       admission_type: [''],
       pre_operative_hb_avl: formBuilder.group({
         not_available      : [ false ],
@@ -285,9 +285,12 @@ export class AddAdmissionModal {
   }
 
   dismiss(){
-    if(this.admissionForm.dirty){
+    if(this.admissionForm.dirty && this.admissionForm.valid){
       this.saveAdmission();
       this.viewCtrl.dismiss();
+    } else if (this.admissionForm.dirty) {
+      this.admissionForm.get('ward_number').markAsTouched()
+      
     } else {
       this.viewCtrl.dismiss();
     }
