@@ -1,5 +1,6 @@
 page-home {
 background-color: rgba(00,0,250,72)
+
 }
 
 .invalid {
@@ -9,3 +10,34 @@ background-color: rgba(00,0,250,72)
 .error {
     color: #ea6153;
 }
+
+.label {
+    overflow: visible !important;
+    white-space: initial !important;
+}
+
+// .alert-wrapper {
+//     min-width: 40px;//what ever you like
+//  }
+ 
+//  .alert-radio-label {
+//     white-space: normal!important;
+//  }
+
+//  ion-select{
+//     min-width: 100% !important;// your choice :)
+//     white-space: initial
+// }
+
+// .select-text {
+//     overflow: visible;
+  
+//     flex: 1;
+  
+//     min-width: 60%;
+  
+//     font-size: inherit;
+//     text-overflow: initial;
+//     white-space: nowrap;
+    
+//   }
