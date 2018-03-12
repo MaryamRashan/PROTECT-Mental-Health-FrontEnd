@@ -76,3 +76,13 @@ th, td {
 .dashforbp{
     font-size: 30px;
 }
+
+//form validation
+
+.invalid {
+    border: 1px solid #ea6153;
+}
+
+.error {
+    color: #ea6153;
+}

@@ -28,7 +28,7 @@
            <ion-list >
 
               <ion-label stacked>Ward Number</ion-label>
-              <ion-item>
+              <ion-item [class.invalid]="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
               
                   <ion-select formControlName="ward_number" interface="popover">
 
@@ -42,6 +42,10 @@
                           <ion-option [value]="{'id':6,'name':'Other'}">Other</ion-option> -->
                           </ion-select>
               </ion-item>
+
+              <div *ngIf="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
+                <p class="error">Please select ward.</p>
+              </div>
   
               <div *ngIf='admissionForm.value.ward_number=="Other"'>
                 <ion-label stacked>If other, please specify</ion-label>
