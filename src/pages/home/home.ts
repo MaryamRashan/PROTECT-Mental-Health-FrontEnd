@@ -219,6 +219,8 @@ export class AddAdmissionModal {
     {id:'4',name:'HDU'},
     {id:'5',name:'ITU'},
     {id:'6',name:'Other'},
+    {id:'7',name:'PN'},
+    {id:'8',name:'EMN'},
   ]
   
 

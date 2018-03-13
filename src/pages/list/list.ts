@@ -198,7 +198,9 @@ export class ModalContentPage1 implements OnInit {
       {id:'3',name:'CWC'},
       {id:'4',name:'HDU'},
       {id:'5',name:'ITU'},
-      {id:'6',name:'Other'}
+      {id:'6',name:'Other'},
+      {id:'7',name:'PN'},
+      {id:'8',name:'EMN'}
     ].map(_item=>{
         let item: any = _item;
         item._id = Math.random() * 100;
