@@ -122,6 +122,27 @@ export class DataProvider {
     
   }
 
+  async getDataFromTempDbToSettings(){
+
+   
+    let unitId = await this.getUnitId();
+    let keyToSearch = '-temp-' + unitId ;
+    let tempArray = [];
+    await this.storage.forEach((value, key)=>{
+      // console.log(tempArray)
+      if(key.includes(keyToSearch)){
+        // console.log(value);
+        tempArray.push(value);
+      }
+        
+    })
+    // console.log(tempArray)
+    return tempArray.sort(function(a,b){
+      return a.data.timeStamp - b.data.timeStamp
+    });
+    
+  }
+
   async removeFromTempDb(tempData){
     let unitId = await this.getUnitId();
     let key = '-temp-' + unitId + '-'+ tempData.id;
