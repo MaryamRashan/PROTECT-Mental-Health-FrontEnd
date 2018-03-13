@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -51,6 +52,7 @@ import { IonicStorageModule } from '@ionic/storage';
     HomePage,
     LoginPage,
     ListPage,
+    SettingsPage,
     ModalContentPage1,
     ModalContentPage2,
     ModalContentPage3,
@@ -88,6 +90,7 @@ import { IonicStorageModule } from '@ionic/storage';
     HomePage,
     LoginPage,
     ListPage,
+    SettingsPage,
     ModalContentPage1,
     ModalContentPage2,
     ModalContentPage3,

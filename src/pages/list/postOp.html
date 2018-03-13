@@ -27,16 +27,24 @@
          <ion-col>
 
                         <ion-label stacked>Date</ion-label>
-                        <ion-item>
+                        <ion-item [class.invalid]="!(postOpForm.controls.postop_report_date.valid) && (postOpForm.controls.postop_report_date.touched)">
                           
                           <ion-input type="date" formControlName="postop_report_date"></ion-input>
                         </ion-item>
+
+                        <div *ngIf="!(postOpForm.controls.postop_report_date.valid) && (postOpForm.controls.postop_report_date.touched)">
+                            <p class="error">Please enter date.</p>
+                          </div>
                
                         <ion-label stacked>Time</ion-label>
-                        <ion-item>
+                        <ion-item [class.invalid]="!(postOpForm.controls.postop_report_time.valid) && (postOpForm.controls.postop_report_time.touched)">
                           
                           <ion-input type="time" formControlName="postop_report_time"></ion-input>
                         </ion-item>
+
+                        <div *ngIf="!(postOpForm.controls.postop_report_time.valid) && (postOpForm.controls.postop_report_time.touched)">
+                            <p class="error">Please enter time.</p>
+                          </div>
 
             <div formGroupName="poms_score">
                 <ion-label stacked>Post Operative Complications</ion-label>

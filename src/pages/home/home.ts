@@ -219,6 +219,8 @@ export class AddAdmissionModal {
     {id:'4',name:'HDU'},
     {id:'5',name:'ITU'},
     {id:'6',name:'Other'},
+    {id:'7',name:'PN'},
+    {id:'8',name:'EMN'},
   ]
   
 
@@ -233,7 +235,7 @@ export class AddAdmissionModal {
       if_other_ward: [''],
       pre_operative_hb: [''],
       contactNumber: [''],
-      admission_date: [''],
+      admission_date: ['', [Validators.required]],
       dateOfHospitalArrival: [''],
       timeOfHospitalArrival: [''],
       bht: [''],
@@ -289,7 +291,8 @@ export class AddAdmissionModal {
       this.saveAdmission();
       this.viewCtrl.dismiss();
     } else if (this.admissionForm.dirty) {
-      this.admissionForm.get('ward_number').markAsTouched()
+      this.admissionForm.get('ward_number').markAsTouched();
+      this.admissionForm.get('admission_date').markAsTouched();
       
     } else {
       this.viewCtrl.dismiss();

@@ -144,7 +144,7 @@ export class ModalContentPage1 implements OnInit {
       age_unit: [this.patient.admission.age_unit],
       pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
-      admission_date: [this.patient.admission.admission_date],
+      admission_date: [this.patient.admission.admission_date, [Validators.required]],
       admission_report_date: [this.patient.admission.admission_report_date],
       bht: [this.patient.admission.bht],
       ward_number: ['', [Validators.required]],
@@ -198,7 +198,9 @@ export class ModalContentPage1 implements OnInit {
       {id:'3',name:'CWC'},
       {id:'4',name:'HDU'},
       {id:'5',name:'ITU'},
-      {id:'6',name:'Other'}
+      {id:'6',name:'Other'},
+      {id:'7',name:'PN'},
+      {id:'8',name:'EMN'}
     ].map(_item=>{
         let item: any = _item;
         item._id = Math.random() * 100;
@@ -1160,7 +1162,8 @@ export class ModalContentPage1 implements OnInit {
       this.saveEditAdmission();
       this.viewCtrl.dismiss();
     } else if (this.admissionForm.dirty) {
-      this.admissionForm.get('ward_number').markAsTouched()
+      this.admissionForm.get('ward_number').markAsTouched();
+      this.admissionForm.get('admission_date').markAsTouched();;
       
     } else {
       this.viewCtrl.dismiss();
@@ -2047,8 +2050,8 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
 
     if(this.intraOp === null){
       this.intraOpForm = this.formBuilder.group({
-        intraOpDate: [''],
-        intraOpTime: [''],
+        intraOpDate: ['', [Validators.required]],
+        intraOpTime: ['', [Validators.required]],
         date_of_surgery: [''],
         surgical_details: [''],
         surgical_details_full_list: [''],
@@ -2089,8 +2092,8 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
       });
     } else {
       this.intraOpForm = this.formBuilder.group({
-        intraOpDate: [this.intraOp.intraOpDate],
-        intraOpTime: [this.intraOp.intraOpTime],
+        intraOpDate: [this.intraOp.intraOpDate, [Validators.required]],
+        intraOpTime: [this.intraOp.intraOpTime, [Validators.required]],
         date_of_surgery: [this.intraOp.date_of_surgery],
         surgical_details: [this.intraOp.surgical_details],
         surgical_details_free_text: [this.intraOp.surgical_details_free_text],
@@ -2203,10 +2206,13 @@ export class ModalContentPage2 implements OnInit { // Single IntraOp
     // this.saveIntraOp().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
-    if(this.intraOpForm.dirty){
+    if(this.intraOpForm.dirty && this.intraOpForm.valid){
       this.saveIntraOp().then(()=>{
         this.viewCtrl.dismiss();
       })
+    } else if (this.intraOpForm.dirty) {
+      this.intraOpForm.get('intraOpDate').markAsTouched();
+      this.intraOpForm.get('intraOpTime').markAsTouched();
     } else {
       this.viewCtrl.dismiss();
     }
@@ -2766,8 +2772,8 @@ export class ModalContentPage4 { // cormobidities and risks
     if (this.postOp == null){
 
       this.postOpForm = this.formBuilder.group({
-        postop_report_date: [''],
-        postop_report_time: [''],
+        postop_report_date: ['', [Validators.required]],
+        postop_report_time: ['', [Validators.required]],
         icu_admission: [''],
         notes_pod1: [''],
         cprExperienced: [''],
@@ -2816,8 +2822,8 @@ export class ModalContentPage4 { // cormobidities and risks
       });
     } else {
       this.postOpForm = this.formBuilder.group({
-        postop_report_date: [this.postOp.postop_report_date],
-        postop_report_time: [this.postOp.postop_report_time],
+        postop_report_date: [this.postOp.postop_report_date, [Validators.required]],
+        postop_report_time: [this.postOp.postop_report_time, [Validators.required]],
         icu_admission: [this.postOp.icu_admission],
         notes_pod1: [this.postOp.notes_pod1],
         cprExperienced: [this.postOp.cprExperienced],
@@ -2877,10 +2883,13 @@ export class ModalContentPage4 { // cormobidities and risks
     // this.savePostOp().then(()=>{
     //   this.viewCtrl.dismiss();
     // })
-    if(this.postOpForm.dirty){
+    if(this.postOpForm.dirty && this.postOpForm.valid){
       this.savePostOp().then(()=>{
         this.viewCtrl.dismiss();
       })
+    } else if (this.postOpForm.dirty) {
+      this.postOpForm.get('postop_report_date').markAsTouched();
+      this.postOpForm.get('postop_report_time').markAsTouched();
     } else {
       this.viewCtrl.dismiss();
     }
@@ -3431,9 +3440,9 @@ export class ModalContentPage7 { // Discharge
     console.log('discharge', this.patient)
 
     this.dischargeForm = this.formBuilder.group({
-      dischargeDate: [''],
-      dischargeTime: [''],
-      dischargeStatus: [''],
+      dischargeDate: ['', [Validators.required]],
+      dischargeTime: ['', [Validators.required]],
+      dischargeStatus: ['', [Validators.required]],
       dischargeDestination: [''],
       otherDestinationName: [''],
       clavien_dindo: [''],
@@ -3494,7 +3503,7 @@ export class ModalContentPage7 { // Discharge
   }
 
   dismiss() {
-    if (this.dischargeForm.dirty) {
+    if (this.dischargeForm.dirty && this.dischargeForm.valid) {
       this.saveDischarge().then(() => {
         // this.navCtrl.setRoot(HomePage)
         // this.navCtrl.popToRoot()
@@ -3505,6 +3514,10 @@ export class ModalContentPage7 { // Discharge
 
         });
       })
+    } else if (this.dischargeForm.dirty){
+      this.dischargeForm.get('dischargeDate').markAsTouched();
+      this.dischargeForm.get('dischargeTime').markAsTouched();
+      this.dischargeForm.get('dischargeStatus').markAsTouched();
     } else {
       this.viewCtrl.dismiss()
     }
@@ -3590,8 +3603,8 @@ export class ModalContentPage8 { // single observation
 
     if (this.ob === null) {
       this.observationForm = this.formBuilder.group({
-        obsDate: [''],
-        obsTime: [''],
+        obsDate: ['', [Validators.required]],
+        obsTime: ['', [Validators.required]],
         bed: [''],
         sbp: [''],
         dbp: [''],
@@ -3653,10 +3666,14 @@ export class ModalContentPage8 { // single observation
     //   this.viewCtrl.dismiss();
     // });
 
-    if (this.observationForm.dirty) {
+    if (this.observationForm.dirty && this.observationForm.valid) {
       this.saveObservation().then(() => {
         this.viewCtrl.dismiss();
       })
+    } else if (this.observationForm.dirty) {
+      this.observationForm.get('obsDate').markAsTouched();
+      this.observationForm.get('obsTime').markAsTouched();
+
     } else {
       this.viewCtrl.dismiss();
     }
