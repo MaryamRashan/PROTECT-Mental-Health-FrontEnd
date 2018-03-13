@@ -14,6 +14,15 @@
 </ion-header>
 
 <ion-content padding>
+  <div id="connect-head">
+    Connection Status
+  </div>
+  <div id="connect-true" *ngIf="socketStatus">
+    Connected
+  </div>
+  <div id="connect-false" *ngIf="!socketStatus">
+    Disconnected
+  </div>
   <div id="sync-head">
     Sync Status
   </div>

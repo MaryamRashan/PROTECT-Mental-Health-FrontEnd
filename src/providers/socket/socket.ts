@@ -34,6 +34,7 @@ export class SocketProvider {
 
   public counter = 0;
   public queu = [];
+  public socketConnectionStatus = false;
 
   constructor(public http: Http, public device: DeviceProvider, public data: DataProvider, public event: Events) {
     console.log('Hello SocketProvider Provider');
@@ -89,6 +90,7 @@ export class SocketProvider {
             })
 
             this.nspData.on('success', (success)=> {
+              this.socketConnectionStatus = true;
               this.getPatientDataThroughSocket()
               console.log(success);
               this.data.getDataFromTempDb().then((result)=>{
@@ -227,10 +229,19 @@ export class SocketProvider {
               // console.log('user info: ' + data.user);
               // console.log('logged in: ' + data.user.logged_in)
             })
+
+            this.nspData.on('disconnect', (event)=>{
+              console.log('DISCONNECTED',event)
+              this.socketConnectionStatus = false;
+            })
             
       }
     });
     
+  }
+
+  async getSocketConnectionStatus (){
+    return this.socketConnectionStatus;
   }
 
   getPatientDataThroughSocket(){
