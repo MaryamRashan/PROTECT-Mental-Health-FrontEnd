@@ -18,7 +18,8 @@ export class SettingsPage {
 
   public tempData;
   public socketStatus ;
-  public setIntervalHandler
+  public setIntervalHandlerConn;
+  public setIntervalHandlerSync;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public data : DataProvider,  public socket : SocketProvider) {
     this.socket.getSocketConnectionStatus().then((status=>{
@@ -28,20 +29,29 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
- 
+    this.checkSync()
+    
+    this.setIntervalHandlerConn = setInterval(()=>{
+      this.checkConnectivity()
+    }, 1000)
+
+    this.setIntervalHandlerSync = setInterval(()=>{
+      this.checkSync()
+    }, 10000)
+    
+  }
+
+  ionViewWillLeave(){
+    clearInterval(this.setIntervalHandlerConn);
+    clearInterval(this.setIntervalHandlerSync);
+  }
+
+  async checkSync(){
     this.data.getDataFromTempDbToSettings().then(res=>{
       console.log(res)
       this.tempData = res;
       console.log('recieved tempdata ', this.tempData)
     })
-    this.setIntervalHandler = setInterval(()=>{
-      this.checkConnectivity()
-    }, 1000)
-    
-  }
-
-  ionViewWillLeave(){
-    clearInterval(this.setIntervalHandler);
   }
 
   async checkConnectivity(){
