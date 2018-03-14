@@ -227,10 +227,11 @@ export class AddAdmissionModal {
   constructor(public data: DataProvider ,public viewCtrl: ViewController, public formBuilder: FormBuilder, public modalCtrl: ModalController, public sync : SyncProvider  ) {
     
     this.admissionForm = this.formBuilder.group({
-      patientName: [''],
-      gender: [''],
-      age: [''],
-      age_unit: ['Years'],
+      patientName: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      age_years: ['', [Validators.required]],
+      age_months: [''],
+      age_days: [''],
       nic: [''],
       if_other_ward: [''],
       pre_operative_hb: [''],
@@ -240,7 +241,7 @@ export class AddAdmissionModal {
       timeOfHospitalArrival: [''],
       bht: [''],
       ward_number: ['', [Validators.required]],
-      admission_type: [''],
+      admission_type: ['', [Validators.required]],
       pre_operative_hb_avl: formBuilder.group({
         not_available      : [ false ],
       }),
@@ -278,9 +279,9 @@ export class AddAdmissionModal {
       weight: [''],
       height: [''],
       admission_report_date: [''],
-      opOrnonOp: [''],
-      system: [''],
-      code: [''],
+      opOrnonOp: ['', [Validators.required]],
+      system: ['', [Validators.required]],
+      code: ['', [Validators.required]],
       freeTextDiag: [''],
     });
     
@@ -291,9 +292,16 @@ export class AddAdmissionModal {
       this.saveAdmission();
       this.viewCtrl.dismiss();
     } else if (this.admissionForm.dirty) {
-      this.admissionForm.get('ward_number').markAsTouched();
-      this.admissionForm.get('admission_date').markAsTouched();
-      
+      this.admissionForm.get('ward_number').markAsTouched()
+      this.admissionForm.get('patientName').markAsTouched()
+      this.admissionForm.get('admission_date').markAsTouched()
+      this.admissionForm.get('gender').markAsTouched()
+      this.admissionForm.get('admission_type').markAsTouched()
+      this.admissionForm.get('opOrnonOp').markAsTouched()
+      this.admissionForm.get('system').markAsTouched()
+      this.admissionForm.get('code').markAsTouched()
+      this.admissionForm.get('age_years').markAsTouched()
+
     } else {
       this.viewCtrl.dismiss();
     }

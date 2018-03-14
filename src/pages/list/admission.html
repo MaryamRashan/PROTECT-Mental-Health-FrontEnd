@@ -1,146 +1,162 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
+  <ion-toolbar>
+    <ion-title>
+      
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Ok</span>
+        <span ion-text color="primary" showWhen="android, windows">Ok</span>
         
-      </ion-title>
-      <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-          <span ion-text color="primary" showWhen="ios">Ok</span>
-          <span ion-text color="primary" showWhen="android, windows">Ok</span>
-          
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
+<ion-content>
 
-    <div padding  id="cloud-layer">
-        <form [formGroup]="admissionForm" >
-    
-       <ion-row>
-         <ion-col>
-         </ion-col>
-       </ion-row>
-    
-       <ion-row>
-         <ion-col>
-           <ion-list >
-
-              <ion-label stacked>Ward Number</ion-label>
-              <ion-item [class.invalid]="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
-              
-                  <ion-select formControlName="ward_number" interface="popover">
-
-                      <ion-option *ngFor="let val of wardsList" [value]="val">{{val.name}}</ion-option>
+  <div padding  id="cloud-layer">
+      <form [formGroup]="admissionForm" >
   
-                      <!-- <ion-option [value]="{'id':1,'name':'CWA'}">CWA</ion-option>
-                      <ion-option [value]="{'id':2,'name':'CWB'}">CWB</ion-option>
-                      <ion-option [value]="{'id':3,'name':'CWC'}">CWC</ion-option>
-                      <ion-option [value]="{'id':4,'name':'HDU'}">HDU</ion-option>
-                      <ion-option [value]="{'id':5,'name':'ITU'}">ITU</ion-option>
-                      <ion-option [value]="{'id':6,'name':'Other'}">Other</ion-option> -->
-                          </ion-select>
-              </ion-item>
-
-              <div *ngIf="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
-                <p class="error">Please select ward.</p>
-              </div>
+     <ion-row>
+       <ion-col>
+       </ion-col>
+     </ion-row>
   
-              <div *ngIf='admissionForm.value.ward_number=="Other"'>
-                <ion-label stacked>If other, please specify</ion-label>
-                <ion-input formControlName="if_other_ward" type="text"></ion-input>
-                <hr>
-              </div>
+     <ion-row>
+       <ion-col>
+         <ion-list >
 
-              <ion-label stacked>Admission Date</ion-label>
-              <ion-item [class.invalid]="!(admissionForm.controls.admission_date.valid) && (admissionForm.controls.admission_date.touched)">
-              
-                  <ion-input type="date" formControlName="admission_date"></ion-input>
-              </ion-item>
+            <ion-label stacked>Ward Number</ion-label>
+            <ion-item [class.invalid]="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
+            
+                <ion-select formControlName="ward_number" interface="popover">
 
-              <div *ngIf="!(admissionForm.controls.admission_date.valid) && (admissionForm.controls.admission_date.touched)">
-                  <p class="error">Please enter admission date.</p>
-                </div>
+                    <ion-option *ngFor="let val of wardsList" [value]="val">{{val.name}}</ion-option>
 
-                <ion-label stacked>Name</ion-label>
-             <ion-item>
-               
-               <ion-input type="text" formControlName="patientName"></ion-input>
-             </ion-item>
+                        <!-- <ion-option [value]="{'id':1,'name':'CWA'}">CWA</ion-option>
+                        <ion-option [value]="{'id':2,'name':'CWB'}">CWB</ion-option>
+                        <ion-option [value]="{'id':3,'name':'CWC'}">CWC</ion-option>
+                        <ion-option [value]="{'id':4,'name':'HDU'}">HDU</ion-option>
+                        <ion-option [value]="{'id':5,'name':'ITU'}">ITU</ion-option>
+                        <ion-option [value]="{'id':6,'name':'Other'}">Other</ion-option> -->
+                        </ion-select>
+            </ion-item>
 
-             <ion-label stacked>Medical Record Number (BHT)</ion-label>
-             <ion-item>
-             
-                 <ion-input type="text" formControlName="bht"></ion-input>
-             </ion-item>
-
-             <ion-label stacked>Contact Number</ion-label>
-             <ion-item>
-             
-                 <ion-input type="number" formControlName="contactNumber"></ion-input>
-             </ion-item>
-
-             <ion-label stacked>Age</ion-label>
-             <ion-item>
-             
-                 <ion-input type="number" formControlName="age" placeholder="Enter Age"></ion-input>
-             </ion-item>
-            <div radio-group formControlName="age_unit">
-                  <ion-item><ion-label>Years</ion-label><ion-radio value="Years" ></ion-radio></ion-item>                                 
-                  <ion-item><ion-label>Months</ion-label><ion-radio value="Months"></ion-radio></ion-item>    
+            <div *ngIf="!(admissionForm.controls.ward_number.valid) && (admissionForm.controls.ward_number.touched)">
+              <p class="error">Please select ward.</p>
             </div>
 
+            <div *ngIf='admissionForm.value.ward_number=="Other"'>
+              <ion-label stacked>If other, please specify</ion-label>
+              <ion-input formControlName="if_other_ward" type="text"></ion-input>
+              <hr>
+            </div>
 
-            <div radio-group formControlName="gender">
-                    <ion-label stacked>Gender</ion-label>
+            <ion-label stacked>Admission Date</ion-label>
+            <ion-item [class.invalid]="!(admissionForm.controls.admission_date.valid) && (admissionForm.controls.admission_date.touched)">
+            
+                <ion-input type="date" formControlName="admission_date"></ion-input>
+            </ion-item>
+
+            <div *ngIf="!(admissionForm.controls.admission_date.valid) && (admissionForm.controls.admission_date.touched)">
+                <p class="error">Please enter admission date.</p>
+              </div>
+
+           <ion-label stacked>Name</ion-label>
+           <ion-item [class.invalid]="!(admissionForm.controls.patientName.valid) && (admissionForm.controls.patientName.touched)">
+             
+             <ion-input type="text" formControlName="patientName"></ion-input>
+           </ion-item>
+           <div *ngIf="!(admissionForm.controls.patientName.valid) && (admissionForm.controls.patientName.touched)">
+            <p class="error">Please enter Name.</p>
+           </div>
+
+           <ion-label stacked>Medical Record Number (BHT)</ion-label>
+           <ion-item>
+           
+               <ion-input type="text" formControlName="bht"></ion-input>
+           </ion-item>
+
+           <ion-label stacked>Contact Number</ion-label>
+           <ion-item>
+           
+               <ion-input type="number" formControlName="contactNumber"></ion-input>
+           </ion-item>
+
+           <ion-label stacked>Age</ion-label>
+           <div [class.invalid]="!(admissionForm.controls.age_years.valid) && ((admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched))">
+           <ion-item>
+            <ion-input type="number" formControlName="age_years" placeholder="Years"></ion-input>
+           </ion-item>
+           
+           <ion-item>
+            <ion-input type="number" formControlName="age_months" placeholder="Months"></ion-input>
+           </ion-item>
+
+           <ion-item>             
+            <ion-input type="number" formControlName="age_days" placeholder="Days"></ion-input>
+           </ion-item>
+           </div>
+           <div *ngIf="!(admissionForm.controls.age_years.valid) && (admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched)">
+            <p class="error">Please enter age</p>
+           </div>
 
 
+          <div radio-group formControlName="gender">
+                  <ion-label stacked>Gender</ion-label>
+                  <div [class.invalid]="!(admissionForm.controls.gender.valid) && (admissionForm.controls.gender.touched)">
+
+                      <ion-item >
+                           
+                               <ion-label>Male</ion-label>
+                               <ion-radio value="Male" ></ion-radio>
+       
+                      </ion-item>
+    
+                      <ion-item >
+    
+                                   <ion-label>Female</ion-label>
+                                   <ion-radio value="Female"></ion-radio>          
+                             
+                      </ion-item>
+    </div>
+          </div>
+          <div *ngIf="!(admissionForm.controls.gender.valid) && (admissionForm.controls.gender.touched)">
+            <p class="error">Please select gender</p>
+          </div>                
+                    
+          
+          <div radio-group formControlName="admission_type">
+              <ion-label stacked>Admission Type</ion-label>
+
+              <div [class.invalid]="!(admissionForm.controls.admission_type.valid) && (admissionForm.controls.admission_type.touched)">
 
                 <ion-item >
-                       
-                           <ion-label>Male</ion-label>
-                           <ion-radio value="Male" ></ion-radio>
-   
-                  </ion-item>
-
-                  <ion-item >
-
-                               <ion-label>Female</ion-label>
-                               <ion-radio value="Female"></ion-radio>          
-                         
-                      </ion-item>
-
-            </div>
-             
                       
-            
-            <div radio-group formControlName="admission_type">
-                <ion-label stacked>Admission Type</ion-label>
+                          <ion-label>Elective</ion-label>
+                          <ion-radio value="elective" ></ion-radio>
+   
+                 </ion-item>
+   
+                 <ion-item >
+   
+                              <ion-label>Emergency</ion-label>
+                              <ion-radio value="emergency"></ion-radio>          
+                        
+                 </ion-item>
+               </div>
 
+      </div>
+      <div *ngIf="!(admissionForm.controls.admission_type.valid) && (admissionForm.controls.admission_type.touched)">
+        <p class="error">Please select type.</p>
+      </div> 
 
-
-            <ion-item >
-                   
-                       <ion-label>Elective</ion-label>
-                       <ion-radio value="elective" ></ion-radio>
-
-              </ion-item>
-
-              <ion-item >
-
-                           <ion-label>Emergency</ion-label>
-                           <ion-radio value="emergency"></ion-radio>          
-                     
-                  </ion-item>
-
-        </div>
-
-        <div radio-group formControlName="opOrnonOp" (ionChange)="makeCodeandSystemEmpty($event)">
-            <ion-label stacked>Operative or Non Operative</ion-label>
-          
-          
-          
+      <div radio-group formControlName="opOrnonOp" (ionChange)="makeCodeandSystemEmpty($event)">
+          <ion-label stacked>Operative or Non Operative</ion-label>
+        
+          <div [class.invalid]="!(admissionForm.controls.opOrnonOp.valid) && (admissionForm.controls.opOrnonOp.touched)">
+        
             <ion-item>
           
               <ion-label>Operative</ion-label>
@@ -154,147 +170,157 @@
               <ion-radio value="non-op"></ion-radio>
           
             </ion-item>
-          
-          </div>
-
-          <div *ngIf="!admissionForm.value.opOrnonOp == ''">
-            <ion-label stacked>System</ion-label>
-            <ion-item>
-
-              
-                  <ion-select class="width100" formControlName="system" interface="popover" (ionChange)="generateCodes($event)">
-                
-                      <ion-option *ngFor="let val of systems" [value]="val">{{val.value}}</ion-option>
-                    
-                    </ion-select>
-
-                              
-            </ion-item>
-          </div>
-
-          <div *ngIf="!admissionForm.value.opOrnonOp == '' && !admissionForm.value.system == ''">
-            <ion-label stacked>Diagnosis</ion-label>
-            <ion-item>
-            
-                <ion-select class="width100" formControlName="code" interface="popover" (ionChange)="changeFreeTextVisibility($event)" >
-
-                        <ion-option *ngFor="let val of selectedCodeData" [value]="val" >{{val.apacheDiag}}</ion-option>
-                        
-                        
-                        </ion-select>
-            </ion-item>
-          </div>
-
-          <div *ngIf="freeTextDiagVisibility">
-              <ion-label stacked>Type Diagnosis</ion-label>
-              <ion-item>
-              
-                  <ion-input formControlName="freeTextDiag" interface="popover" >
-
-                          
-                          
-                  </ion-input>
-              </ion-item>
-          </div>
-
-        <div>
-                <div formGroupName="comorbidities">
-                  <ion-label stacked>Comorbidities</ion-label>
-
-
-                <ion-item>
-                        <ion-label>HIV</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="hiv"></ion-checkbox>
-                </ion-item>
-
-                <ion-item>
-                        <ion-label>None</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="none"></ion-checkbox>
-                </ion-item>
-
-                <ion-item>
-                        <ion-label>Other</ion-label>
-                        <ion-checkbox 
-                                color="primary" 
-                                formControlName="other"></ion-checkbox>
-                </ion-item>
-          </div>
-          </div>
+          </div>   
         
+        </div>
+        <div *ngIf="!(admissionForm.controls.opOrnonOp.valid) && (admissionForm.controls.opOrnonOp.touched)">
+          <p class="error">Please select type.</p>
+        </div>   
+
+        <div *ngIf="!admissionForm.value.opOrnonOp == ''">
+          <ion-label stacked>System</ion-label>
+          <ion-item  [class.invalid]="!(admissionForm.value.opOrnonOp == '') && !(admissionForm.controls.system.valid) && (admissionForm.controls.system.touched)">
+
             
-            <div *ngIf='admissionForm.value.comorbidities.other'>
-            <ion-label stacked>If other, please specify comorbidity</ion-label>
+                <ion-select class="width100" formControlName="system" interface="popover" (ionChange)="generateCodes($event)">
+              
+                    <ion-option *ngFor="let val of systems" [value]="val">{{val.value}}</ion-option>
+                  
+                  </ion-select>
+
+                            
+          </ion-item>
+        </div>
+        <div *ngIf="!(admissionForm.value.opOrnonOp == '') && !(admissionForm.controls.system.valid) && (admissionForm.controls.system.touched)">
+          <p class="error">Please select system.</p>
+        </div>  
+
+        <div *ngIf="!admissionForm.value.opOrnonOp == '' && !admissionForm.value.system == ''">
+          <ion-label stacked>Diagnosis</ion-label>
+          <ion-item [class.invalid]="!(admissionForm.value.opOrnonOp == '')  && !(admissionForm.controls.code.valid) && (admissionForm.controls.code.touched)">
+          
+              <ion-select class="width100" formControlName="code" interface="popover" (ionChange)="changeFreeTextVisibility($event)" >
+
+                      <ion-option *ngFor="let val of selectedCodeData" [value]="val" >{{val.apacheDiag}}</ion-option>
+                      
+                      
+                      </ion-select>
+          </ion-item>
+        </div>
+        <div *ngIf="!(admissionForm.value.opOrnonOp == '')  && !(admissionForm.controls.code.valid) && (admissionForm.controls.code.touched)">
+          <p class="error">Please select diagnosis.</p>
+        </div>  
+
+        <div *ngIf="freeTextDiagVisibility">
+            <ion-label stacked>Type Diagnosis</ion-label>
             <ion-item>
-            <ion-input type="text" formControlName="if_other_please_specify_comorbi"></ion-input>
+            
+                <ion-input formControlName="freeTextDiag" interface="popover" >
+
+                        
+                        
+                </ion-input>
             </ion-item>
-            </div>
+        </div>
 
-            <div *ngIf='admissionForm.value.comorbidities.hiv'>
-            <ion-label stacked>CD4 count</ion-label>
-            <ion-item>
-            <ion-input type="text" formControlName="cd4"></ion-input>
-            </ion-item>
-            </div>
-
-            <div radio-group formControlName="feverad">
-                    <ion-label stacked>Fever in last 24 hours</ion-label>
+      <div>
+              <div formGroupName="comorbidities">
+                <ion-label stacked>Comorbidities</ion-label>
 
 
+              <ion-item>
+                      <ion-label>HIV</ion-label>
+                      <ion-checkbox 
+                              color="primary" 
+                              formControlName="hiv"></ion-checkbox>
+              </ion-item>
+
+              <ion-item>
+                      <ion-label>None</ion-label>
+                      <ion-checkbox 
+                              color="primary" 
+                              formControlName="none"></ion-checkbox>
+              </ion-item>
+
+              <ion-item>
+                      <ion-label>Other</ion-label>
+                      <ion-checkbox 
+                              color="primary" 
+                              formControlName="other"></ion-checkbox>
+              </ion-item>
+        </div>
+        </div>
+      
+          
+          <div *ngIf='admissionForm.value.comorbidities.other'>
+          <ion-label stacked>If other, please specify comorbidity</ion-label>
+          <ion-item>
+          <ion-input type="text" formControlName="if_other_please_specify_comorbi"></ion-input>
+          </ion-item>
+          </div>
+
+          <div *ngIf='admissionForm.value.comorbidities.hiv'>
+          <ion-label stacked>CD4 count</ion-label>
+          <ion-item>
+          <ion-input type="text" formControlName="cd4"></ion-input>
+          </ion-item>
+          </div>
+
+          <div radio-group formControlName="feverad">
+                  <ion-label stacked>Fever in last 24 hours</ion-label>
+
+
+
+              <ion-item >
+                     
+                         <ion-label>Yes</ion-label>
+                         <ion-radio value="yes" ></ion-radio>
+ 
+                </ion-item>
 
                 <ion-item >
+
+                             <ion-label>No</ion-label>
+                             <ion-radio value="no"></ion-radio>          
                        
-                           <ion-label>Yes</ion-label>
-                           <ion-radio value="yes" ></ion-radio>
-   
-                  </ion-item>
+                    </ion-item>
 
-                  <ion-item >
-
-                               <ion-label>No</ion-label>
-                               <ion-radio value="no"></ion-radio>          
-                         
-                      </ion-item>
-
-            </div>
+          </div>
 
 
-            <ion-label stacked>Weight (kg)</ion-label>
+          <ion-label stacked>Weight (kg)</ion-label>
+          <ion-item>
+            
+            <ion-input type="number" formControlName="weight"></ion-input>
+          </ion-item>
+  
+          <ion-label stacked>Height (cm)</ion-label>
+          <ion-item>
+            
+            <ion-input type="number" formControlName="height"></ion-input>
+          </ion-item>
+
+
+          <ion-label stacked>Pre Operative HB</ion-label>
+          <div *ngIf='!admissionForm.value.pre_operative_hb_avl.not_available'>
+          <ion-item>
+          <ion-input type="text" placeholder="g/dL"formControlName="pre_operative_hb"></ion-input>
+          </ion-item>
+          </div>
+          <div formGroupName="pre_operative_hb_avl">
             <ion-item>
-              
-              <ion-input type="number" formControlName="weight"></ion-input>
-            </ion-item>
-    
-            <ion-label stacked>Height (cm)</ion-label>
-            <ion-item>
-              
-              <ion-input type="number" formControlName="height"></ion-input>
-            </ion-item>
- 
+              <ion-label>Not Available</ion-label>
+              <ion-checkbox 
+                      color="primary" 
+                      formControlName="not_available"></ion-checkbox>
+            </ion-item>            
+          </div>
 
-            <ion-label stacked>Pre Operative HB</ion-label>
-            <div *ngIf='!admissionForm.value.pre_operative_hb_avl.not_available'>
-            <ion-item>
-            <ion-input type="text" placeholder="g/dL"formControlName="pre_operative_hb"></ion-input>
-            </ion-item>
-            </div>
-            <div formGroupName="pre_operative_hb_avl">
-              <ion-item>
-                <ion-label>Not Available</ion-label>
-                <ion-checkbox 
-                        color="primary" 
-                        formControlName="not_available"></ion-checkbox>
-              </ion-item>            
-            </div>
+         </ion-list>
+       </ion-col>
+     </ion-row>
+  
 
-           </ion-list>
-         </ion-col>
-       </ion-row>
-    
-
-      </form>
-     </div>
-  </ion-content>
+    </form>
+   </div>
+</ion-content>

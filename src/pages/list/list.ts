@@ -137,11 +137,12 @@ export class ModalContentPage1 implements OnInit {
     console.log('patient inside the edit admission modal ', this.patient)
 
     this.admissionForm = this.formBuilder.group({
-      patientName: [this.patient.admission.patientName],
-      gender: [this.patient.admission.gender],
-      admission_type: [this.patient.admission.admission_type],
-      age: [this.patient.admission.age],
-      age_unit: [this.patient.admission.age_unit],
+      patientName: [this.patient.admission.patientName, [Validators.required]],
+      gender: [this.patient.admission.gender, [Validators.required]],
+      admission_type: [this.patient.admission.admission_type, [Validators.required]],
+      age_years: [this.patient.admission.age_years, [Validators.required]],
+      age_months: [this.patient.admission.age_months],
+      age_days: [this.patient.admission.age_days],
       pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
       admission_date: [this.patient.admission.admission_date, [Validators.required]],
@@ -181,9 +182,9 @@ export class ModalContentPage1 implements OnInit {
       // reinfarction: [this.patient.admission.reinfarction],
       weight: [this.patient.admission.weight],
       height: [this.patient.admission.height],
-      opOrnonOp: [this.patient.admission.opOrnonOp],
-      system: [''],
-      code: [''],
+      opOrnonOp: [this.patient.admission.opOrnonOp, [Validators.required]],
+      system: ['', [Validators.required]],
+      code: ['', [Validators.required]],
       freeTextDiag: [this.patient.admission.freeTextDiag],
     });
 
@@ -1164,7 +1165,14 @@ export class ModalContentPage1 implements OnInit {
     } else if (this.admissionForm.dirty) {
       this.admissionForm.get('ward_number').markAsTouched();
       this.admissionForm.get('admission_date').markAsTouched();;
-      
+      this.admissionForm.get('patientName').markAsTouched();
+      this.admissionForm.get('gender').markAsTouched();
+      this.admissionForm.get('age_years').markAsTouched();
+      this.admissionForm.get('admission_type').markAsTouched();
+      this.admissionForm.get('opOrnonOp').markAsTouched();
+      this.admissionForm.get('system').markAsTouched();
+      this.admissionForm.get('code').markAsTouched();
+     
     } else {
       this.viewCtrl.dismiss();
     }
