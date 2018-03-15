@@ -141,8 +141,8 @@ export class ModalContentPage1 implements OnInit {
       gender: [this.patient.admission.gender, [Validators.required]],
       admission_type: [this.patient.admission.admission_type, [Validators.required]],
       age_years: [this.patient.admission.age_years, [Validators.required]],
-      age_months: [this.patient.admission.age_months],
-      age_days: [this.patient.admission.age_days],
+      age_months: [this.patient.admission.age_months, [Validators.required]],
+      age_days: [this.patient.admission.age_days, [Validators.required]],
       pre_operative_hb: [this.patient.admission.pre_operative_hb],
       contactNumber: [this.patient.admission.contactNumber],
       admission_date: [this.patient.admission.admission_date, [Validators.required]],
@@ -1159,20 +1159,29 @@ export class ModalContentPage1 implements OnInit {
   }
 
   dismiss(){
+    if(this.admissionForm.value.age_years!='' || this.admissionForm.value.age_months!='' || this.admissionForm.value.age_days!=''){
+
+      this.admissionForm.controls['age_years'].setValidators([])       
+      this.admissionForm.controls['age_months'].setValidators([])       
+      this.admissionForm.controls['age_days'].setValidators([])       
+      this.admissionForm.controls['age_years'].updateValueAndValidity()
+      this.admissionForm.controls['age_months'].updateValueAndValidity()
+      this.admissionForm.controls['age_days'].updateValueAndValidity()
+    }
+
     if(this.admissionForm.dirty && this.admissionForm.valid){
       this.saveEditAdmission();
       this.viewCtrl.dismiss();
     } else if (this.admissionForm.dirty) {
-      this.admissionForm.get('ward_number').markAsTouched();
-      this.admissionForm.get('admission_date').markAsTouched();;
-      this.admissionForm.get('patientName').markAsTouched();
-      this.admissionForm.get('gender').markAsTouched();
-      this.admissionForm.get('age_years').markAsTouched();
-      this.admissionForm.get('admission_type').markAsTouched();
-      this.admissionForm.get('opOrnonOp').markAsTouched();
-      this.admissionForm.get('system').markAsTouched();
-      this.admissionForm.get('code').markAsTouched();
-     
+      this.admissionForm.get('ward_number').markAsTouched()
+      this.admissionForm.get('patientName').markAsTouched()
+      this.admissionForm.get('admission_date').markAsTouched()
+      this.admissionForm.get('gender').markAsTouched()
+      this.admissionForm.get('admission_type').markAsTouched()
+      this.admissionForm.get('opOrnonOp').markAsTouched()
+      this.admissionForm.get('system').markAsTouched()
+      this.admissionForm.get('code').markAsTouched()
+      this.admissionForm.get('age_years').markAsTouched()    
     } else {
       this.viewCtrl.dismiss();
     }

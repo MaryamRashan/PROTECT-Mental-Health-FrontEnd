@@ -85,7 +85,7 @@
            </ion-item>
 
            <ion-label stacked>Age</ion-label>
-           <div [class.invalid]="!(admissionForm.controls.age_years.valid) && ((admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched))">
+           <div [class.invalid]="!(admissionForm.controls.age_years.valid) && !(admissionForm.controls.age_months.valid) && !(admissionForm.controls.age_days.valid) && ((admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched))">
            <ion-item>
             <ion-input type="number" formControlName="age_years" placeholder="Years"></ion-input>
            </ion-item>
@@ -98,7 +98,7 @@
             <ion-input type="number" formControlName="age_days" placeholder="Days"></ion-input>
            </ion-item>
            </div>
-           <div *ngIf="!(admissionForm.controls.age_years.valid) && (admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched)">
+           <div *ngIf="!(admissionForm.controls.age_years.valid) && !(admissionForm.controls.age_months.valid) && !(admissionForm.controls.age_days.valid) && ((admissionForm.controls.age_years.touched) || (admissionForm.controls.age_months.touched) || (admissionForm.controls.age_days.touched))">
             <p class="error">Please enter age</p>
            </div>
 
@@ -248,12 +248,12 @@
                               color="primary" 
                               formControlName="other"></ion-checkbox>
               </ion-item>
-        </div>
-        </div>
+          </div>
+            </div>
       
           
           <div *ngIf='admissionForm.value.comorbidities.other'>
-          <ion-label stacked>If other, please specify comorbidity</ion-label>
+`            <ion-label stacked>If other, please specify comorbidity</ion-label>
           <ion-item>
           <ion-input type="text" formControlName="if_other_please_specify_comorbi"></ion-input>
           </ion-item>

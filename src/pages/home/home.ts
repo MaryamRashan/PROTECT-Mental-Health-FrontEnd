@@ -230,8 +230,8 @@ export class AddAdmissionModal {
       patientName: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       age_years: ['', [Validators.required]],
-      age_months: [''],
-      age_days: [''],
+      age_months: ['', [Validators.required]],
+      age_days: ['', [Validators.required]],
       nic: [''],
       if_other_ward: [''],
       pre_operative_hb: [''],
@@ -246,9 +246,9 @@ export class AddAdmissionModal {
         not_available      : [ false ],
       }),
       comorbidities: formBuilder.group({
-        hiv      : [ false ],
-        none      : [ false ],
-        other      : [ false ]
+        hiv      : [ false],
+        none      : [ false],
+        other      : [ false]
       }),
       if_other_please_specify_comorbi: [''],     
       cd4: [''],     
@@ -288,6 +288,16 @@ export class AddAdmissionModal {
   }
 
   dismiss(){
+    if(this.admissionForm.value.age_years!='' || this.admissionForm.value.age_months!='' || this.admissionForm.value.age_days!=''){
+
+      this.admissionForm.controls['age_years'].setValidators([])       
+      this.admissionForm.controls['age_months'].setValidators([])       
+      this.admissionForm.controls['age_days'].setValidators([])       
+      this.admissionForm.controls['age_years'].updateValueAndValidity()
+      this.admissionForm.controls['age_months'].updateValueAndValidity()
+      this.admissionForm.controls['age_days'].updateValueAndValidity()
+    }
+
     if(this.admissionForm.dirty && this.admissionForm.valid){
       this.saveAdmission();
       this.viewCtrl.dismiss();
@@ -301,7 +311,6 @@ export class AddAdmissionModal {
       this.admissionForm.get('system').markAsTouched()
       this.admissionForm.get('code').markAsTouched()
       this.admissionForm.get('age_years').markAsTouched()
-
     } else {
       this.viewCtrl.dismiss();
     }
