@@ -27,10 +27,15 @@ import * as HighCharts from 'highcharts';
 })
 export class ListPage {
   public passedPatient;
-
+  public combineIntraOpPostOp;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public event: Events) {
     console.log('constructuor() for list page ')
     this.passedPatient = navParams.get("first");
+    if(this.passedPatient.intraOps && this.passedPatient.postOp){
+      this.combineIntraOpPostOp = this.passedPatient.intraOps.concat(this.passedPatient.postOp)
+
+    }
+    console.log('Combined intraOp postOp is ', this.combineIntraOpPostOp)
     console.log('passed patient is ', this.passedPatient);
     this.event.subscribe('-discharge-', () => {
       console.log('-discharge-')
@@ -38,6 +43,31 @@ export class ListPage {
       this.navCtrl.setRoot(HomePage)
     })
   }
+
+  sortCombineIntraOpPostOp() {
+    if (this.combineIntraOpPostOp) {
+      console.log('srt starts here')
+      this.combineIntraOpPostOp = this.combineIntraOpPostOp.map(item =>{
+        if(item.intraOpTimeStamp){
+          item.combinedTimeStamp = item.intraOpTimeStamp;
+        } else if(item.postOpTimeStamp){
+          item.combinedTimeStamp = item.postOpTimeStamp;
+        }
+        console.log('combine time stamp', item.combinedTimeStamp);
+        return item;
+      })
+      console.log('combined time stamps', this.combineIntraOpPostOp)
+      this.combineIntraOpPostOp.sort((a: any, b: any) => {
+        if (a.combinedTimeStamp < b.combinedTimeStamp) {
+          return -1;
+        } else if (a.combinedTimeStamp > b.combinedTimeStamp) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+  }  
 
   openModal1() {
 
@@ -114,6 +144,8 @@ export class ListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListPage');
+    this.sortCombineIntraOpPostOp();
+    console.log('Combine sorted', this.combineIntraOpPostOp);
   }
 
 }
@@ -2917,7 +2949,7 @@ export class ModalContentPage4 { // cormobidities and risks
     if(!this.patient.postOp && this.postOp === null){
 
       let postOpTimeStamp = Date.parse((this.postOpForm.value.postop_report_date + 'T'+this.postOpForm.value.postop_report_time));
-    
+        
               let postOp1 = {
                 postOpId: UUID(),
                 postop_report_date: this.postOpForm.value.postop_report_date,
